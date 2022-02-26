@@ -14,4 +14,8 @@ class HotelAdmin(admin.ModelAdmin):
 
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Number)
+admin.site.register(Hotel_option)
+admin.site.register(Hotel_contact)
+admin.site.register(Type_of_Object)
+admin.site.register(Number_option)
 

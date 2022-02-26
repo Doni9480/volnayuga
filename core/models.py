@@ -4,10 +4,18 @@ from django.db import models
 class Type_of_Object(models.Model):
     """Типы объектов сдачи"""
     title = models.CharField(max_length=100, verbose_name='Название')
+
+    class Meta:
+        verbose_name = 'Тип'
+        verbose_name_plural = ' Типы объектов размещения'
     
 class City(models.Model):
     """Выбор города объекта"""
     title = models.CharField(max_length=100, verbose_name='Название')
+
+    class Meta:
+        verbose_name = 'Город'
+        verbose_name_plural = '      Города для гостинниц'
 
 class Beach(models.Model):
     """Выбор типа пляжа"""
@@ -19,10 +27,18 @@ class Number_option(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     on = models.BooleanField(default=0, verbose_name='Включить')
 
+    class Meta:
+        verbose_name = 'Опцию'
+        verbose_name_plural = '  Опции для номеров'
+
 class Hotel_option(models.Model):
     """Опции объекта"""
     title = models.CharField(max_length=100, verbose_name='Название')
     on = models.BooleanField(default=0, verbose_name='Включить')
+
+    class Meta:
+        verbose_name = 'Опцию'
+        verbose_name_plural = ' Опции для гостиниц'
     
 class Hotel_contact(models.Model):
     """Контакты объекта"""
@@ -34,6 +50,10 @@ class Hotel_contact(models.Model):
     whatsapp = models.BooleanField(default=0)
     telegram = models.BooleanField(default=0)
     viber = models.BooleanField(default=0)
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты объектов размещения'
 
 
 class Hotel(models.Model):
@@ -62,8 +82,8 @@ class Hotel(models.Model):
     another_rules = models.TextField(blank=True, verbose_name='Другие правила')
 
     class Meta:
-        verbose_name = 'Обьекты размещения'
-        verbose_name_plural = 'Объект размещения'
+        verbose_name = ' Обьект размещения'
+        verbose_name_plural = ' Гостиницы'
 
     def __str__(self):
         return self.title
@@ -100,8 +120,8 @@ class Number(models.Model):
     options = models.ManyToManyField(Number_option, verbose_name='Опции')
 
     class Meta:
-        verbose_name = 'Номера'
-        verbose_name_plural = 'Номер'
+        verbose_name = '  Номер'
+        verbose_name_plural = '  Номера'
 
     def __str__(self):
         return self.title
