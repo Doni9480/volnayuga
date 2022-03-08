@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Путешествуйте с ВолнаЮга</h2>
+    <ul>{% for region in region_list %}
+        <li><a href="{{ region.slug }}">{{ region }}</a></li>
+    {%  endfor %}</ul>
+<h2>Популярные курорты</h2>
+    <ul>{% for region in region_popular_list %}
+        <li><a href="{{ region.slug }}">{{ region }}</a></li>
+    {%  endfor %}
+    </ul>
+{% endblock %}

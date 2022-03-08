@@ -1,6 +1,10 @@
 from django.db import models
+from accounts.models import MyUser
+from ckeditor.fields import RichTextField
+from region.models import Region
 
-# Create your models here.
+
+
 class Type_of_Object(models.Model):
     """Типы объектов сдачи"""
     title = models.CharField(max_length=100, verbose_name='Название')
@@ -8,37 +12,44 @@ class Type_of_Object(models.Model):
     class Meta:
         verbose_name = 'Тип'
         verbose_name_plural = ' Типы объектов размещения'
-    
-class City(models.Model):
-    """Выбор города объекта"""
-    title = models.CharField(max_length=100, verbose_name='Название')
 
-    class Meta:
-        verbose_name = 'Город'
-        verbose_name_plural = '      Города для гостинниц'
+    def __str__(self):
+        return self.title
+
+
 
 class Beach(models.Model):
     """Выбор типа пляжа"""
     title = models.CharField(max_length=100, verbose_name='Название')
+    class Meta:
+        verbose_name = 'Пляж'
+        verbose_name_plural = 'Пляжи'
+
+    def __str__(self):
+        return self.title
 
 
 class Number_option(models.Model):
     """Опции объекта"""
     title = models.CharField(max_length=100, verbose_name='Название')
-    on = models.BooleanField(default=0, verbose_name='Включить')
 
     class Meta:
         verbose_name = 'Опцию'
-        verbose_name_plural = '  Опции для номеров'
+        verbose_name_plural = ' Опции для номеров'
+
+    def __str__(self):
+        return self.title
 
 class Hotel_option(models.Model):
     """Опции объекта"""
     title = models.CharField(max_length=100, verbose_name='Название')
-    on = models.BooleanField(default=0, verbose_name='Включить')
 
     class Meta:
         verbose_name = 'Опцию'
         verbose_name_plural = ' Опции для гостиниц'
+
+    def __str__(self):
+        return self.title
     
 class Hotel_contact(models.Model):
     """Контакты объекта"""
@@ -55,14 +66,18 @@ class Hotel_contact(models.Model):
         verbose_name = 'Контакт'
         verbose_name_plural = 'Контакты объектов размещения'
 
+    def __str__(self):
+        return self.phone
+
 
 class Hotel(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name='Владелец')
     title = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='URL', default='1')
     object_type = models.ForeignKey(Type_of_Object, on_delete=models.CASCADE, verbose_name='Тип объекта')
     address = models.CharField(max_length=100, verbose_name='Адрес')
-    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
-    remoteness = models.IntegerField(null=True, blank=True,verbose_name='Удаленность от пляжа'),
+    city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True},verbose_name='Город')
+    remoteness = models.IntegerField(null=True, blank=True,verbose_name='Удаленность от пляжа')
     beach = models.ForeignKey(Beach, on_delete=models.CASCADE, verbose_name='Пляж')
     options = models.ManyToManyField(Hotel_option, verbose_name='Опции')
     contact = models.ForeignKey(Hotel_contact, on_delete=models.CASCADE, verbose_name='Контакты')
@@ -120,8 +135,8 @@ class Number(models.Model):
     options = models.ManyToManyField(Number_option, verbose_name='Опции')
 
     class Meta:
-        verbose_name = '  Номер'
-        verbose_name_plural = '  Номера'
+        verbose_name = ' Номер'
+        verbose_name_plural = ' Номера'
 
     def __str__(self):
         return self.title
@@ -130,3 +145,5 @@ class Number_photo(models.Model):
     """Фотографии номера"""
     number = models.ForeignKey(Number, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/numbers', verbose_name='Изображение')
+
+

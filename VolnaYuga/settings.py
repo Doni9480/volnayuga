@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a2zgwtb#=gh5%654)h9s$9zarox&t5+r1#bi7^l$(7yg1c26s7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -40,6 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'core',
+    'accounts',
+    'attraction',
+    'region',
+
+    'phonenumber_field',
+    'django_registration',
+    'crispy_forms',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -118,11 +127,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+AUTH_USER_MODEL = 'accounts.MyUser'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -131,3 +146,39 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# django-ckeditor
+# https://github.com/django-ckeditor/django-ckeditor
+CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_FILENAME_GENERATOR = 'core.utils.get_filename'
+CKEDITOR_THUMBNAIL_SIZE = (300, 300)
+CKEDITOR_FORCE_JPEG_COMPRESSION = True
+CKEDITOR_IMAGE_QUALITY = 40
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_ALLOW_NONIMAGE_FILES = False  # False - Only image files. (At your discretion)
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': '100%',
+    },
+    'djeym': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': 362,
+        'colorButton_colors': 'F44336,C62828,E91E63,AD1457,9C27B0,6A1B9A,'
+                              '673AB7,4527A0,3F51B5,283593,2196F3,1565C0,'
+                              '03A9F4,0277BD,00BCD4,00838F,009688,00695C,'
+                              '4CAF50,2E7D32,8BC34A,558B2F,CDDC39,9E9D24,'
+                              'FFEB3B,F9A825,FFC107,FF8F00,FF9800,EF6C00,'
+                              'FF5722,D84315,795548,4E342E,607D8B,37474F,'
+                              '9E9E9E,424242,000000,FFFFFF',
+        'colorButton_enableAutomatic': False,
+        'colorButton_enableMore': True
+    }
+}
