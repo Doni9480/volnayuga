@@ -17,23 +17,24 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from accounts.views import register_request, login_request,  logout_request, password_reset_request
-from core.views import home_view
+from hotel.views import home_view
 from django.conf import settings
 from django.conf.urls.static import static
-from region.views import RegionList
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('accounts/', include('accounts.urls')),
     path('register', register_request, name="register"),
-    path('login', login_request, name="login"),
-    path('logout', logout_request, name= "logout"),
+    path('login', login_request, name="login_s"),
+    path('logout', logout_request, name= "logout_s"),
     path("password_reset", password_reset_request, name="password_reset"),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
-    path('<slug>', RegionList.as_view(), name='region_list'),
+    path('<slug>/', include('region.urls')),
 
 
     path('', home_view, name='home')

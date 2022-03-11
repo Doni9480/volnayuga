@@ -43,12 +43,10 @@ def login_request(request):
 	form = AuthenticationForm()
 	return render(request=request, template_name="accounts/login.html", context={"login_form":form})
 
-
 def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.")
 	return redirect("/")
-
 
 def password_reset_request(request):
 	if request.method == "POST":
@@ -80,3 +78,5 @@ def password_reset_request(request):
 	password_reset_form = PasswordResetForm()
 	return render(request=request, template_name="accounts/password_reset.html",
 				  context={"password_reset_form": password_reset_form})
+
+

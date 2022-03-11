@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if not object.is_city %}
+    <h2>Популярные курорты</h2>
+    <ul>{% for region in region_popular_list %}
+        <li><a href="{% url 'region' slug=region.slug %}">{{ region }}</a></li>
+    {%  endfor %}</ul>
+    {% endif %}
+    <h2>Отели</h2>
+    <ul>{% for hotel in hotel_list %}
+        <li><a href="{% url 'hotel_detail' slug=hotel.city.slug hotel_slug=hotel.slug %}">{{ hotel }}</a></li>
+    {%  endfor %}</ul>
+    {% if not object.is_city %}
+    <h2>Курорты {{ object }}</h2>
+     <ul>{% for region in region_parent_list %}
+        <li><a href="{% url 'region' slug=region.slug %}">{{ region }}</a></li>
+         <ul>{% for item in region.children.all %}
+             <li><a href="{{ item.slug }}">{{ item }}</a></li>
+             {% endfor %}
+             </ul>
+    {%  endfor %}</ul>
+    {% endif %}
+{% endblock %}

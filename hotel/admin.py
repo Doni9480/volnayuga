@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import *
+from hotel.models import *
 
 
 class HotelImageDetail(admin.TabularInline):

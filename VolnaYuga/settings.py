@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'core',
+    'hotel',
     'accounts',
     'attraction',
     'region',
@@ -149,13 +149,13 @@ django_heroku.settings(locals())
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.hotel.mail.backends.console.EmailBackend'
 
 # django-ckeditor
 # https://github.com/django-ckeditor/django-ckeditor
 CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/'
 CKEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_FILENAME_GENERATOR = 'core.utils.get_filename'
+CKEDITOR_FILENAME_GENERATOR = 'hotel.utils.get_filename'
 CKEDITOR_THUMBNAIL_SIZE = (300, 300)
 CKEDITOR_FORCE_JPEG_COMPRESSION = True
 CKEDITOR_IMAGE_QUALITY = 40

@@ -10,4 +10,4 @@ def home_view(request):
         'region_list':region_list,
         'region_popular_list':region_popular_list,
     }
-    return render(request, template_name='core/home.html', context=context)
+    return render(request, template_name='hotel/home.html', context=context)

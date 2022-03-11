@@ -81,7 +81,7 @@ class Hotel(models.Model):
     beach = models.ForeignKey(Beach, on_delete=models.CASCADE, verbose_name='Пляж')
     options = models.ManyToManyField(Hotel_option, verbose_name='Опции')
     contact = models.ForeignKey(Hotel_contact, on_delete=models.CASCADE, verbose_name='Контакты')
-    description = models.TextField(blank=True, verbose_name='Описание')
+    description = RichTextField(blank=True, verbose_name='Описание')
     video = models.URLField(blank=True, verbose_name='Видео объекта')
     number = models
     prepayment = models.CharField(max_length=10, blank=True,verbose_name='Предоплата')
