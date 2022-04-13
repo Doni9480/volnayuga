@@ -1,23 +1,38 @@
-{% extends 'base.html' %}
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags static %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+    </ul>
+{% endblock %}
+{% block leftmenu %}
+{% endblock %}
 {% block content %}
+    <div class="form-container flex ">
+        <div class="loginForm">
+            <h1>Авторизация</h1>
+            <form method="post"> {% csrf_token %}
 
-{% load crispy_forms_tags %}
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
-            {{ message }}
+                <input type="email" name="username" id="id_username" placeholder="Ваш E-mail" required>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert {{ message.tags }}" id="msg" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <input type="password" name="password" id="id_password" placeholder="Ваш пароль" required>
+                <p><a href="{% url 'accounts:password_reset' %}">Забыли пароль?</a></p>
+                <button>Войти</button>
+                <p>Авторизуясь, вы соглашаетесь с правилами использования сервиса и обработки <a href="">персональных
+                    данных.</a></p>
+            </form>
+            <div class="form-footer">
+                <p>У вас еще нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрироваться</a></p>
+            </div>
         </div>
-    {% endfor %}
-{% endif %}
-<!--Login--> 
-<div class="container py-5">
-  <h1>Вход</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Войти</button>
-  </form>
-  <p class="text-center">У вас нет аккаунта? <a href="/register">Зарегистрируйтесь</a>.</p>
-</div>
 
+        <div class="login-right relative">
+            <img src="{% static 'img/form-back.png' %}" alt="логин">
+        </div>
+    </div>
 {% endblock %}

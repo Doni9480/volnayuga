@@ -1,0 +1,2154 @@
+@media only screen and (max-width: 1600px) {
+    .headerTitle h1 {
+        margin-top: 10px;
+    }
+
+    .header-form {
+        padding-bottom: 180px;
+    }
+}
+
+@media only screen and (max-width: 1440px)and (min-width: 991px){
+    #curorts {
+        background-size: 120% 100%;
+        background-position: center;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .main-header {
+        background-image: url("../img/back1200.png");
+    }
+
+    .about-header {
+        background-image: url("../img/about1200.png");
+    }
+
+    .logo-cont img {
+        height: 40px;
+        width: 175px;
+    }
+
+    .header-menu ul li a {
+        font-size: 14px;
+    }
+
+    .login a {
+        font-size: 11px;
+    }
+
+    .header-login button {
+        font-size: 11px;
+    }
+
+    .headerTitle h1 {
+        font-size: 40px;
+        line-height: 49px;
+        margin-top: 50px;
+        margin-bottom: 0;
+    }
+
+    .form-cont button {
+        padding: 29px 50px 26px 50px;
+        font-size: 18px;
+    }
+
+    .form-cont .guest-count {
+        width: 230px;
+    }
+
+    .form-cont .exit, .form-cont .enter {
+        width: 142px;
+    }
+
+    .form-cont .location {
+        width: 245px;
+    }
+
+    .header-form {
+        padding-top: 30px;
+        padding-bottom: 216px;
+    }
+
+    .login {
+        margin-right: 21px;
+    }
+
+    .travel h2, .popular h2, .black-sea h2, .direction h2 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    #owl-demo .item p {
+        margin-top: 14px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .back ul li {
+        padding-left: 20px;
+    }
+
+    .back ul li:first-child {
+        padding-top: 20px;
+    }
+
+    .back ul li::before {
+        left: 20px;
+    }
+
+    .back ul li p:last-child {
+        font-size: 12px !important;
+    }
+
+    .popular-bottom span {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .popular h2, .black-sea h2, .direction h2 {
+        margin-top: 80px;
+    }
+
+    .about-header h1 {
+        font-size: 30px;
+        line-height: 37px;
+        margin-top: 51px;
+        width: 57%;
+    }
+
+    .about-header .headerText {
+        font-size: 14px;
+        line-height: 22px;
+        padding-bottom: 200px;
+        width: 46%;
+    }
+
+    .loginSection .breadcrumb {
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    .login-right {
+        width: 585px;
+        height: 520px;
+        margin-left: 30px;
+    }
+
+    .loginForm h1 {
+        margin-top: 0;
+    }
+
+    .my-object-card-cont {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .my-object-card {
+        width: calc(33% - 15px);
+        flex-direction: column;
+    }
+
+    .card-image {
+        width: 100%;
+    }
+
+    .card-body {
+        flex-direction: column;
+    }
+
+    .item-img img {
+        width: 100%;
+    }
+
+    .card-body-cont p:first-child {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .card-body-right {
+        align-items: flex-start;
+    }
+
+    .card-body-right a button {
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    .myObject-right h1 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    .main-ul {
+        flex-wrap: wrap;
+    }
+
+    .main-ul li {
+        margin-bottom: 10px;
+    }
+
+    .addContactMainCont > .flex {
+        flex-direction: column-reverse;
+    }
+
+    .addContactMainCont .newObject {
+        margin-bottom: 15px;
+    }
+
+    .addContactMainCont {
+        flex-direction: column-reverse;
+    }
+
+    .hide-card {
+        margin-bottom: 10px;
+    }
+
+    .footer-third p {
+        width: 80%;
+    }
+
+    #curorts {
+        background-image: url("../img/curort1200.png");
+    }
+
+    #curorts .headerTitle h1 {
+        font-size: 35px;
+        line-height: 43px;
+    }
+
+    #curorts .headerTitle p:last-child {
+        width: 560px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .curort-filter .col-md-3, .interesting .col-md-3, .responsive-col-3 {
+        max-width: 33.33%;
+        flex: 33.33%;
+        width: 100%;
+    }
+
+    .curort-filter .col-md-9, .interesting .col-md-9, .responsive-col-9 {
+        max-width: 66.66%;
+        flex: 66.66%;
+        width: 100%;
+    }
+
+    .curort-card-cont {
+        flex-wrap: wrap;
+    }
+
+    .curort-card-cont .my-object-card {
+        width: 45%;
+        margin: 0 15px;
+    }
+
+    .modal-left {
+        width: 27.3%;
+    }
+
+    .modal-right {
+        width: 71.3%;
+    }
+
+    .filter-select {
+        margin-bottom: 30px;
+    }
+
+    .curort-card-cont .my-object-card {
+        margin-bottom: 30px;
+    }
+
+    .curort-card .card-body-right-button {
+        align-items: flex-start;
+    }
+
+    .curort-card .black-sea-icon {
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .curort-card .black-sea-icon .black-sea-check {
+        margin-bottom: 10px;
+    }
+
+    .curort-card .black-sea-icon span {
+        height: fit-content;
+    }
+
+    .curort-card .card-body-cont {
+        margin-bottom: 20px;
+    }
+
+    .curort-price {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-bottom: 23px;
+    }
+
+    .curort-price2 {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        text-align: start;
+        margin-top: 5px;
+    }
+
+    .curort-card a, .curort-card .show-price {
+        width: 100%;
+    }
+
+    .travel h2, .popular h2, .black-sea h2, .direction h2, .adler-right h2, .curort-diagram h2, .good-views h2, .curort-feedback h2, .closert-curorts h2, .last-feedback h2 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    .adler-right p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    .adler-right > img {
+        width: 100%;
+    }
+
+    .adler-right h3 {
+        font-size: 26px;
+        line-height: 32px;
+    }
+
+    .curort-diagram .direction-ul {
+        flex-wrap: wrap;
+
+    }
+
+    .curort-diagram .direction-ul li {
+        margin-bottom: 10px;
+    }
+
+    .diagram-month-body {
+        width: 35px;
+    }
+
+    .diagram-month {
+        margin: 0 4px;
+    }
+
+    .first-diagram div:first-child {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .diagram-dashed {
+        width: 85%;
+    }
+
+    .diagram-month span {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .good-views-cont img, .closest-cont > img {
+        width: 100%;
+    }
+
+    .object-section h1 {
+        font-size: 40px;
+        line-height: 41px;
+    }
+
+    .addressP p:first-child, .addressP p:last-child {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .object-left {
+        margin-bottom: 20px;
+    }
+
+    .object-prices h2, .object-table h2, .object-description h2 {
+        font-size: 26px;
+        line-height: 31px;
+    }
+
+    .object-prices .my-object-card-cont {
+        flex-wrap: wrap;
+    }
+
+    .object-prices .my-object-card {
+        width: calc(50% - 15px);
+    }
+
+    .room-card .card-body-right {
+        width: 100%;
+    }
+
+    .room-card .curort-price2 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .curort-price {
+        margin-top: 20px;
+    }
+
+    .description-p p {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    .object-description iframe {
+        width: 100%;
+    }
+
+    #owl-demo-object .popularUp p:last-child {
+        text-align: start;
+    }
+
+    .rent-header {
+        background-image: url("../img/rentroom1200.png");
+    }
+
+    .rent-header .headerTitle h1 {
+        margin-bottom: 20px;
+    }
+
+    .howitworkcontitem {
+        height: 308px;
+    }
+
+    .howabs1 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .yearP {
+        padding-top: 40px;
+    }
+
+    .howitworkcontitem1 {
+        padding: 0 30px 30px 30px;
+    }
+
+    .howabs1 {
+        padding: 11px 20px;
+    }
+
+    .best-choice {
+        right: -109px;
+        bottom: 24px;
+        padding: 11px;
+    }
+
+    .howitworkcontitem1 button {
+        position: relative;
+        z-index: 2;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .main-header {
+        background-image: url("../img/back992.png");
+    }
+
+    .burger-menu {
+        display: flex;
+        z-index: 2;
+        border: none;
+    }
+
+    .logo-cont img {
+        z-index: 2;
+        position: relative;
+    }
+
+    .header-menu nav {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        left: -100%;
+        top: 0;
+        z-index: 1;
+        transition: all 0.5s;
+    }
+
+    .header-menu nav ul {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+    }
+
+    .header-menu ul li a {
+        font-size: 20px;
+        color: white;
+        line-height: 0;
+    }
+
+    .nav-responsive {
+        left: 0 !important;
+    }
+
+    .nav-responsive li {
+        margin-bottom: 20px;
+    }
+
+    .backWhite {
+        background-color: white !important;
+    }
+
+    .rotate45 {
+        transform: rotate(45deg);
+    }
+
+    .rotate-45 {
+        position: absolute;
+        transform: rotate(-45deg);
+    }
+
+    .headerTitle h1 {
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    .form-cont div label {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .form-cont button {
+        padding: 24px 20px;
+        font-size: 16px;
+    }
+
+    .container {
+        /*padding: 0;*/
+    }
+
+    .form-cont {
+        height: 70px;
+        margin: 0 -15px;
+    }
+
+    .travel {
+        margin-top: 0px;
+    }
+
+    .travel h2, .popular h2, .black-sea h2, .direction h2 {
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 20px;
+    }
+
+    #owl-demo1 .item p {
+        font-size: 18px !important;
+        line-height: 22px !important;
+    }
+
+    .curortSection1-cont {
+        margin-top: 0;
+    }
+
+    #curorts {
+        background-size: cover;
+    }
+
+    #curorts .header-form {
+        padding-bottom: 73px;
+    }
+
+    #curorts .headerTitle p:last-child {
+        margin-top: 26px;
+    }
+
+    #curorts .headerTitle h1 {
+        margin-top: 17px;
+    }
+
+    #curorts .breadcrumb {
+        margin-top: 20px;
+    }
+
+    .popular h2, .black-sea h2, .direction h2 {
+        margin-top: 75px;
+    }
+
+    .black-sea {
+        margin: 0 -15px;
+    }
+
+    .black-sea-ul li::before {
+        width: 14px;
+        height: 14px;
+        background-size: contain;
+    }
+
+    .black-sea-ul li span, .direction-ul li span {
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .black-sea-ul li, .direction-ul li {
+        padding: 14px 20px 14px 43px;
+    }
+
+    .black-cont p {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .black-sea-icon {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .black-sea-check img, .black-sea-link img, .black-sea-taxi img {
+        width: auto !important;
+    }
+
+    .black-sea-check, .black-sea-link, .black-sea-taxi {
+        margin-bottom: 11px;
+    }
+
+    .direction-ul li {
+        padding: 10px 15px;
+    }
+
+    .direction-way p {
+        font-size: 14px !important;
+        line-height: 19px;
+    }
+
+    p.direction-title {
+        font-size: 16px !important;
+    }
+
+    .footer-first p {
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    footer .col-md-4 {
+        padding: 0;
+    }
+
+    .footer-logo img {
+        width: 160px;
+        height: 40px;
+    }
+
+    .footer-third p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .about-header {
+        background-image: url(../img/about992.png);
+    }
+
+    .about-header h1 {
+        font-size: 24px;
+        line-height: 29px;
+        margin-top: 20px;
+        width: 61%;
+    }
+
+    .about-header .headerText {
+        font-size: 14px;
+        line-height: 22px;
+        padding-bottom: 200px;
+        width: 55%;
+    }
+
+    .aboutFact p {
+        font-size: 13px;
+    }
+
+    .aboutFact img + p {
+        font-size: 14px;
+    }
+
+    .aboutH2 {
+        margin-top: 60px;
+    }
+
+    .loginForm {
+        width: 100%;
+    }
+
+    .loginForm h1 {
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+    .loginForm form {
+        padding: 20px;
+    }
+
+    .loginForm p:last-child {
+        margin-bottom: 0;
+    }
+
+    .my-object-card-cont {
+        flex-wrap: wrap;
+    }
+
+    .my-object-card {
+        width: calc(50% - 14px);
+    }
+
+    .myObjectSection .col-md-3 {
+        -ms-flex: 0 0 33%;
+        flex: 0 0 33%;
+        max-width: 33%;
+    }
+
+    .myObjectSection .col-md-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 66%;
+        max-width: 66%;
+    }
+
+    .newObject {
+        padding: 11px 15px;
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    .add-object-card-cont {
+        width: 100%;
+    }
+
+    .add-object-form > img {
+        width: 100%;
+    }
+
+    .ready-contact .col-md-4 {
+        max-width: 50%;
+    }
+
+    .contact-telephone {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .addContactMain p, .contact-name, .addImageHeader, .descriptionTabOptionsHead p, .descriptionTabOptions p, .distanceP {
+        font-size: 12px;
+    }
+
+    .imagelabel label {
+        font-size: 13px;
+        height: 100.63px;
+    }
+
+    .imagelabel label img {
+        width: 40px;
+    }
+
+    .add-room-form textarea {
+        width: 100%;
+    }
+
+    .distanceCont input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .distanceCont .dropbtn, .distanceCont .dropdown {
+        width: 100%;
+    }
+
+    .distanceCont .dropdown-content {
+        min-width: 100%;
+    }
+
+    .faq {
+        padding: 15px 15px;
+    }
+
+    .faq h4 {
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    .collaps-button {
+        height: 30px;
+        width: 30px;
+    }
+
+    .fixed-faq {
+        height: 73px;
+    }
+
+    .faq p {
+        font-size: 11px;
+        line-height: 17px;
+    }
+
+    #curorts .headerTitle h1 {
+        font-size: 28px;
+        line-height: 34px;
+    }
+
+    #curorts .search-result {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    #curorts .search-result::before {
+        bottom: -15px;
+    }
+
+    #curorts .headerTitle p:last-child {
+        width: 390px;
+    }
+
+    #curorts {
+        background-image: url("../img/curort992.png");
+    }
+
+    .curort-price-left img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .curort-icons p:first-child {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .curort-icons p:last-child {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .curort-price-left {
+        margin-right: 12px;
+    }
+
+    .curort-icons {
+        margin-right: 40px;
+    }
+
+    .filter-select-cont {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .show-map-responciv {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .show-filter {
+        margin-right: 10px;
+    }
+
+    .curort-filter .col-md-3 {
+        display: none;
+    }
+
+    .curort-filter .col-md-9 {
+        max-width: 100%;
+        flex: 100%;
+    }
+
+    .modal-left {
+        width: 30.3%;
+        height: 73vh;
+    }
+
+    .modal-right {
+        width: 68.3%;
+        height: 73vh;
+
+    }
+
+    #mapModal .modal-dialog {
+        overflow-x: hidden;
+    }
+
+    .curort-travel {
+        margin-top: 60px;
+    }
+
+    .adler-left p {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .adler-left-cont div p {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .travel h2, .popular h2, .black-sea h2, .direction h2, .adler-right h2, .curort-diagram h2, .good-views h2, .curort-feedback h2, .closert-curorts h2, .last-feedback h2 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .adler-right h3 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .diagram-month {
+        margin: 0 3px;
+    }
+
+    .diagram-month-body {
+        width: 45px;
+    }
+
+    .diagram-dashed {
+        width: 88%;
+    }
+
+    .good-title, .closets-name {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .good-views-cont p:last-child, .closest-text {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .light {
+        width: 46%;
+    }
+
+    .rangeSlider {
+        width: 100%;
+    }
+
+    .first-diagram {
+        width: 154%;
+    }
+
+    .black-sea-ul li, .direction-ul li {
+        margin-right: 6px;
+    }
+
+    .interesting .col-md-3, .interesting .col-md-9 {
+        max-width: 100%;
+        flex: 100%;
+    }
+
+    .adler-left-cont {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .travel h2, .adler-right h3, .popular h2, .black-sea h2, .direction h2, .adler-right h2, .curort-diagram h2, .good-views h2, .curort-feedback h2, .closert-curorts h2, .last-feedback h2 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .adler-right p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .adler-right h3 {
+        margin-top: 30px;
+    }
+
+    .diagram-month {
+        margin: 0 2px;
+    }
+
+    .diagram-month-body {
+        width: 33px;
+    }
+
+    .first-diagram {
+        width: 101%;
+    }
+
+    .diagram-month span {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .object-section h1 {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .show-all-pic p {
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    .object-right .input-cont {
+        flex-direction: column;
+    }
+
+    .object-right .input-cont input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .object-right .input-cont div {
+        display: none;
+    }
+
+    .object-info-p span {
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .object-info-p i {
+        margin-right: 4px;
+    }
+
+    .object-prices h2 {
+        margin-bottom: 0;
+    }
+
+    .room-price span {
+        font-size: 13px;
+        line-height: 15px;
+        padding: 5px 6px;
+    }
+
+    .curort-price {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .curort-price1 {
+        margin-bottom: 5px;
+    }
+
+    .object-table h2 {
+        margin-bottom: 20px;
+    }
+
+    .feedback-title {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .feedback-periud {
+        font-size: 12px;
+    }
+
+    .curort-feedback-item {
+        border-radius: 15px;
+        padding: 15px 20px;
+    }
+
+    .feedback-name {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .other-object {
+        margin-bottom: 60px;
+    }
+
+    .rent-header {
+        background-image: url("../img/rentroom992.png");
+    }
+
+    .rent-header .headerTitle h1 {
+        margin-top: 0px;
+        font-size: 22px;
+    }
+
+    .rentHeaderText span {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .rentHeaderText {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .rentHeaderText img {
+        width: 20px;
+    }
+
+    .room-rent {
+        padding: 30px;
+    }
+
+    .room-rent-head p {
+        font-size: 16px;
+        line-height: 21px;
+        width: 160px;
+    }
+
+    .room-rent-head {
+        margin-bottom: 20px;
+    }
+
+    .addObject > .flex {
+        flex-wrap: wrap;
+    }
+
+    .addObject input, .room-flex {
+        width: 49%;
+    }
+
+    .company-count h3 {
+        font-size: 35px;
+        line-height: 42px;
+    }
+
+    .company-count p, .company-count p:last-child {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .company-count {
+        padding: 0 20px;
+    }
+
+    .rent-responcive .col-md-4, .faqRow .col-md-4 {
+        width: 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .howitworkcontitem {
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .ourClients .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .readyH2, .howitworkcontitem1 {
+        margin-bottom: 45px !important;
+    }
+
+    .responciveReady {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .responciveReady button {
+        margin-top: 0;
+    }
+
+    .yearP {
+        width: 41%;
+    }
+
+    .best-choice {
+        transform: rotate(45deg);
+        right: -108px;
+        bottom: auto;
+        padding: 11px;
+        top: 23px;
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .faq h4 {
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 42px;
+    }
+
+    .faq {
+        padding: 28px 30px;
+    }
+
+    .fixed-faq {
+        height: 95px;
+    }
+
+    .bottom-banner h3 {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .banner-button {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .banner-button button:first-child {
+        margin-bottom: 10px;
+    }
+
+    bottom-banner-img img {
+        height: 289px;
+        width: 479px;
+    }
+
+    .bottom-banner {
+        padding: 25px 30px
+    }
+
+    .bottom-banner-img {
+        right: -181px;
+        top: -8px;
+    }
+
+    .bottom-banner h3 {
+        width: 56%;
+    }
+
+    section {
+        overflow: hidden;
+    }
+
+    .header-form {
+        padding-bottom: 150px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .main-header {
+        background-image: url(../img/back768.png);
+    }
+
+    .about-header {
+        background-image: url(../img/about768.png);
+    }
+
+    .headerTitle h1 {
+        margin-top: 25px;
+    }
+
+    .header-form {
+        padding-top: 18px;
+        padding-bottom: 150px;
+    }
+
+    .hidden-find {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .header-form form {
+        display: none;
+    }
+
+    #searchModal .header-form form, #searchModal1 form {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .form-cont {
+        flex-direction: column;
+        height: auto;
+        margin: 0;
+        margin-top: 20px;
+        width: 90%;
+    }
+
+    .form-cont div {
+        width: 100% !important;
+        border-radius: 10px !important;
+        margin-bottom: 15px;
+    }
+
+    .form-cont button {
+        border-radius: 10px !important;
+    }
+
+
+    #owl-demo .item p {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .owl-controls {
+        margin-top: 0px !important;
+    }
+
+    .popular h2, .black-sea h2, .direction h2 {
+        margin-top: 60px;
+    }
+
+    #owl-demo1 .item p {
+        font-size: 14px !important;
+        line-height: 17px !important;
+    }
+
+    .sow-more-div button {
+        margin-top: 31px;
+        font-size: 12px;
+        line-height: 16px;
+        padding: 12px 21px;
+    }
+
+    .black-sea-ul {
+        flex-wrap: wrap;
+    }
+
+    .black-sea-ul li, .direction-ul li {
+        padding: 10px 15px 10px 41px;
+        margin-bottom: 10px;
+    }
+
+    #owl-demo2 .owl-controls {
+        margin-top: 25px !important;
+    }
+
+    .direction-ul li {
+        padding: 10px 15px;
+    }
+
+    .direction-ul li {
+        padding: 10px 13px;
+    }
+
+    .direction {
+        margin: 0 -15px;
+    }
+
+    .footer-first {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .footer-third {
+        margin-top: 30px;
+        justify-content: center;
+    }
+
+    .footer-third p {
+        text-align: center;
+    }
+
+    .headerText {
+        display: none;
+    }
+
+    .headerText2 {
+        display: block;
+        padding: 0px 0 40px 0;
+        font-size: 14px;
+        line-height: 22px;
+        margin-bottom: 0;
+    }
+
+    .about-header h1 {
+        padding-bottom: 165px;
+    }
+
+    .about h2, .aboutH2 h2 {
+        font-size: 20px;
+        line-height: 25px;
+    }
+
+    .aboutFact {
+        margin-bottom: 30px;
+    }
+
+    .aboutH2 {
+        margin-top: 0;
+    }
+
+    .loginForm {
+        margin-bottom: 50px;
+    }
+
+    .loginForm h1 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .loginForm, .loginForm form {
+        width: 320px;
+    }
+
+    .login-right img {
+        height: 88%;
+    }
+
+    .myObjectSection .col-md-3, .myObjectSection .col-md-9 {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .myObjectUl {
+        display: flex;
+        width: fit-content;
+    }
+
+    .myObjectUl .tab-item:not(.tab-item.active) span {
+        display: none;
+    }
+
+    .myObject-right h1 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .imagelabel label {
+        height: 300px;
+    }
+
+    #curorts {
+        background-image: url("../img/curort768.png");
+    }
+
+    #curorts .headerTitle p:last-child {
+        width: 330px;
+    }
+
+    .curort-icons {
+        flex-direction: column;
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .curort-price-right p {
+        text-align: center;
+    }
+
+    .curortSection1-cont {
+        width: 100%;
+    }
+
+    .curortSection1-cont > .flex {
+        justify-content: space-between;
+    }
+
+    .curort-card-cont .my-object-card {
+        width: 44%;
+    }
+
+    .card-location, .card-distance {
+        font-size: 13px;
+    }
+
+    .curort-price {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .curort-price2 {
+        margin-bottom: 20px;
+    }
+
+    .curort-price3::before {
+        right: none;
+        left: 0;
+    }
+
+    .curort-travel {
+        margin-top: 60px;
+    }
+
+    .object-button-cont .direction-ul {
+        flex-wrap: wrap;
+    }
+
+    .object-button-cont .direction-ul li {
+        padding: 7px 10px;
+    }
+
+    .responsive-col-9, .responsive-col-3 {
+        max-width: 100%;
+        flex: 100%;
+        width: 100%;
+    }
+
+    .object-button-cont + .row {
+        flex-direction: column-reverse;
+    }
+
+    .responsive-col-3 {
+        margin-bottom: 30px;
+    }
+
+    .responsive-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .show-contact, .object-right .input-cont .left, .object-right .object-dropdown {
+        margin-right: 5px;
+    }
+
+    .whatsapp-question, .object-right .input-cont .right, .send-request {
+        margin-left: 5px;
+    }
+
+    .object-right .input-cont {
+        flex-direction: row;
+    }
+
+    .object-right .object-dropdown, .send-request {
+        width: 50%;
+        margin-bottom: 0;
+    }
+
+    .object-prices h2, .object-table h2, .object-description h2 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .object-description h2 {
+        margin-bottom: 5px;
+    }
+
+    .description-p p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .rentHeaderText img {
+        margin-right: 10px;
+    }
+
+    .rentHeaderText {
+        font-size: 13px;
+        line-height: 16px;
+    }
+
+    .rentHeaderText span {
+        width: 42%;
+    }
+
+    .rent-header .header-bottom {
+        padding-bottom: 70px;
+    }
+
+    .rent-header .headerTitle h1 {
+        font-size: 34px;
+    }
+
+    .room-rent-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .room-rent-head p {
+        width: 100%;
+        text-align: start;
+    }
+
+    .rent-drop span {
+        display: inline-block;
+        width: 90%;
+    }
+
+    .direction-ul li {
+        padding: 14px 20px;
+    }
+
+    .roomCheckbox label:before {
+        top: 7px;
+    }
+
+    .roomCheckbox label:after {
+        top: 19px;
+    }
+
+    .room-rent {
+        margin-bottom: 50px;
+    }
+
+    .company-count {
+        margin-bottom: 20px;
+    }
+
+    .howabs {
+        padding: 10px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .popular-bottom span {
+        font-size: 12px;
+        line-height: 14px;
+    }
+
+    .ourClientP {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .yearPrice span:first-child {
+        font-size: 18px;
+        line-height: 21px;
+    }
+
+    .yearPrice span:last-child {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .yearP {
+        width: 58%;
+    }
+
+    .howabs1 {
+        width: 200px;
+    }
+
+    .howitworkcontitem1 button {
+        font-size: 14px;
+        line-height: 19px;
+        padding: 9px 15px;
+    }
+
+    .faq h4 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .faq {
+        padding: 15px 20px;
+    }
+
+    .fixed-faq {
+        height: 82px;
+    }
+
+    .waranty {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .waranty img {
+        margin-right: 16px;
+        height: 50px;
+    }
+
+    .warantytext {
+        width: 100%;
+    }
+
+    .bottom-banner-img {
+        right: -314px;
+    }
+
+    .bottom-banner h3 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+
+    .bottom-banner h3 {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .help .faq h4 {
+        margin-bottom: 38px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .owl-buttons .owl-prev {
+        margin-left: 15px !important;
+    }
+
+    .owl-buttons .owl-next {
+        margin-right: 15px !important;
+    }
+
+    .direction, .direction .row {
+        margin: 0;
+    }
+
+    .header-login {
+        display: none;
+    }
+
+    .mobile-show {
+        display: block;
+    }
+
+    .mobile-show img {
+        width: 15px;
+        margin-right: 15px;
+    }
+
+    .mobile-show button {
+        background: #F2C700;
+        border-radius: 10px;
+        font-family: Nunito;
+        font-weight: 800;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 15px 9px;
+        transition: all .5s;
+    }
+
+    .direction-ul {
+        flex-wrap: wrap;
+    }
+
+    .black-sea {
+        margin: 0 0 40px 0;
+    }
+
+    .direction .col-sm-6, .direction .col-6 {
+        padding: 0;
+    }
+
+    .about-header h1 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .aboutFact img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .aboutFact {
+        display: flex;
+    }
+
+    .aboutFact div p:first-child {
+        margin: 0;
+    }
+
+    .aboutFact img {
+        margin-right: 15px;
+    }
+
+    .form-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loginForm {
+        margin-bottom: 15px;
+    }
+
+    .login-right {
+        width: 100%;
+        height: 300px;
+        margin-left: 0px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+    }
+
+    .my-object-card {
+        width: 100%;
+    }
+
+    .myObjectUl .tab-item {
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .myObjectUl .tab-item i {
+        margin-right: 7px;
+    }
+
+    .myObjectUl .tab-item {
+        padding: 10px 10px 10px 10px;
+        font-size: 13px;
+    }
+
+    .ready-contact .col-md-4 {
+        max-width: 100%;
+    }
+
+    .descriptionTabOptionsHead, .descriptionTabDistance {
+        flex-direction: column;
+    }
+
+    .descriptionTabOptionsHead h4 {
+        text-align: center;
+    }
+
+    .videoRight {
+        margin-top: 15px;
+    }
+
+    #curorts {
+        background-image: url("../img/curort576.png");
+    }
+
+    .filter-select-cont {
+        flex-wrap: wrap;
+    }
+
+    .show-map-responciv {
+        margin-bottom: 10px;
+    }
+
+    .curort-card-cont .my-object-card {
+        width: 94%;
+    }
+
+    .open-more {
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .travel h2, .adler-right h3, .popular h2, .black-sea h2, .direction h2, .adler-right h2, .curort-diagram h2, .good-views h2, .curort-feedback h2, .closert-curorts h2, .last-feedback h2 {
+        font-size: 18px;
+        line-height: 21px;
+    }
+
+    .adler-left-cont {
+        flex-direction: column;
+    }
+
+    .diagram-month-body {
+        width: 32px;
+    }
+
+    .diagram-cont {
+        width: 480px;
+    }
+
+    .curort-diagram {
+        overflow-x: auto;
+    }
+
+    .first-diagram {
+        width: 100%;
+    }
+
+    .diagram-dashed {
+        width: 127%;
+    }
+
+    .curort-diagram::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    .curort-diagram::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 30px rgb(69 129 218 / 20%);
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    .curort-diagram::-webkit-scrollbar-thumb {
+        background-color: #4581DA;
+        border-radius: 10px;
+        background-image: url(../img/scroll-image.png);
+        background-size: 30px;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .object-left {
+        flex-direction: column;
+    }
+
+    .object-left-first, .object-left-second {
+        width: 100%;
+    }
+
+    .object-left-second-up-two {
+        width: 50%;
+    }
+
+    .object-left-first, .object-left-second-up {
+        margin-bottom: 10px;
+    }
+
+    .object-left-second-down-one {
+        width: 49%;
+    }
+
+    .show-all-pic {
+        justify-content: center;
+    }
+
+    .object-prices .my-object-card {
+        width: calc(100% - 15px);
+    }
+
+    .rent-header {
+        background-image: url(../img/rentRoom320.png) !important;
+        height: 397px;
+        background-position: top;
+    }
+
+    .rent-header .headerTitle h1 {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    #exampleModalCenter{
+        padding-right: 0 !important;
+    }
+    .big-tel{
+        font-size: 18px !important;
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    .hidden-periud {
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+
+    .hidden-periud .delete-card {
+        margin-top: 15px;
+    }
+
+    .curortSection1-cont > .flex {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .curort-icons {
+        flex-direction: row;
+    }
+
+    .curort-price-right p {
+        text-align: start;
+    }
+
+    .curort-icons p:first-child {
+        margin-top: 10px;
+    }
+
+    .responsive-flex {
+        flex-direction: column;
+    }
+
+    .whatsapp-question, .send-request {
+        margin-left: 0;
+    }
+
+    .show-contact, .object-right .object-dropdown {
+        margin-right: 0;
+    }
+
+    .object-right .object-dropdown, .send-request {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .object-right .object-dropdown {
+        margin-bottom: 20px;
+    }
+
+    .object-section h1 {
+        font-size: 22px;
+        line-height: 26px;
+    }
+
+    .addressP p:first-child, .addressP p:last-child {
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    .addressP {
+        flex-wrap: wrap;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .main-header {
+        background-image: url(../img/back320.png);
+    }
+
+    .black-sea-ul li {
+        padding: 10px 15px 10px 35px;
+        margin-bottom: 10px;
+
+    }
+
+    .black-sea-ul li::before {
+        left: 15px;
+    }
+
+    .black-sea-ul li:not(:first-child) span {
+        display: none;
+    }
+
+    .black-sea-ul li:not(:first-child) {
+        padding: 10px 15px 10px 15px;
+        margin-bottom: 10px;
+    }
+
+    .black-sea-ul li:not(:first-child)::before {
+        position: relative;
+        left: 0;
+    }
+
+    .about-header h1 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .imagelabel label {
+        height: 200px;
+    }
+    .modalPromo {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 414px) {
+    .travel h2, .popular h2, .black-sea h2, .direction h2 {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .headerTitle h1 {
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+    .about-header h1 {
+        font-size: 18px;
+        line-height: 22px;
+        width: 70%;
+    }
+
+    .has-number {
+        margin-right: 0;
+    }
+
+    .hidden-periud input {
+        width: 112px;
+
+    }
+
+    .bottom-banner {
+        height: 420px;
+        padding: 15px 10px 15px 20px;
+    }
+
+    .bottom-banner-img {
+        right: auto;
+        bottom: 0;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bottom-banner-img img {
+        height: 187px;
+    }
+
+    .bottom-banner h3 {
+        width: 100%;
+    }
+
+    .addObjectButton1, .addObjectButton {
+        font-size: 13px;
+        line-height: 17px;
+    }
+
+    .addObjectButton1, .addObjectButton {
+        font-size: 11px;
+        padding: 11px 20px;
+    }
+
+    .warantytext {
+        font-size: 13px;
+    }
+
+    .best-choice {
+        right: -121px;
+        top: 11px;
+        font-size: 7px;
+        padding: 6px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .loginForm, .loginForm form {
+        width: 100%;
+    }
+
+    .rent-header {
+        height: 260px;
+        background-size: 100% 100% !important;
+        margin-bottom: 50px;
+    }
+
+    .rent-header .header-bottom {
+        padding-bottom: 0px;
+        margin-top: 64px;
+    }
+
+    .rentHeaderText span {
+        width: 100%;
+    }
+
+    .room-rent-head .direction-ul {
+        flex-wrap: nowrap;
+    }
+
+    .room-rent-head li span {
+        text-align: center;
+    }
+
+    .addObject input, .room-flex {
+        width: 100%;
+    }
+
+    .room-flex {
+        margin-top: 20px;
+    }
+
+    .room-flex button {
+        margin-top: 10px;
+    }
+
+    .ourClients .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .yearP {
+        width: 97%;
+    }
+
+    .responciveReady {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .yearPrice {
+        margin-bottom: 20px;
+    }
+
+    .faq h4 {
+        font-size: 13px;
+        line-height: 15px;
+    }
+
+    .fixed-faq {
+        height: 71px;
+    }
+
+}
+
+@media only screen and (max-width: 360px) {
+
+}
+
+@media only screen and (max-width: 320px) {
+    .breadcrumb li {
+        font-size: 13px;
+        padding-right: 16px;
+    }
+}
+
+@media only screen and (max-width: 280px) {
+
+}

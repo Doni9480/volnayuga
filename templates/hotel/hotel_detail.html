@@ -1,4 +1,668 @@
 {% extends 'base.html' %}
-{% block content %}
-    <h1>{{ object }}</h1>
+{% load static thumbnail %}
+{% block modal-search %}
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="call-back flex alignCenter juatifyCenter directionColumn">
+                        {% for item in object.hotelcontact_set.all %}
+                            <p>{{ item }}</p>
+                            <a href="tel:{{ item.phone }}" class="big-tel">{{ item.phone }}</a>
+                            <a href="tel:{{ item.phone }}" class="small-tel">Звонок по номеру</a>
+                            <div class="sci-item flex">
+                                <img src="/static/img/teleg.png" alt="">
+                                <img src="/static/img/whats.png" alt="">
+                                <img src="/static/img/skype.png" alt="">
+                                <img src="/static/img/viber.png" alt="">
+                            </div>
+                        {% endfor %}
+
+                        <p class="modalPromo">Не хотите переплачивать?
+                            Скажите, что звоните с ВолнаТур</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalObject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header directionColumn">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="objectModalLabel">Добавление отзыва</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="object-form">
+                        <input type="text" placeholder="Ваше имя">
+                        <input type="email" placeholder="Ваш E-mail">
+                        <input type="text" placeholder="Откуда вы">
+                        <div class="object-form-select flex">
+                            <div class="dropdown dropdown-object1">
+                                <div class="dropbtn"><span>День отдыха</span> <img src="static/img/deopdown-img.png"
+                                                                                   alt="">
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="">День 1</a>
+                                    <a href="">День 2</a>
+                                    <a href="">День 3</a>
+                                    <a href="">День 4</a>
+                                </div>
+                            </div>
+                            <div class="dropdown dropdown-object2">
+                                <div class="dropbtn"><span>Месяц отдыха</span> <img src="static/img/deopdown-img.png"
+                                                                                    alt="">
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href="">Месяц 1</a>
+                                    <a href="">Месяц 2</a>
+                                    <a href="">Месяц 3</a>
+                                    <a href="">Месяц 4</a>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea name="" id="" placeholder="Ваш отзыв"></textarea>
+                        <div id="full-stars-example-two">
+                            <span>Ваш отзыв</span>
+                            <div class="rating-group">
+                                <input disabled checked class="rating__input rating__input--none" name="rating3"
+                                       id="rating3-none" value="0" type="radio">
+                                <label aria-label="1 star" class="rating__label" for="rating3-1"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+                                <label aria-label="2 stars" class="rating__label" for="rating3-2"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+                                <label aria-label="3 stars" class="rating__label" for="rating3-3"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+                                <label aria-label="4 stars" class="rating__label" for="rating3-4"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+                                <label aria-label="5 stars" class="rating__label" for="rating3-5"><i
+                                        class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+                            </div>
+                        </div>
+                        <button>Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block header %}
+    <header id="object" class="photo-scroll">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <section class="object-section">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                <li><a href="{% url 'region:region_detail' slug=object.city.parent.slug %}">{{ object.city.parent }}</a>
+                </li>
+                <li>{{ object.city }}</li>
+            </ul>
+            <h1>{{ object }}</h1>
+            <div class="addressP">
+                <p>{{ object.city }}, {{ object.address }}</p>
+                <p>Объект №{{ object.id }}</p>
+            </div>
+            <div class="object-button-cont">
+                <ul class="flex direction-ul">
+                    <li class="active" data-scroll="photo-scroll">
+                        <span>Фото</span>
+                    </li>
+                    <li data-scroll="photo-rooms">
+                        <span>Номера</span>
+                    </li>
+                    <li data-scroll="price-rooms">
+            <span>
+              <span>Цены</span>
+            </span>
+                    </li>
+                    <li data-scroll="description-rooms">
+                        <span>Описание</span>
+                    </li>
+                    <li data-scroll="rule-rooms">
+                        <span>Правила</span>
+                    </li>
+                    <li data-scroll="map-rooms">
+                        <span>На карте</span>
+                    </li>
+                    <li data-scroll="feedback-rooms">
+                        <span>Отзывы: {{ object.hotelreview_set.all.count }}</span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="col-md-9 responsive-col-9">
+                    <div class="object-left  mb-50 flex">
+                        <div class="object-left-first">
+                            {% thumbnail object.hotelphoto_set.first '404x284' crop='center' as im %}
+                                <img class="lightboxed" rel="group1" src="{{ im.url }}"
+                                     data-link="{{ item.image.url }}" alt="{{ im.name }}">
+                            {% endthumbnail %}
+                        </div>
+                        <div class="object-left-second flex directionColumn juatifyBetween">
+                            <div class="object-left-second-up flex">
+                                {% for item in object.hotelphoto_set.all|slice:"1:3" %}
+                                    <div class="object-left-second-up-{% if forloop.counter|divisibleby:2 %}two{% else %}one{% endif %}">
+                                        {% thumbnail item.image '202x141' crop='center' as im %}
+                                            <img class="lightboxed" rel="group1" src="{{ im.url }}"
+                                                 data-link="{{ item.image.url }}" alt="{{ im.name }}">
+                                        {% endthumbnail %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="object-left-second-down flex">
+
+
+                                {% for item in object.hotelphoto_set.all|slice:"2:4" %}
+                                    <div class="object-left-second-down-{% if forloop.counter|divisibleby:2 %}two relative{% else %}one{% endif %}">
+                                        {% thumbnail item.image '202x141' crop='center' as im %}
+                                            <img class="lightboxed" rel="group1" src="{{ im.url }}"
+                                                 data-link="{{ item.image.url }}" alt="{{ im.name }}">
+                                        {% endthumbnail %}
+                                        {% if forloop.counter|divisibleby:2 %}
+                                            <div class="show-all-pic lightboxed" rel="group1"
+                                                 data-link="{{ item.image.url }}">
+                                                <p>Посмотреть все фотографии</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="object-info">
+                        <div class="row">
+                            {% for option in object.options.all|slice:":12" %}
+                                {% if forloop.first %}
+                                    <div class="col-md-4 col-sm-4 col-6">
+                                    <div class="object-info-p">
+                                {% endif %}
+                            <p><i class="{{ option.icon }}"></i><span>{{ option }}</span></p>
+                            {% if forloop.counter|divisibleby:4 %}</div></div>
+                                <div class="col-md-4 col-sm-4 col-6">
+                                <div class="object-info-p">
+                            {% endif %}
+                            {% if forloop.last %}
+                                </div></div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="object-prices mb-100">
+                        <h2 class="photo-rooms">Номера и цены</h2>
+                        <div class="my-object-card-cont">
+                            {% for number in object.number_set.all %}
+                                <div class="my-object-card flex mt-30">
+                                    <div class="card-image">
+                                        <div class="owl-admin" class="owl-carousel">
+                                            {% for item in number.numberphoto_set.all %}
+                                                <div class="item">
+                                                    <div class="item-img">
+                                                        {% thumbnail item.image '262x180' crop='center' as img %}
+                                                            <img class="lazyOwl" data-src="{{ img.url }}"
+                                                                 width="{{ im.width }}"
+                                                                 height="{{ im.height }}" alt="{{ img.name }}">
+                                                        {% endthumbnail %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body curort-card flex  room-card juatifyBetween">
+                                        <div class="card-body-left flex directionColumn juatifyBetween">
+                                            <div class="card-body-cont">
+                                                <p>{{ number.title }}</p>
+                                                <p class="card-location">{{ number.room_number }} комната
+                                                    | {{ number.room_square }} м2</p>
+                                                <p class="card-distance">{{ number.sleep_place }} спальных места</p>
+                                            </div>
+                                            <div class="room-price flex room-price-fixed">
+
+                                                {% for option in number.options.all %}
+                                                    <span>{{ option }}</span>
+                                                {% endfor %}
+                                                <div>{{ number.furniture|safe }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-right flex directionColumn juatifyBetween">
+                                            <div class="curort-price">
+                                                <div class="curort-price1">{{ number.get_price_today }} руб.</div>
+                                                <div class="curort-price2">за 1 ночь</div>
+                                            </div>
+                                            <button class="show-price">Оставить заявку</button>
+                                            <button class="show-price-show">Показать все <i
+                                                    class="fa fa-angle-down"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="object-table mb-100">
+                        <h2 class="price-rooms">Цены на 2022 год</h2>
+                        <div class="object-table-cont">
+                            <table>
+                                {% for number in object.number_set.all %}
+                                    {% if forloop.first %}
+                                        <tr>
+                                            <td>
+                                                <div class="td-title">Стоимость за сутки проживания</div>
+                                            </td>
+                                            {% for period in object.priceperiod_set.all %}
+                                                <td>
+                                                    <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td>
+                                            <div class="td-title">{{ number.title }}</div>
+                                        </td>
+                                        {% for period in number.price_set.all %}
+                                            <td>
+                                                <div class="td-text">{{ period.price }}</div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="object-description">
+                        <h2 class="description-rooms">Описание</h2>
+                        <div class="description-p">
+                            {{ object.description|safe }}
+                        </div>
+
+                        <h3>Питание</h3>
+                        <ul class="listNone">
+                            {% for option in object.options.all %}
+                                {% if option.get_category_display == 'Питание' %}
+                                    <li>{{ option }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <h3>Удобства и услуги</h3>
+                        <ul class="listNone">
+                            {% for option in object.options.all %}
+                                {% if option.get_category_display == 'Удобства и услуги' %}
+                                    <li>{{ option }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <h3>Условия бронирования</h3>
+                        <ul class="listNone">
+                            {% for option in object.options.all %}
+                                {% if option.get_category_display == 'Условия бронирования' %}
+                                    <li>{{ option }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <h3>Расстояния</h3>
+                        <ul class="listNone">
+                            {% for item in object.distancetime_set.all %}
+                                <li>{{ item.distance }} - {{ item.time }} минуты ({{ item.get_method_display }})</li>
+                            {% endfor %}
+                        </ul>
+                        <h3 class="rule-rooms">Бронирование</h3>
+                        <ul class="listNone">
+                            <li>Размер предоплаты: {{ object.prepayment }}%</li>
+                            <li>Условия бесплатной отмены брони: {{ object.free_cancel }}</li>
+                            {% if object.early_booking_discount %}
+                                <li>Скидка на раннее бронирование: {{ object.early_booking_discount }}%</li>
+                            {% endif %}
+                            {% if object.requisites %}
+                                <li>Реквизиты: {{ object.requisites }}</li>
+                            {% endif %}
+                            {% if object.prepayments_term %}
+                                <li>Без предоплаты</li>
+                            {% endif %}
+                            <li>Минимальный срок проживания (день): {{ object.minimum }} </li>
+                        </ul>
+                        <h3 class="rule-rooms">Правила проживания</h3>
+                        <ul class="listNone">
+                            <li>Заезд после: {{ object.chek_in }}. Выезд до: {{ object.chek_out }}</li>
+                            <li>С питомцами: {% if object.pets %}Можно{% else %}Нельзя{% endif %}</li>
+                            <li>Размещение детей: {% if object.child %}Можно{% else %}Нельзя{% endif %}</li>
+                            {% if object.another_rules %}
+                                <li>Другие правила: {{ object.another_rules }}</li>
+                            {% endif %}
+                        </ul>
+                        <h3 class="map-rooms">На карте</h3>
+                        <p>{{ object.city }}, {{ object.address }}</p>
+                        <div id="map"/>
+                    </div>
+                </div>
+
+                <div class="last-feedback">
+                    <div class="flex juatifyBetween alignCenter">
+                        <h2 class="feedback-rooms">Последние <span>отзывы</span></h2>
+                        <button class="set-feedback" data-toggle="modal" data-target="#modalObject">Оставить отзыв
+                        </button>
+                    </div>
+
+                    <div class="curort-feedback">
+                        <div class="owl-carousel curort-feedback-cont">
+                            {% for item in object.review_set.all %}
+                                <div class="item">
+                                    <div class="curort-feedback-item">
+                                        <p class="feedback-title">{{ item.name }}</p>
+                                        <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
+                                        <p class="feedback-name">{{ item.city }}</p>
+                                        <p class="feedback-rate">
+                                            {% for i in "x"|rjust:item.rating %}
+                                                <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            {% endfor %}
+                                        </p>
+                                        <p class="feedback-text ul-fixed-height2"> {{ item.body }} </p>
+                                        <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-3  responsive-col-3">
+                <div class="object-right">
+                    <div class="responsive-flex">
+                        <h3>Звоните и бронируйте!</h3>
+
+                    </div>
+                    <div class="responsive-flex">
+                        <button class="show-contact" data-toggle="modal" data-target="#exampleModalCenter">Показать
+                            контакты
+                        </button>
+                        <button class="whatsapp-question">Задать вопрос в WhatsApp</button>
+                    </div>
+                    <form action="">
+                        <div class="input-cont flex juatifyBetween alignCenter">
+                            <input type="text" placeholder="Заезд" class="object-input light left datepicker">
+                            <div> -</div>
+                            <input type="text" placeholder="Выезд" class="object-input light right datepicker">
+                        </div>
+                        <div class="responsive-flex">
+                            <div class="dropdown object-dropdown">
+                                <div class="dropbtn object-drop"><span>2 гостя</span> <img
+                                        src="img/deopdown-img.png" alt=""></div>
+                                <div class="dropdown-content">
+                                    <a href="">2 гостей</a>
+                                    <a href="">3 гостей</a>
+                                    <a href="">4 гостей</a>
+                                    <a href="">5 гостей</a>
+                                </div>
+                            </div>
+                            <button class="send-request">Отправить заявку</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="black-sea other-object">
+
+            <h2> Другие<span> объекты Адлера</span></h2>
+            <div id="owl-demo-object" class="owl-carousel">
+                {% for item in another_hotels %}
+                    <div class="item">
+                        <div class="popularUp">
+                            <div class="black-cont">
+                                {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
+                                    <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
+                                {% endthumbnail %}
+                                <p class="bold"><a
+                                        href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
+                                </p>
+                                <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
+                                <p>
+                                    <span>от 400 руб.</span>
+                                    / за 1 ночь
+                                </p>
+                            </div>
+                            <div class="black-sea-icon flex">
+                                <div class="black-sea-check">
+                                    <img src="{% static 'img/check.png' %}" alt="">
+                                </div>
+                                <div class="black-sea-link">
+                                    <img src="{% static 'img/like.png' %}" alt="">
+                                </div>
+                                <div class="black-sea-taxi">
+                                    <img src="{% static 'img/taxi.png' %}" alt="">
+                                </div>
+                                {% for option in object.options.all %}
+                                    <span>{{ option }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+        </div>
+
+    </section>
+{% endblock %}
+{% block styleandscripts %}
+    <style>
+        .curort-feedback-cont .item, #owl-demo-object .item {
+            margin: 0 15px 0 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .curort-feedback-cont {
+            margin: 0 -15px 0 -15px;
+            width: calc(100% + 30px);
+        }
+
+        .curort-feedback-cont .owl-pagination {
+            top: 0;
+        }
+
+        #owl-demo .item img, #owl-demo-object .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 25px;
+        }
+
+        .owl-theme .owl-controls .owl-page span {
+            background: none !important;
+            border: 1px solid #F2C700;
+            width: 8px;
+            height: 8px;
+        }
+
+        .owl-theme .owl-controls .owl-page.active span {
+            background: #F2C700 !important;
+            border: none;
+        }
+
+        .owl-theme .owl-controls {
+            margin-top: 0 !important;
+        }
+
+        .owl-pagination {
+            top: -35px;
+        }
+
+        #exampleModalCenter .modal-header {
+            border-bottom: none;
+        }
+
+        #exampleModalCenter .modal-body {
+            padding-bottom: 30px;
+        }
+
+        .big-tel {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .small-tel {
+            color: #003D7C;
+            margin-bottom: 20px;
+        }
+
+        .modalPromo {
+            width: 60%;
+            text-align: center;
+        }
+    </style>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
+            type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".owl-admin").owlCarousel({
+                items: 1,
+                lazyLoad: true,
+                navigation: false,
+                itemsDesktop: [1199, 1],
+                itemsDesktopSmall: [992, 1],
+                itemsTablet: [768, 1],
+            });
+            $(".curort-feedback-cont").owlCarousel({
+                items: 2,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="static/img/prev.png">', '<img src="static/img/next.png">'],
+                itemsDesktop: [1200, 2],
+                itemsDesktopSmall: [992, 2],
+                itemsMobile: [576, 1],
+            })
+            $("#owl-demo-object").owlCarousel({
+                items: 4,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="static/img/prev.png">', '<img src="static/img/next.png">'],
+                itemsDesktopSmall: [1200, 3],
+                itemsMobile: [576, 1],
+            });
+        });
+    </script>
+    <script>ymaps.ready(init);
+
+    function init() {
+        var myMap = new ymaps.Map('map', {
+            center: [55.753994, 37.622093],
+            zoom: 9
+        });
+
+        // Поиск координат центра Нижнего Новгорода.
+        ymaps.geocode('{{ object.city }} {{ object.address }}', {
+            /**
+             * Опции запроса
+             * @see https://api.yandex.ru/maps/doc/jsapi/2.1/ref/reference/geocode.xml
+             */
+            // Сортировка результатов от центра окна карты.
+            // boundedBy: myMap.getBounds(),
+            // strictBounds: true,
+            // Вместе с опцией boundedBy будет искать строго внутри области, указанной в boundedBy.
+            // Если нужен только один результат, экономим трафик пользователей.
+            results: 1
+        }).then(function (res) {
+            // Выбираем первый результат геокодирования.
+            var firstGeoObject = res.geoObjects.get(0),
+                // Координаты геообъекта.
+                coords = firstGeoObject.geometry.getCoordinates(),
+                // Область видимости геообъекта.
+                bounds = firstGeoObject.properties.get('boundedBy');
+
+            firstGeoObject.options.set('preset', 'islands#darkBlueDotIconWithCaption');
+            // Получаем строку с адресом и выводим в иконке геообъекта.
+            firstGeoObject.properties.set('iconCaption', firstGeoObject.getAddressLine());
+
+            // Добавляем первый найденный геообъект на карту.
+            myMap.geoObjects.add(firstGeoObject);
+            // Масштабируем карту на область видимости геообъекта.
+            myMap.setBounds(bounds, {
+                // Проверяем наличие тайлов на данном масштабе.
+                checkZoomRange: true
+            });
+
+            /**
+             * Все данные в виде javascript-объекта.
+             */
+            console.log('Все данные геообъекта: ', firstGeoObject.properties.getAll());
+            /**
+             * Метаданные запроса и ответа геокодера.
+             * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/GeocoderResponseMetaData.xml
+             */
+            console.log('Метаданные ответа геокодера: ', res.metaData);
+            /**
+             * Метаданные геокодера, возвращаемые для найденного объекта.
+             * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/GeocoderMetaData.xml
+             */
+            console.log('Метаданные геокодера: ', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData'));
+            /**
+             * Точность ответа (precision) возвращается только для домов.
+             * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/precision.xml
+             */
+            console.log('precision', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData.precision'));
+            /**
+             * Тип найденного объекта (kind).
+             * @see https://api.yandex.ru/maps/doc/geocoder/desc/reference/kind.xml
+             */
+            console.log('Тип геообъекта: %s', firstGeoObject.properties.get('metaDataProperty.GeocoderMetaData.kind'));
+            console.log('Название объекта: %s', firstGeoObject.properties.get('name'));
+            console.log('Описание объекта: %s', firstGeoObject.properties.get('description'));
+            console.log('Полное описание объекта: %s', firstGeoObject.properties.get('text'));
+            /**
+             * Прямые методы для работы с результатами геокодирования.
+             * @see https://tech.yandex.ru/maps/doc/jsapi/2.1/ref/reference/GeocodeResult-docpage/#getAddressLine
+             */
+            console.log('\nГосударство: %s', firstGeoObject.getCountry());
+            console.log('Населенный пункт: %s', firstGeoObject.getLocalities().join(', '));
+            console.log('Адрес объекта: %s', firstGeoObject.getAddressLine());
+            console.log('Наименование здания: %s', firstGeoObject.getPremise() || '-');
+            console.log('Номер здания: %s', firstGeoObject.getPremiseNumber() || '-');
+
+            /**
+             * Если нужно добавить по найденным геокодером координатам метку со своими стилями и контентом балуна, создаем новую метку по координатам найденной и добавляем ее на карту вместо найденной.
+             */
+            /**
+             var myPlacemark = new ymaps.Placemark(coords, {
+             iconContent: 'моя метка',
+             balloonContent: 'Содержимое балуна <strong>моей метки</strong>'
+             }, {
+             preset: 'islands#violetStretchyIcon'
+             });
+
+             myMap.geoObjects.add(myPlacemark);
+             */
+        });
+    }</script>
+{% endblock %}
+
+

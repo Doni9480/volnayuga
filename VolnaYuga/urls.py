@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from accounts.views import register_request, login_request,  logout_request, password_reset_request
 from hotel.views import home_view
+from region.views import Home
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,7 +27,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
     path('register', register_request, name="register"),
     path('login', login_request, name="login_s"),
     path('logout', logout_request, name= "logout_s"),
@@ -34,8 +35,11 @@ urlpatterns = [
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
-    path('<slug>/', include('region.urls')),
+    path('<region_slug>/attraction/', include('attraction.urls', namespace='attraction')),
+    path('<slug>/', include('region.urls', namespace='region')),
 
-
-    path('', home_view, name='home')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', Home.as_view(), name='home'),
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

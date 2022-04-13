@@ -1,0 +1,6 @@
+.idea
+media
+staticfiles
+venv
+.env
+db.sqlite3

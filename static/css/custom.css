@@ -1,0 +1,37 @@
+h2.not-margin {
+    margin-top: 0px;
+}
+
+.dz {
+    margin-bottom: 10px;
+    border: 1px dashed #d0e0f6 !important;
+    background-color: #e3ecf9 !important;
+    border-radius: 10px !important;
+}
+
+.dz:hover {
+    background-color: #d0e0f6 !important;
+}
+
+.dz-message {
+    color: #9b9b9b;
+}
+
+.form-control {
+    height: 50px;
+}
+
+.hotel-left {
+    background: #EDF4FF;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px;
+    margin-bottom: 90px;
+}

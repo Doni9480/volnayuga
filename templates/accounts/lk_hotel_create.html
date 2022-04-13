@@ -1,0 +1,16 @@
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="col-md-9">
+          <div class="myObject-right">
+            <h1>Добавление объекта</h1>
+            <div class="add-object-card-cont mb-100">
+                <form enctype="multipart/form-data" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                     <button class="submit">добавить</button>
+                </form>
+            </div>
+          </div>
+        </div>
+{% endblock %}

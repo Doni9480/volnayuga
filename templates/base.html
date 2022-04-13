@@ -1,46 +1,298 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!doctype html>
+{% load static %}
+<html lang="ru">
+{% include 'include/head.html' %}
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">На главную</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="False" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarText">
-    <ul class="navbar-nav mr-auto">
-      {% if user.is_authenticated %}
-
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">{{user.email}}</a>
-        {{ messages.errors }}
-      </li>
-
-      {% else %}
-
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Войти</a>
-      </li>
-
-      {% endif %}
-    </ul>
-  </div>
-</nav>
-{% if messages %}
-    {% for message in messages %}
-        <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
-            {{ message }}
+{% block modal-search %}
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="header-form modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-cont flex">
+                            <div class="location">
+                                <label>
+                                    Место отдыха?<br>
+                                    <input type="text" placeholder="Курорт или отель">
+                                </label>
+                            </div>
+                            <div class="enter">
+                                <label>
+                                    Заезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="exit">
+                                <label>
+                                    Выезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="guest-count">
+                                <label>
+                                    Количество гостей<br>
+                                    <input type="text" placeholder="Кто поедет?">
+                                </label>
+                            </div>
+                            <button class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-{% endif %}
-<!--Navbar-->
-{% block content %}
+    </div>
 {% endblock %}
+<div class="container-fluid">
+    {% block header %}
+        <header class="main-header">
+            <div class="container">
+                {% include 'include/main-menu.html' %}
+                <div class="headerTitle">
+                    <h1>Если отдых,<br>
+                        то <span>без посредников</span></h1>
+                </div>
+                <button class="hidden-find" data-toggle="modal" data-target="#searchModal">найти курорт</button>
+                <div class="header-form">
+                    {% block form-search %}
+                        {% include 'include/form_search.html' %}
+                    {% endblock %}
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% include 'include/footer.html' %}
+{% block styleandscripts %}
+    <style>
+        #owl-demo, #owl-demo1 {
+            margin: 0 -15px 0 -15px;
+            width: calc(100% + 30px);
+        }
+
+        #owl-demo .item:first-child, #owl-demo .item:first-child {
+            /*margin: 0 30px 0 0;*/
+        }
+
+        #owl-demo .item, #owl-demo1 .item, .owl-demo2 .item {
+            margin: 0 15px 0 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #owl-demo1 .item p {
+            text-align: center;
+            font-family: Montserrat;
+            font-size: 20px;
+            line-height: 24px;
+            color: #21293E;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            opacity: 1;
+        }
+
+        #owl-demo .item img, #owl-demo1 .item img, .owl-demo2 .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 25px;
+        }
+
+        .owl-theme .owl-controls .owl-page span {
+            background: none !important;
+            border: 1px solid #F2C700;
+            width: 8px;
+            height: 8px;
+        }
+
+        .owl-theme .owl-controls .owl-page.active span {
+            background: #F2C700 !important;
+            border: none;
+        }
+
+
+        .owl-demo1 .item, .owl-demo-object .item, .curort-feedback-cont .item {
+            margin: 0 15px 0 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .owl-admin .item img, .owl-demo1 .item img, .owl-demo-object .item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 25px;
+        }
+
+        .owl-admin .owl-next {
+            right: 0;
+        }
+
+        .owl-admin .owl-controls .owl-buttons div {
+            position: absolute;
+            z-index: 99999;
+        }
+
+        .owl-theme .owl-controls .owl-page span {
+            background: none !important;
+            border: 1px solid #F2C700;
+            width: 8px;
+            height: 8px;
+        }
+
+        .owl-theme .owl-controls .owl-page.active span {
+            background: #F2C700 !important;
+            border: none;
+        }
+
+        .owl-theme .owl-controls {
+            margin-top: 0 !important;
+        }
+
+        .owl-pagination {
+            top: -35px;
+        }
+
+        .owl-admin .owl-buttons {
+            top: -115px;
+            position: relative;
+            width: 100%;
+            display: none;
+        }
+
+        .owl-admin1 .owl-buttons {
+            display: flex;
+            position: static;
+            margin-top: 20px;
+        }
+
+        .owl-admin1 .owl-pagination {
+            top: 0;
+        }
+
+        .card-image:hover .owl-buttons {
+            display: flex;
+        }
+
+        .owl-demo1, .owl-demo-object, .curort-feedback-cont {
+            margin: 0 -15px 0 -15px;
+            width: calc(100% + 30px);
+        }
+
+        .owl-demo1 .item p {
+            text-align: center;
+            font-family: 'Montserrat';
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+            color: #21293E;
+            margin-top: 20px;
+            opacity: 1;
+        }
+
+        .owl-demo1 .owl-pagination, .owl-demo-object .owl-pagination, .curort-feedback-cont .owl-pagination {
+            top: 0;
+        }
+
+        #exampleModalCenter .modal-header {
+            border-bottom: none;
+        }
+
+        #exampleModalCenter .modal-body {
+            padding-bottom: 30px;
+        }
+
+        .big-tel {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .small-tel {
+            color: #003D7C;
+            margin-bottom: 20px;
+        }
+
+        .modalPromo {
+            width: 60%;
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+            $(".owl-admin").owlCarousel({
+                items: 1,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktop: [1199, 1],
+                itemsDesktopSmall: [992, 1],
+                itemsTablet: [768, 1],
+            });
+            $("#owl-demo").owlCarousel({
+                items: 4,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsTablet: [768, 3],
+                itemsMobile: [576, 2],
+            });
+            $("#owl-demo1").owlCarousel({
+                items: 3,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktopSmall: [1200, 3],
+                itemsDesktopSmall: [992, 2],
+                itemsMobile: [576, 1],
+            });
+            $(".owl-demo1").owlCarousel({
+                items: 4,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktop: [1200, 3],
+                itemsDesktopSmall: [992, 3],
+                itemsMobile: [576, 1],
+            });
+            $(".owl-demo2").owlCarousel({
+                items: 4,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktopSmall: [1200, 3],
+                itemsMobile: [576, 1],
+            });
+            $(".curort-feedback-cont").owlCarousel({
+                items: 3,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktop: [1199, 3],
+                itemsDesktopSmall: [992, 2],
+                itemsMobile: [576, 1],
+            });
+            $(".owl-demo-object").owlCarousel({
+                items: 6,
+                lazyLoad: true,
+                navigation: true,
+                navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
+                itemsDesktop: [1199, 6],
+                itemsDesktopSmall: [992, 4],
+                itemsTablet: [768, 3],
+                itemsMobile: [576, 2],
+            });
+
+        });
+    </script>
+{% endblock %}
+{% include 'include/script.html' %}
 </body>
 </html>
+

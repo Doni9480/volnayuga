@@ -1,0 +1,41 @@
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags static %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right">
+            <h1>Добавление контакта</h1>
+            <div class="add-object-card-cont mb-100">
+                <form method="post" enctype="multipart/form-data" class="add-object-form">
+                    {% csrf_token %}
+                    <input type="text" name="phone" value="{{ form.instance.phone }}"
+                           placeholder="Введите телефон" required
+                           style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAfBJREFUWAntVk1OwkAUZkoDKza4Utm61iP0AqyIDXahN2BjwiHYGU+gizap4QDuegWN7lyCbMSlCQjU7yO0TOlAi6GwgJc0fT/fzPfmzet0crmD7HsFBAvQbrcrw+Gw5fu+AfOYvgylJ4TwCoVCs1ardYTruqfj8fgV5OUMSVVT93VdP9dAzpVvm5wJHZFbg2LQ2pEYOlZ/oiDvwNcsFoseY4PBwMCrhaeCJyKWZU37KOJcYdi27QdhcuuBIb073BvTNL8ln4NeeR6NRi/wxZKQcGurQs5oNhqLshzVTMBewW/LMU3TTNlO0ieTiStjYhUIyi6DAp0xbEdgTt+LE0aCKQw24U4llsCs4ZRJrYopB6RwqnpA1YQ5NGFZ1YQ41Z5S8IQQdP5laEBRJcD4Vj5DEsW2gE6s6g3d/YP/g+BDnT7GNi2qCjTwGd6riBzHaaCEd3Js01vwCPIbmWBRx1nwAN/1ov+/drgFWIlfKpVukyYihtgkXNp4mABK+1GtVr+SBhJDbBIubVw+Cd/TDgKO2DPiN3YUo6y/nDCNEIsqTKH1en2tcwA9FKEItyDi3aIh8Gl1sRrVnSDzNFDJT1bAy5xpOYGn5fP5JuL95ZjMIn1ya7j5dPGfv0A5eAnpZUY3n5jXcoec5J67D9q+VuAPM47D3XaSeL4AAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                    <input type="email" name="email" value="{{ form.instance.email }}" placeholder="Введите E-mail" required>
+                    <input type="text" name="name" value="{{ form.instance.name }}"
+                           placeholder="Введите имя или должность" required>
+                    <div class="form-chackbox-cont flex ">
+                        <p>Сервисы, доступные по этому номеру:</p>
+                        <div class="form-chackbox">
+                            <ul class="left-filter1-ul listNone addContactUl">
+                             {% for field in form %}
+                        {% if field.field.widget.input_type == 'checkbox' %}
+                            <li>
+                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                        {{ field }}
+                                        <label for="{{ field.id_for_label }}"><img src="/static/img/{{ field.label }}.svg"
+                                                                      alt=""><span>{{ field.label }}</span></label>
+                                    </div>
+                                </li>
+                                 {% endif %}
+                    {% endfor %}
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <button class="submit">добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

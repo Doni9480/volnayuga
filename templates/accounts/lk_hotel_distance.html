@@ -1,0 +1,71 @@
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+    </ul>
+{% endblock %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right">
+            <h1>Расстояния</h1>
+            <p class="distanceP">Отметьте ближайшие места, которые считаете важными для гостей.</p>
+            <div class=" mb-100">
+                <form action="" class=" add-room-form">
+                    <div class="distanceCont mb-30">
+                        <div class="filter-select">
+                            <input type="text" placeholder="Набережная (мин)">
+                            <div class="dropdown">
+                                <div class="dropbtn"><span>Пешком</span> <img src="img/deopdown-img.png" alt="">
+                                </div>
+                                <div class="dropdown-content" style="display: block;">
+                                    <a href=""> Пешком</a>
+                                    <a href=""> На авто</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="distanceCont mb-30">
+                        <div class="filter-select">
+                            <input type="text" placeholder="Центр (мин)">
+                            <div class="dropdown">
+                                <div class="dropbtn"><span>Пешком</span> <img src="img/deopdown-img.png" alt="">
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href=""> Пешком</a>
+                                    <a href=""> На авто</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="distanceCont mb-30">
+                        <div class="filter-select">
+                            <input type="text" placeholder="Кафе/столовая (мин)">
+                            <div class="dropdown">
+                                <div class="dropbtn"><span>Пешком</span> <img src="img/deopdown-img.png" alt="">
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href=""> Пешком</a>
+                                    <a href=""> На авто</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="distanceCont mb-30">
+                        <div class="filter-select">
+                            <input type="text" placeholder="Остановка маршрутки (мин)">
+                            <div class="dropdown">
+                                <div class="dropbtn"><span>Пешком</span> <img src="img/deopdown-img.png" alt="">
+                                </div>
+                                <div class="dropdown-content">
+                                    <a href=""> Пешком</a>
+                                    <a href=""> На авто</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="submit">добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

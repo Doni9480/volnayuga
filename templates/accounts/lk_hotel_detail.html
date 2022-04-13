@@ -1,0 +1,405 @@
+{% extends 'lk_base.html' %}
+{% load thumbnail static crispy_forms_tags %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right active" id="myObjects">
+            <h1 style="text-align: start">{{ object }}</h1>
+            {% include 'include/lk_menu_top.html' %}
+            <div class="main-tab-content">
+                <div class=" mb-100 tabContent active" id="mainDiv">
+                    <div class="my-object-card flex mt-30 mb-50">
+                        <div class="card-image">
+                            <div class="owl-admin" class="owl-carousel">
+                                <div class="item">
+                                    <div class="item-img">
+                                        {% thumbnail object.hotelphoto_set.first.image "262x180" crop="center" as im %}
+                                            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"
+                                                 alt="Lazy Owl Image">
+                                        {% endthumbnail %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body flex  juatifyBetween">
+                            <div class="card-body-left flex directionColumn juatifyBetween">
+                                <div class="card-body-cont card-body-cont1">
+                                    <p>{{ object.title }}</p>
+                                    <p>{{ object.city }}, {{ object.address }}</p>
+                                    <p>Море - {{ object.remoteness }} м</p>
+                                </div>
+                            </div>
+                            <div class="card-body-right flex directionColumn juatifyBetween">
+                                <a href="{% url 'accounts:hotel_update' pk=object.id %}">
+                                    <button>редактировать</button>
+                                </a>
+                                <a href="{% url 'accounts:hotel_delete' pk=hotel.id %}">
+                                    <button class="delete-card">удалить</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="addContactMainCont  mb-40">
+                        <div class="flex juatifyBetween">
+                            <div class="addContactMain">
+                                <h5>Контакты</h5>
+                                <p>Укажите контакты, по которым клиенты смогут связаться с вами.</p>
+
+                            </div>
+
+
+                            <a href="{% url 'accounts:contact_create'  hotel_pk=hotel.id %}">
+                                <button class="newObject">
+                <span class="plusCont">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </span>
+                                    добавить контакт
+                                </button>
+                            </a>
+                        </div>
+
+                        <div class="ready-contact">
+                            <div class="row">
+                                {% for item in hotel.hotelcontact_set.all %}
+                                    <div class="col-md-4 ">
+                                        <div class="ready-contact-item">
+                                            <p class="contact-name">{{ item }}</p>
+                                            <p class="contact-telephone">{{ item.phone }}</p>
+                                            <div class="sci-item flex">
+                                                {% if item.telegram %}
+                                                    <img src="{% static 'img/teleg.png' %}" alt="">
+                                                {% endif %}
+                                                {% if item.whatsapp %}
+                                                    <img src="{% static 'img/whats.png' %}" alt="">
+                                                {% endif %}
+                                                {% if item.skype %}
+                                                    <img src="{% static 'img/skype.png' %}" alt="">
+                                                {% endif %}
+                                                {% if item.viber %}
+                                                    <img src="{% static 'img/viber.png' %}" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <div class="card-body-right card-body-left flex directionColumn juatifyBetween">
+                                                <a href="{% url 'accounts:contact_update' hotel_pk=hotel.id pk=item.id %}">
+                                                    <button>редактировать</button>
+                                                </a>
+                                                <a href="{% url 'accounts:contact_delete' hotel_pk=hotel.id pk=item.id %}">
+                                                    <button class="delete-card">удалить</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="addContactMainCont flex juatifyBetween">
+                        <div class="addContactMain">
+                            <h5>Опции</h5>
+                            <p>Укажите какие услуги есть в вашей гостинице.</p>
+                            <div class="ready-options">
+                                {% for item in hotel.options.all %}
+                                    <div class="add-options-span flex alignCenter mb-10">
+                                        <span>{{ item }}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <a href="{% url 'accounts:hotel_options_update' hotel_pk=hotel.id %}">
+                            <button class="newObject">
+                <span class="plusCont">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </span>
+                                добавить опции
+                            </button>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="tabContent" id="mainImage">
+                    <div class="imagelabel">
+                        <div class="addImageHeader">Добавьте фотографии, которые будут отображатся в карточке объекта
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form enctype='multipart/form-data'
+                                      action="{% url 'accounts:hotel_image_upload' pk=object.id %}" method="POST"
+                                      class="dropzone dz" id="my-dropzone">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        {% for image in object.hotelphoto_set.all %}
+
+                                            <div class="mr-10 mb-10">
+                                                {% thumbnail image.image "193x115" crop="center" as im %}
+                                                    <img src="{{ im.url }}" width="{{ im.width }}"
+                                                         height="{{ im.height }}">
+                                                {% endthumbnail %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="dz-message" data-dz-message><span>Перетащите сюда фото или просто нажмите на область</span>
+                                    </div>
+
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tabContent" id="roomTab">
+                    <a href="{% url 'accounts:number_create' hotel_pk=hotel.id %}?next={% url 'accounts:number_create' hotel_pk=hotel.id %}">
+                        <button class="newObject">
+                    <span class="plusCont">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                            добавить номер
+                        </button>
+                    </a>
+                    {% for number in hotel.number_set.all %}
+                        <div class="my-object-card flex mt-30 mb-50">
+                            <div class="card-image">
+                                <div class="owl-admin" class="owl-carousel">
+                                    {% for image in number.numberphoto_set.all|slice:":1" %}
+                                        <div class="item">
+                                            <div class="item-img">
+                                                {% thumbnail image.image "262x180" crop="center" as im %}
+                                                    <img class="lazyOwl" src="{{ im.url }}" width="{{ im.width }}"
+                                                         height="{{ im.height }}" alt="Lazy Owl Image">
+                                                {% endthumbnail %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="card-body flex  juatifyBetween">
+                                <div class="card-body-left flex directionColumn juatifyBetween">
+                                    <div class="card-body-cont">
+                                        <p>{{ number }}</p>
+                                        <p>комнат {{ number.room_number }} | спальных места {{ number.sleep_place }}
+                                            {% if  number.additional_palces %} + {{ number.additional_palces }} доп.
+                                                место{% endif %}</p>
+                                    </div>
+                                    <div class="room-price flex">
+                                        {% for item in number.options.all|slice:3 %}
+                                            <span>{{ item }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="card-body-right flex directionColumn juatifyBetween">
+                                    <a href="{% url 'accounts:number_update' hotel_pk=hotel.id pk=number.id %}?next={% url 'accounts:number_update' hotel_pk=hotel.id pk=number.id %}#tab-roomTab">
+                                        <button>редактировать</button>
+                                    </a>
+                                    <a href="{% url 'accounts:number_delete' hotel_pk=hotel.id pk=number.id %}?next={% url 'accounts:number_update' hotel_pk=hotel.id pk=number.id %}#tab-roomTab">
+                                        <button class="delete-card">удалить</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="tabContent" id="priceTab">
+                    <div class="toggleCont">
+                        <div class="no-number mb-20 mr-40">
+                            {% if not hotel.number_set.all %}
+                                <p>Для размещения цен, пожалуйста, добавьте хотя бы один номер.</p>
+                                <a href="{% url 'accounts:number_create' hotel_pk=hotel.id %}">
+                                    <button class="newObject">
+                    <span class="plusCont">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                                        добавить номер
+                                    </button>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="has-number mb-20 mr-40">
+                            <p>Ценовые периоды</p>
+                            <div class="hidden-periuds">
+                                <div class="card-body-right hidden-periud flex alignCenter">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307296">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307297">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307298">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307299">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307300">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307301">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307302">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307303">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307304">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307305">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307306">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307307">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307308">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307309">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307310">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307311">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307312">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307313">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307314">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307315">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                                <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                    <div>с</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307316">
+                                    <div> по</div>
+                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307317">
+                                    <button class="delete-card">удалить</button>
+                                </div>
+                            </div>
+                            <a href="" class="addPeriud">
+                                <button class="newObject">
+                    <span class="plusCont">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                                    добавить период
+                                </button>
+                            </a>
+                            <button class="submit mt-30 toggleContButton">добавить</button>
+                        </div>
+                    </div>
+
+                    <div class="ready-number mb-20  d-none">
+                        <form action="">
+                            <div class="ready-number-cont">
+                                <h5>Гостевой номер в “Эврика”</h5>
+
+                                <table>
+                                    <tr>
+                                        <td class="ready-number-cont-date"><span>17.02 - 18.02</span></td>
+                                        <td class="ready-number-cont-date"><span>17.02 - 18.02</span></td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="За номер (руб)">
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="За номер (руб)">
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" placeholder="За номер (руб)">
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="За номер (руб)">
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <button class="submit mt-30 ">добавить</button>
+                        </form>
+
+                    </div>
+                </div>
+                <div class="tabContent" id="descriptionTab">
+
+
+                    <div class="descriptionTabOptions mb-50">
+                        <div class="descriptionTabDistance flex juatifyBetween alignCenter">
+                            <div>
+                                <h4>Расстояние</h4>
+                                <p>Пожалуйста, отметьте важные места рядом с вашим объектом.</p>
+                            </div>
+                            <a href="{% url 'accounts:hotel_distance_add' hotel_pk=object.id %}">
+                                <button class="newObject">
+                                    редактировать
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabContent" id="ruleTab">
+
+                    <div class="add-object-card-cont mb-100">
+                        <form method="post" class="add-object-form add-room-form"
+                              enctype="multipart/form-data">{% csrf_token %}
+                            {{ form|crispy }}
+                            <button class="submit">добавить</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="tabContent" id="stockTab">
+                    <div class="no-stock mb-20 mr-40">
+                        <p class="mb-20">Увеличивайте количество просмотров и заявок с помощью акций.</p>
+                        <a href="addStock.html">
+                            <button class="newObject">
+                    <span class="plusCont">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </span>
+                                добавить номер
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block styleandscripts %}
+
+{% endblock %}
+
+
+
+

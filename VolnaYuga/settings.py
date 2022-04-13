@@ -12,19 +12,26 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import django_heroku
 from pathlib import Path
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
+# Set the project base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-a2zgwtb#=gh5%654)h9s$9zarox&t5+r1#bi7^l$(7yg1c26s7'
+# False if not in os.environ because of casting above
+DEBUG = env('DEBUG')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Raises Django's ImproperlyConfigured
+# exception if SECRET_KEY not in os.environ
+SECRET_KEY = env('SECRET_KEY')
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,12 +50,15 @@ INSTALLED_APPS = [
     'accounts',
     'attraction',
     'region',
+    'review',
 
     'phonenumber_field',
     'django_registration',
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
+    'sorl.thumbnail',
+    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [
@@ -66,7 +76,7 @@ ROOT_URLCONF = 'VolnaYuga.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': ['templates']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -89,7 +99,7 @@ WSGI_APPLICATION = 'VolnaYuga.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
 
@@ -136,6 +146,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+  os.path.join(BASE_DIR, 'static'),
+)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -147,7 +160,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 EMAIL_BACKEND = 'django.hotel.mail.backends.console.EmailBackend'
 
@@ -163,14 +176,14 @@ CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_ALLOW_NONIMAGE_FILES = False  # False - Only image files. (At your discretion)
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'full',
-        'height': 400,
-        'width': '100%',
+        'toolbar': 'Custom',
+        'height': 200,
+        'width': 550,
     },
     'djeym': {
-        'toolbar': 'full',
-        'height': 400,
-        'width': 362,
+        'toolbar': 'Basic',
+        'height': 200,
+        'width': 600,
         'colorButton_colors': 'F44336,C62828,E91E63,AD1457,9C27B0,6A1B9A,'
                               '673AB7,4527A0,3F51B5,283593,2196F3,1565C0,'
                               '03A9F4,0277BD,00BCD4,00838F,009688,00695C,'
@@ -182,3 +195,5 @@ CKEDITOR_CONFIGS = {
         'colorButton_enableMore': True
     }
 }
+
+YANDEX_MAPS_API_KEY=env('YANDEX_MAPS_API_KEY')

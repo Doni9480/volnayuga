@@ -1,0 +1,40 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+{% include 'include/head.html' %}
+<body>
+<div class="container-fluid">
+    <header id="myObject">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+        </div>
+    </header>
+
+    <section class="loginSection myObjectSection">
+        <div class="container">
+            {% block breadcrumbs %}
+                <ul class="breadcrumb">
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Краснодарский край</a></li>
+                    <li>Адлер</li>
+                </ul>
+            {% endblock %}
+            <div class="row">
+                {% block leftmenu %}
+                    {% include 'include/lk_left_menu.html' %}
+                {% endblock %}
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </section>
+
+    {% include 'include/footer.html' %}
+</div>
+{% include 'include/script.html' %}
+</body>
+</html>
+
+
+

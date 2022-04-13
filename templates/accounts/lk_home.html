@@ -1,0 +1,76 @@
+{% extends 'lk_base.html' %}
+{% load static thumbnail %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right">
+            <h1>Мои объекты</h1>
+            <a href="{% url 'accounts:hotel_create' %}">
+                <button class="newObject">
+                <span class="plusCont">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </span>
+                    добавить объект
+                </button>
+            </a>
+            <div class="my-object-card-cont mb-100">
+                {% for hotel in object_list %}
+                    <div class="my-object-card flex mt-30">
+                        <div class="card-image">
+                            <div class="owl-admin" class="owl-carousel">
+                                {% if hotel.hotelphoto_set.all %}
+                                        <div class="item">
+                                            <div class="item-img">
+                                                {% thumbnail hotel.hotelphoto_set.first.image "262x180" crop="center" as im %}
+                                                    <img src="{{ im.url }}" width="{{ im.width }}"
+                                                         height="{{ im.height }}"
+                                                         alt="Lazy Owl Image">
+                                                {% endthumbnail %}
+                                            </div>
+                                        </div>
+                                {% else %}
+                                    <div class="item">
+                                        <div class="item-img">
+                                            <img width="262" height="180" class="lazyOwl"
+                                                 data-src="{% static 'img/empty.png' %}" alt="Lazy Owl Image">
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body flex  juatifyBetween">
+                            <div class="card-body-left flex directionColumn juatifyBetween">
+                                <div class="card-body-cont">
+                                    <p>{{ hotel.title }}</p>
+                                    <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
+                                </div>
+                                <div class="view flex alignCenter"><i class="icon-Union"></i><span>0 просмотров</span>
+                                </div>
+                            </div>
+                            <div class="card-body-right flex directionColumn juatifyBetween">
+                                <a href="{% url 'accounts:user_hotel_detail' pk=hotel.id %}">
+                                    <button>редактировать</button>
+                                </a>
+                                <a href="{% url 'accounts:hotel_delete' pk=hotel.id %}">
+                                    <button class="delete-card">удалить</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+<h2>Список объектов</h2>
+{% for hotel in object_list %}
+    <ul>
+        <li><a href="{% url 'accounts:user_hotel_detail' pk=hotel.id %}">{{ hotel }}</a> - <a
+                href="{% url 'accounts:hotel_update' pk=hotel.id %}">Редактировать</a> - <a
+                href="{% url 'accounts:hotel_delete' pk=hotel.id %}">Удалить</a>
+    </ul>
+{% endfor %}
+

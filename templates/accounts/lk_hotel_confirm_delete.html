@@ -1,0 +1,18 @@
+{% extends 'lk_base.html' %}
+
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right">
+            <h1>{{ object }}</h1>
+            <div class="add-object-card-cont mb-100">
+                <form method='POST'>
+                    {% csrf_token %}
+                    <h4>Вы хотите удалить "{{ object }}"?</h4>
+                    <button class="submit">Удалить</button>
+                    <a href="{% url 'accounts:user_hotel_list' %}">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

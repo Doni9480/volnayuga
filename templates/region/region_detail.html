@@ -1,23 +1,1112 @@
 {% extends 'base.html' %}
+{% load static thumbnail %}
+{% block modal-search %}
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="header-form modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-cont flex">
+                            <div class="location">
+                                <label>
+                                    Место отдыха?<br>
+                                    <input type="text" placeholder="Курорт или отель">
+                                </label>
+                            </div>
+                            <div class="enter">
+                                <label>
+                                    Заезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="exit">
+                                <label>
+                                    Выезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="guest-count">
+                                <label>
+                                    Количество гостей<br>
+                                    <input type="text" placeholder="Кто поедет?">
+                                </label>
+                            </div>
+                            <button class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-filter">
+        <div class="closeModalFilter">X</div>
+    </div>
+    <div class="modal-map">
+        <div class="closeModalMap">X</div>
+    </div>
+    <div class="modal fade" id="searchModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="header-form modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-cont flex">
+                            <div class="location">
+                                <label>
+                                    Место отдыха?<br>
+                                    <input type="text" placeholder="Курорт или отель">
+                                </label>
+                            </div>
+                            <div class="enter">
+                                <label>
+                                    Заезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="exit">
+                                <label>
+                                    Выезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="guest-count">
+                                <label>
+                                    Количество гостей<br>
+                                    <input type="text" placeholder="Кто поедет?">
+                                </label>
+                            </div>
+                            <button class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mapModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="{% static 'img/closeButton.png' %}" alt="">
+                </button>
+                <div class="modal-left"></div>
+                <div class="modal-right">
+                    <p>Найдено вариантов: {{ object.hotel_set.all.count }}</p>
+                    <div class="modal-right-map">
+                        <iframe src="{% static 'https://yandex.ru/map-widget/v1/?um=constructor%3Ac23bdef087fe608794a36ef27292433bc7fe9c307163ffc170fb8fd2f6937c7f&amp;source=constructor"
+                                width=" 848
+                        " height="400" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <header id="curorts">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+            <ul class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                {% if object.parent.parent %}
+                    <li>
+                        <a href="{% url 'region:region_detail' slug=object.parent.parent.slug %}">{{ object.parent.parent }}</a>
+                    </li>
+                    <li>{{ object }}</li>
+                {% else %}
+                    <li>{{ object }}</li>
+                {% endif %}
+            </ul>
+            <div class="headerTitle">
+                <h1>{{ object.meta_title }}</h1>
+                {% if object.is_city %}
+                    <p class="search-result">Найдено объектов {{ object.hotel_set.count }}</p>
+                {% endif %}
+                <p>{{ object.meta_description|safe }}</p>
+            </div>
+            <button class="hidden-find" data-toggle="modal" data-target="#searchModal1">найти курорт</button>
+            <div class="header-form">
+                {% include 'include/form_search.html' %}
+            </div>
+        </div>
+    </header>
+{% endblock %}
 {% block content %}
+
+    <!--SECTION AVERAGE VALUE-->
+    <section class="curortSection1">
+        <div class="container relative">
+            <div class="curortSection1-cont">
+                <div class="flex">
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/wallet.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Средняя цена</p>
+                            <p>{{ object.get_average_price|floatformat:"0" }} руб. / {{ today|date:"F" }}</p>
+                        </div>
+                    </div>
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/calendar.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Сезон</p>
+                            <p>{{ object.season }}</p>
+                        </div>
+                    </div>
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/middle.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Среняя оценка</p>
+                            <p>{{ object.get_average_review|floatformat:"0" }} на основе отзывов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--END SECTION AVERAGE VALUE-->
+
     {% if not object.is_city %}
-    <h2>Популярные курорты</h2>
-    <ul>{% for region in region_popular_list %}
-        <li><a href="{% url 'region' slug=region.slug %}">{{ region }}</a></li>
-    {%  endfor %}</ul>
+        <section class="top-margin">
+            <div class="container">
+                <div class="popular">
+                    <h2 class="not-margin">Популярные <span>направления для отдыха</span></h2>
+                    {{ region_most_interesting_list }}
+                    <div id="owl-demo1" class="owl-carousel">
+                        {% for item, item2 in region_popular_list %}
+                            <div class="item">
+                                {% for item in region_popular_list1 %}
+                                    <div class="popularUp">
+                                        <a href="{% url 'region:region_detail' slug=item.slug %}">
+                                            <div class="popularUpImg">
+                                                {% thumbnail item.image '350x233' crop='center' as img %}
+                                                    <img class="lazyOwl" data-src="{{ img.url }}" width="{{ im.width }}"
+                                                         height="{{ im.height }}" alt="{{ item.title }}">
+                                                {% endthumbnail %}
+                                                <div class="popular-bottom flex alignCenter juatifyBetween">
+                                                    <span>объектов {{ item.hotel_set.count }}</span>
+                                                    <span>от {% if item.get_min_price.min_price %}
+                                                        {{ item.get_min_price.min_price }}{% else %}0{% endif %}
+                                                        руб.</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <p>{{ item.title }}</p>
+                                    </div>
+                                {% endfor %}
+                                <div class="popularDown">
+                                    <a href="{% url 'region:region_detail' slug=item2.slug %}">
+                                        <div class="popularUpImg">
+                                            {% thumbnail item2.image '350x233' crop='center' as img %}
+                                                <img class="lazyOwl" data-src="{{ img.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}" alt="{{ item2.title }}">
+                                            {% endthumbnail %}
+                                            <div class="popular-bottom flex alignCenter juatifyBetween">
+                                                <span>объектов {{ item2.hotel_set.count }}</span>
+                                                <span>от {{ item2.get_min_price.min_price }} руб.</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <p>{{ item2.title }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container">
+                <div class="direction">
+                    <h2>Все наши <span> направления </span></h2>
+                    <div class="direction-tab-content">
+                        <div class="row">
+                            {% for child in object.children.all %}
+                                <div class="col-md-3 col-sm-6 col-6">
+                                    <div class="direction-way">
+                                        <p class="direction-title"><a
+                                                href="{% url 'region:region_detail' slug=child.slug %}">{{ child }}</a>
+                                        </p>
+                                        {% for grandchild in child.children.all %}
+                                            <p>
+                                                <a href="{% url 'region:region_detail' slug=grandchild.slug %}">{{ grandchild }}</a>
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     {% endif %}
-    <h2>Отели</h2>
-    <ul>{% for hotel in hotel_list %}
-        <li><a href="{% url 'hotel_detail' slug=hotel.city.slug hotel_slug=hotel.slug %}">{{ hotel }}</a></li>
-    {%  endfor %}</ul>
-    {% if not object.is_city %}
-    <h2>Курорты {{ object }}</h2>
-     <ul>{% for region in region_parent_list %}
-        <li><a href="{% url 'region' slug=region.slug %}">{{ region }}</a></li>
-         <ul>{% for item in region.children.all %}
-             <li><a href="{{ item.slug }}">{{ item }}</a></li>
-             {% endfor %}
-             </ul>
-    {%  endfor %}</ul>
+    {% if object.is_city %}
+        <!--SECTION FILTER-->
+        <section class="curortSection2">
+            <div class="container">
+                <div class="curort-filter">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="curort-filter-map">
+                                <div class="little-map">
+                                    <div class="little-map-div flex alignCenter juatifyCenter">
+                                        <button class="show-map" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                            Показать на карте
+                                        </button>
+                                    </div>
+                                </div>
+                                <form action="">
+                                    <div class="left-filter1">
+                                        <p>Цена за номер, руб.</p>
+                                        <div class="rangeSlider">
+                                            <div class="input-cont flex juatifyBetween alignCenter">
+                                                <input type="text" class="range_min light left">
+                                                <div> -</div>
+                                                <input type="text" class="range_max light right">
+                                            </div>
+                                            <input class="min" name="range_1" type="range" min="1" max="100"
+                                                   value="10"/>
+                                            <input class="max" name="range_1" type="range" min="1" max="100"
+                                                   value="90"/>
+                                        </div>
+                                        <div class="filter1-button-cont flex juatifyCenter">
+                                            <button class="filter1-button active">За период</button>
+                                            <button class="filter1-button">За ночь</button>
+                                        </div>
+                                        <ul class="left-filter1-ul listNone">
+                                            <li>
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    <input type="checkbox" name="" value="" id="checkbox1">
+                                                    <label for="checkbox1"><span>До 2 000 руб.</span></label>
+                                                    <span class="count">3 589</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    <input type="checkbox" name="" value="" id="checkbox2">
+                                                    <label for="checkbox2"><span>2 000 - 4 000 руб.</span></label>
+                                                    <span class="count">3 589</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    <input type="checkbox" name="" value="" id="checkbox3">
+                                                    <label for="checkbox3"><span>6 000 - 8 000 руб.</span></label>
+                                                    <span class="count">3 589</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    <input type="checkbox" name="" value="" id="checkbox4">
+                                                    <label for="checkbox4"><span>8 000 - 11 000 руб.</span></label>
+                                                    <span class="count">3 589</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    <input type="checkbox" name="" value="" id="checkbox5">
+                                                    <label for="checkbox5"><span>Более 11 000 руб.</span></label>
+                                                    <span class="count">3 589</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="left-filter2">
+                                        <p>Тип жилья</p>
+                                        <div class="filter-ul-cont ul-fixed-height">
+                                            <ul class="left-filter1-ul listNone">
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox6">
+                                                        <label for="checkbox6"><p>Гостевые дома</p></label>
+                                                        <span class="count">384</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox7">
+                                                        <label for="checkbox7"><p>Мини отели и гостиницы</p></label>
+                                                        <span class="count">214</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox8">
+                                                        <label for="checkbox8"><p>Частный сектор</p></label>
+                                                        <span class="count">3 589</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox9">
+                                                        <label for="checkbox9"><p>Турбазы</p></label>
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox10">
+                                                        <label for="checkbox10"><p>Эллинги</p></label>
+                                                        <span class="count">2</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox11">
+                                                        <label for="checkbox11"><p>Коттеджи и дома под ключ</p></label>
+                                                        <span class="count">2</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox12">
+                                                        <label for="checkbox12"><p>Гостиницы и отели</p></label>
+                                                        <span class="count">6</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="showmore">Показать все <i class="fa fa-angle-down"></i></p>
+                                    </div>
+                                    <div class="left-filter2">
+                                        <p>Удобства</p>
+                                        <div class="filter-ul-cont ul-fixed-height1">
+                                            <ul class="left-filter1-ul listNone">
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox13">
+                                                        <label for="checkbox13"><p>Кондиционер</p></label>
+                                                        <span class="count">384</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox14">
+                                                        <label for="checkbox14"><p>Детская площадка</p></label>
+                                                        <span class="count">214</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox15">
+                                                        <label for="checkbox15"><p>Автостоянка</p></label>
+                                                        <span class="count">37</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox16">
+                                                        <label for="checkbox16"><p>Wi-Fi</p></label>
+                                                        <span class="count">36</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox17">
+                                                        <label for="checkbox17"><p>Мангал / Барбекю</p></label>
+                                                        <span class="count">39</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox18">
+                                                        <label for="checkbox18"><p>Тихое место</p></label>
+                                                        <span class="count">19</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox19">
+                                                        <label for="checkbox19"><p>Бассейн</p></label>
+                                                        <span class="count">12</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox20">
+                                                        <label for="checkbox20"><p>Уборка</p></label>
+                                                        <span class="count">3</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox21">
+                                                        <label for="checkbox21"><p>Вид на море</p></label>
+                                                        <span class="count">2</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox22">
+                                                        <label for="checkbox22"><p>Можно с питомцами</p></label>
+                                                        <span class="count">12</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox23">
+                                                        <label for="checkbox23"><p>Экскурсии</p></label>
+                                                        <span class="count">34</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox24">
+                                                        <label for="checkbox24"><p>Собственный пляж</p></label>
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox25">
+                                                        <label for="checkbox25"><p>Кухня в номере</p></label>
+                                                        <span class="count">2</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox26">
+                                                        <label for="checkbox26"><p>Можно с питомцами</p></label>
+                                                        <span class="count">17</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <p class="showmore1">Показать все <i class="fa fa-angle-down"></i></p>
+                                    </div>
+                                    <div class="left-filter2">
+                                        <p>Тип питания</p>
+                                        <div class="filter-ul-cont ">
+                                            <ul class="left-filter1-ul listNone">
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox27">
+                                                        <label for="checkbox27"><p>Общая кухня</p></label>
+                                                        <span class="count">384</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox28">
+                                                        <label for="checkbox28"><p>Кафе / Столовая</p></label>
+                                                        <span class="count">214</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox29">
+                                                        <label for="checkbox29"><p>Кухня в номере</p></label>
+                                                        <span class="count">168</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox30">
+                                                        <label for="checkbox30"><p>Завтрак включен</p></label>
+                                                        <span class="count">88</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox31">
+                                                        <label for="checkbox31"><p>3-х раз. питание</p></label>
+                                                        <span class="count">34</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox32">
+                                                        <label for="checkbox32"><p>Питание включено</p></label>
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="left-filter2">
+                                        <p>Специальное предложение</p>
+                                        <div class="filter-ul-cont ">
+                                            <ul class="left-filter1-ul listNone">
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox33">
+                                                        <label for="checkbox33"><p>Трансфер бесплатно</p></label>
+                                                        <span class="count">384</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox34">
+                                                        <label for="checkbox34"><p>Только со скидками</p></label>
+                                                        <span class="count">0</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="checkbox flex alignCenter juatifyBetween">
+                                                        <input type="checkbox" name="" value="" id="checkbox35">
+                                                        <label for="checkbox35"><p>С питанием</p></label>
+                                                        <span class="count">168</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="left-filter2">
+                                        <p>Расстояние до берега</p>
+                                        <div class="filter-ul-cont ">
+                                            <ul class="left-filter1-ul listNone">
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio1">
+                                                        <label for="radio1"><p>Любое</p></label>
+                                                        <span class="count">384</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio2">
+                                                        <label for="radio2"><p>100 м</p></label>
+                                                        <span class="count">100</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio3">
+                                                        <label for="radio3"><p>200 м</p></label>
+                                                        <span class="count">80</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio4">
+                                                        <label for="radio4"><p>500 м</p></label>
+                                                        <span class="count">50</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio5">
+                                                        <label for="radio5"><p>800 м</p></label>
+                                                        <span class="count">20</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio6">
+                                                        <label for="radio6"><p>1 000 м</p></label>
+                                                        <span class="count">5</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="radio flex alignCenter juatifyBetween">
+                                                        <input type="radio" name="filterRadio" value="" id="radio7">
+                                                        <label for="radio7"><p>1 500 м</p></label>
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <input type="reset" class="reset-filter" value="Сбросить фильтры">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="filter-select-cont">
+                                <div class="show-map-responciv">
+                                    <button class="show-filter">Фильтры</button>
+                                    <button class="show-little-map">Показать на карте</button>
+                                </div>
+                                <div class="filter-select">
+                                    <div class="dropdown">
+                                        <div class="dropbtn"><span>Популярное</span> <img
+                                                src="{% static 'img/deopdown-img.png' %}"
+                                                alt="">
+                                        </div>
+                                        <div class="dropdown-content">
+                                            <a href="">тип пляжа 1</a>
+                                            <a href="">тип пляжа 2</a>
+                                            <a href="">тип пляжа 3</a>
+                                            <a href="">тип пляжа 4</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-object-card-cont curort-card-cont">
+                                {% for hotel in hotel_list %}
+                                    <div class="my-object-card flex mt-30">
+                                        <div class="card-image">
+                                            <div class="owl-admin" class="owl-carousel">
+                                                {% for image in hotel.hotelphoto_set.all %}
+                                                    <div class="item">
+                                                        <div class="item-img">
+                                                            <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}">
+                                                                {% thumbnail image.image "262x180" crop='center' as im %}
+                                                                    <img class="lazyOwl"
+                                                                         data-src="{{ im.url }}" width="{{ im.width }}"
+                                                                         height="{{ im.height }}"
+                                                                         alt="{{ hotel }}">
+                                                                {% endthumbnail %}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="card-body curort-card flex  juatifyBetween">
+                                            <div class="card-body-left flex directionColumn juatifyBetween">
+                                                <div class="card-body-cont">
+                                                    <p>{{ hotel }}</p>
+                                                    <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
+                                                    <p class="card-distance">Море - {{ hotel.remoteness }} м • Центр -
+                                                        3,9
+                                                        км</p>
+                                                </div>
+                                                <div class="black-sea-icon flex">
+                                                    <div class="black-sea-check">
+                                                        <img src="{% static 'img/check.png' %}" alt="">
+                                                    </div>
+                                                    <div class="black-sea-link">
+                                                        <img src="{% static 'img/like.png' %}" alt="">
+                                                    </div>
+                                                    <div class="black-sea-taxi">
+                                                        <img src="{% static 'img/taxi.png' %}" alt="">
+                                                    </div>
+                                                    {% for option in hotel.options.all|slice:":3" %}
+                                                        <span>{{ option }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="card-body-right-button flex directionColumn juatifyBetween">
+                                                <div class="curort-price">
+                                                    <div class="curort-price-cont">
+                                                        <div class="curort-price1 cur1">
+                                                            от {{ hotel.get_min_price.min_price }} руб.
+                                                        </div>
+                                                        <div class="curort-price2">за 1 ночь</div>
+                                                    </div>
+                                                    <div class="curort-price3">
+                                                        <img src="{% static 'img/curort-icon1.png' %}" alt="">
+                                                        <span>отзывов {{ hotel.hotelreview_set.all.count }} </span>
+                                                    </div>
+
+                                                </div>
+                                                <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}">
+                                                    <button class="show-price">Показать цены</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <button class="open-more">Открыть ещё 20 объектов</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--END SECTION FILTER-->
     {% endif %}
+    <!--SECTION RELATED OBJECT-->
+    <section>
+        <div class="container">
+            <div class="popular">
+                <h2>Подборки жилья {{ r }} <span>по разделению на типы жилья</span></h2>
+                <div class="owl-carousel owl-demo1">
+                    {% for item in hotel_type %}
+                        <div class="item">
+                            <div class="popularUp">
+                                <div class="popularUpImg">
+                                    {% thumbnail item.image '262x180' crop='center' as im %}
+                                        <img class="lazyOwl" data-src="{{ im.url }}" width="{{ im.width }}"
+                                             height="{{ im.height }}" alt="Lazy Owl Image">
+                                    {% endthumbnail %}
+                                </div>
+                                <p>{{ item }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION RELATED OBJECT-->
+    <!--SECTION FACILITIES-->
+    <section>
+        <div class="container">
+            <div class="travel curort-travel mt-100">
+                <h2>Объекты <span>по критериям удобства</span></h2>
+                <div class="owl-demo-object owl-carousel">
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>Недорого</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>У моря</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-3.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>В центре</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-4.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>С детьми</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-5.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>С бассейном</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-6.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>С питанием</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>Недорого</p>
+                    </div>
+                    <div class="item">
+                        <a href="">
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
+                            </div>
+                        </a>
+                        <p>У моря</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION FACILITIES-->
+    <!--SECTION INTERESTING PLACES-->
+    <section class="mt-100 interesting">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-3">
+                    {% if object.is_city %}
+                        <div class="adler-left mb-50">
+
+                            <p>Интересные места</p>
+
+                            <img src="{% static 'img/adler-left-image.png' %}" alt="">
+                            <div class="adler-left-cont">
+                                <div class="adler-left-cont-up">
+                                    {% for item in attraction_category_list %}
+                                        <a href="{% url 'attraction:attraction_list' region_slug=object.slug category_slug=item.slug %}">
+                                            <p>{{ item }}</p></a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="hotel-left mb-50">
+                            {% for hotel in hotel_premium_list %}
+                                <div class="card-image">
+                                    <img src="{% static 'img/adler-left-image.png' %}" alt="">
+                                </div>
+                                <div class="curort-card mt-10">
+                                    <div class="card-body-cont">
+                                        <p>
+                                            <a href="{% url 'region:hotel_detail' pk=hotel.pk slug=object.slug %}">{{ hotel }}</a>
+                                        </p>
+                                        <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
+                                        <p class="card-distance">Море - {{ hotel.remoteness }} м</p>
+                                    </div>
+                                    <div class="curort-price-cont">
+                                        <div class="curort-price1 cur1">от {{ hotel.get_min_price }} руб.</div>
+                                        <div class="curort-price2">за 1 ночь</div>
+                                    </div>
+                                    <div class="black-sea-icon flex">
+                                        <div class="black-sea-check">
+                                            <img src="{% static 'img/check.png' %}" alt="check">
+                                        </div>
+                                        <div class="black-sea-link">
+                                            <img src="{% static 'img/like.png' %}" alt="like">
+                                        </div>
+                                        <div class="black-sea-taxi">
+                                            <img src="{% static 'img/taxi.png' %}" alt="taxi">
+                                        </div>
+                                        {% for option in hotel.options.all|slice:":2" %}
+                                            <span>{{ option }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-9">
+                    <div class="adler-right">
+                        {{ object.description|safe }}
+
+                        <div class="owl-admin owl-admin1" class="owl-carousel">
+                            {% for item in object.galleryforregion_set.all %}
+                                <div class="item">
+                                    <div class="item-img">
+                                        {% thumbnail item.image '825x486' crop='center' as im %}
+                                            <img class="lazyOwl" data-src="{{ im.url }}" height="im.height"
+                                                 weight="im.weight"
+                                                 alt="{{ item.image.name }}">
+                                        {% endthumbnail %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!--       <div class="curort-diagram mt-100">
+                                   <h2>График <span>цен, температуры воздуха и воды по месяцам в Адлере</span></h2>
+                                   <ul class="flex direction-ul curort-ul">
+                       <li data-show="curort1" class="">
+                         <span>Цены за номер в сутки</span>
+                       </li>
+                       <li data-show="curort2" class="">
+                         <span>Средняя температура воздуха</span>
+                       </li>
+                       <li data-show="curort3" class="active">
+                         <span>Средняя температура воды</span>
+                       </li>
+                     </ul>
+                                   <div class="diagram-cont relative">
+                                       <div class="first-diagram flex">
+                                           <div>2 820 руб.</div>
+                                           <div class="diagram-dashed"></div>
+                                       </div>
+                                       <div class="first-diagram first-diagram1 flex">
+                                           <div>2 820 руб.</div>
+                                           <div class="diagram-dashed"></div>
+                                       </div>
+                                       <div class="diagram-body">
+                                           <div class=" flex juatifyEnd">
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill feb"></div>
+                                                   </div>
+                                                   <span>Фев</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill mart"></div>
+                                                   </div>
+                                                   <span>Мар</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill april"></div>
+                                                   </div>
+                                                   <span>Апр</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill may"></div>
+                                                   </div>
+                                                   <span>Май</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jun"></div>
+                                                   </div>
+                                                   <span>Июн</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jul"></div>
+                                                   </div>
+                                                   <span>Июл</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill avg"></div>
+                                                   </div>
+                                                   <span>Агв</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill sep"></div>
+                                                   </div>
+                                                   <span>Сен</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill okt"></div>
+                                                   </div>
+                                                   <span>Окт</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill nov"></div>
+                                                   </div>
+                                                   <span>Ноя</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill dec"></div>
+                                                   </div>
+                                                   <span>Дек</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jan"></div>
+                                                   </div>
+                                                   <span>Янв</span>
+                                               </div>
+                                           </div>
+                                           <div class="flex juatifyBetween">
+                                               <div class="year1">2022</div>
+                                               <div class="year2">2023</div>
+                                           </div>
+
+                                       </div>
+                                   </div>
+                               </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--SECTION INTERESTING PLACES-->
+    <!--SECTION ATTRACTION-->
+    <section>
+        <div class="container">
+            <div class="good-views">
+                <h2>Достопримечательности</h2>
+                <div class="row">
+                    {% for item in region_attraction_list %}
+                        <div class="col-md-4 col-sm-6">
+                            <div class="good-views-cont">
+                                {% thumbnail item.thumb '262x180' crop='center' as im %}
+                                    <img src="{{ im.url }}" alt="{{ item.title }}">
+                                {% endthumbnail %}
+                                <p class="good-title"><a
+                                        href="{% url 'attraction:attraction_detail' region_slug=object.slug category_slug=item.category.slug slug=item.slug %}">{{ item.title }}</a>
+                                </p>
+                                <p>{{ item.content|slice:"150"|safe }} ...</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION ATTRACTION-->
+    {% if object.is_city %}
+        <!--SECTION REVIEWS-->
+        <section>
+            <div class="container">
+                <div class="curort-feedback">
+                    <h2>Последние <span>отзывы</span></h2>
+                    <div class="owl-carousel curort-feedback-cont">
+                        {% for item in review_list %}
+                            <div class="item">
+                                <div class="curort-feedback-item">
+                                    <p class="feedback-title">{{ item }}</p>
+                                    <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
+                                    <p class="feedback-name">{{ item.name }}</p>
+                                    <p class="feedback-rate">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/rateempty.png' %}" alt="">
+                                    </p>
+                                    <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
+                                    <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--END SECTION REVIEWS-->
+
+        <!--SECTION OBJECTS NEAR-->
+        <section>
+            <div class="container">
+                <div class="closert-curorts">
+                    <h2>Курорты <span>рядом</span></h2>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!--END SECTION OBJECTS NEAR-->
+    {% endif %}
+
+
 {% endblock %}

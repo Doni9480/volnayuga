@@ -1,0 +1,30 @@
+{% extends 'lk_base.html' %}
+{% load static %}
+{% block content %}
+    <div class="col-9">
+        <div class="myObject-right mb-100">
+            <h1>Отзывы</h1>
+            <div class="row">
+                {% for review in review_list %}
+                <div class="col-md-6 mb-30">
+                    <div class="curort-feedback-item">
+                        <p class="feedback-title">{{ review.hotel.title }}</p>
+                        <p class="feedback-periud">Период отдыха: {{ review.period }}</p>
+                        <p class="feedback-name">{{ review.name }}</p>
+                        <p class="feedback-rate">
+                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                            <img src="{% static 'img/rateempty.png' %}" alt="">
+                        </p>
+                        <p class="feedback-text ul-fixed-height2">{{ review.text }}</p>
+                        <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

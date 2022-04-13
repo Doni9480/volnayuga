@@ -9,6 +9,7 @@ class AtrractionAdminInline(admin.TabularInline):
 
 class AttributeAdmin(admin.ModelAdmin):
     inlines = [AtrractionAdminInline, ]
+    prepopulated_fields = {"slug": ("title",)}
 
 admin.site.register(AttractionCategory)
 admin.site.register(Attraction, AttributeAdmin)

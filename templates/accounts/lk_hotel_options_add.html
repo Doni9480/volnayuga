@@ -1,0 +1,39 @@
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right addOptions">
+            <h1>Добавление опции</h1>
+            <div class="addIptionsCont">
+                <div class="add-object-card-cont mb-100 width100">
+                    <form class="add-object-form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-chackbox">
+                            <ul class="left-filter1-ul listNone addOptionsUl">
+                                {% for field in form %}
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <div class="checkbox flex alignCenter juatifyBetween">
+                                                    {{ field|as_crispy_field }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="hiddenInput" data-show="{{ field.id }}">
+                                                    <input type="text" placeholder="Комментарий">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+
+                        <button class="submit">добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
