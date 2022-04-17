@@ -204,3 +204,4 @@ CKEDITOR_CONFIGS = {
 }
 
 YANDEX_MAPS_API_KEY=env('YANDEX_MAPS_API_KEY')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
