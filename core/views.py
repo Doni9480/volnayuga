@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.db.models import F
 from django.shortcuts import render
 
@@ -16,7 +18,7 @@ class HomePage(TemplateView):
         context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
         region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(odd=False, is_popular=True)
         region_popular_list2 = Region.objects.annotate(odd=F('id') % 2).filter(odd=True, is_popular=True)
-        context['region_popular_list'] = region_popular_list, region_popular_list2
+        context['region_popular_list'] = zip(region_popular_list, region_popular_list2)
         context['hotel_list_low_price'] = Hotel.objects.all()
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
