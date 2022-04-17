@@ -46,6 +46,7 @@
             <div class="popular">
                 <h2>Популярные <span>направления для отдыха</span></h2>
                 <div id="owl-demo1" class="owl-carousel">
+                {% if region_popular_list %}
                     {% for item, item2 in region_popular_list %}
                         <div class="item">
                             <div class="popularUp">
@@ -82,6 +83,7 @@
                             </div>
                         </div>
                     {% endfor %}
+                {% endif %}
                 </div>
 
             </div>
