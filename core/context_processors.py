@@ -1,14 +1,23 @@
 from .models import StaticData
 
 def data(request):
-    data = StaticData.objects.first()
-    context = {
-        'logo': data.logo,
-        'logo_footer':data.logo_footer,
-        'phone':data.phone,
-        'email':data.email,
-        'banner':data.banner,
-    }
+    if StaticData.objects.first():
+        data = StaticData.objects.first()
+        context = {
+            'logo': data.logo,
+            'logo_footer':data.logo_footer,
+            'phone':data.phone,
+            'email':data.email,
+            'banner':data.banner,
+        }
+    else:
+        context = {
+            'logo': None,
+            'logo_footer': None,
+            'phone': None,
+            'email': None,
+            'banner': None,
+        }
     return context
 
 
