@@ -1,0 +1,59 @@
+{% load static %}
+<div class="header-menu-cont flex juatifyBetween alignCenter">
+
+    <div class="logo-cont">
+        <a href="/"> <img src="{{ logo.url }}" alt="logo"></a>
+    </div>
+
+    <div class="header-menu height100 flex alignCenter">
+        <button class="burger-menu"><img src="{% static 'img/menu.png' %}" alt=""></button>
+        <nav>
+            <ul class="flex">
+                <li><a href="/">Главная</a></li>
+                <li><a href="{% url 'about' %}">О компании</a></li>
+                <li><a href="{% url 'contact' %}">Контакты</a></li>
+                <li class="mobile-show">
+                    <div class="login flex alignCenter">
+                        <img src="{% static 'img/login1.png' %}" alt="">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'accounts:user_hotel_list' %}">{{ username }}</a>
+                        {% else %}
+                            <a href="{% url 'accounts:login' %}">войти</a>
+                        {% endif %}
+                    </div>
+                </li>
+                <li class="mobile-show">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'accounts:logout' %}">
+                            <button>Выйти</button>
+                        </a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <div class="header-login flex height100 alignCenter juatifyEnd">
+        {% if user.is_authenticated %}
+        <div class="login">
+            <img src="{% static 'img/login.svg' %}" alt="login">
+            <a href="{% url 'accounts:user_hotel_list' %}">кабинет</a>
+        </div>
+        {% else %}
+        <div class="login">
+            <img src="{% static 'img/login.svg' %}" alt="login">
+            <a href="{% url 'accounts:login' %}">Войти</a>
+        </div>
+        <a href="{% url 'rent' %}">
+            <button>Сдать жилье</button>
+        </a>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'accounts:logout' %}">
+                <button>Выйти</button>
+            </a>
+        {% endif %}
+    </div>
+
+</div>
