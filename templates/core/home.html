@@ -28,10 +28,9 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    {% thumbnail item.image '255x292' crop='center' as img %}
-                                        <img class="lazyOwl" data-src="{{ img.url }}" width="{{ im.width }}"
-                                             height="{{ im.height }}" alt="{{ item.title }}">
-                                    {% endthumbnail %}
+
+                                        <img class="lazyOwl" data-src="{{ item.image.url }}"  alt="{{ item.title }}">
+
                                 </div>
                             </a>
                             <p>{{ item.title }}</p>
