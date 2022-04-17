@@ -3,30 +3,14 @@ from datetime import date
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
+from accounts.forms import HotelFilterForm
 from attraction.models import Attraction, AttractionCategory
+from hotel.filter import ProductFilter
 from review.models import Review
 from .models import *
 from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
-
-
-class Home(ListView):
-    """Home page"""
-    model = Region
-    template_name = 'region/home.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(Home, self).get_context_data(**kwargs)
-        context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
-        region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(odd=False, is_popular=True)
-        region_popular_list2 = Region.objects.annotate(odd=F('id') % 2).filter(odd=True, is_popular=True)
-        context['region_popular_list'] = region_popular_list, region_popular_list2
-        context['hotel_list_low_price'] = Hotel.objects.all()
-        context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
-        context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
-
-        return context
 
 
 class RegionDetail(DetailView):
@@ -55,6 +39,9 @@ class RegionDetail(DetailView):
             Q(city__parent=self.object, premium=True) | Q(city__parent__parent=self.object, premium=True))
         context['today'] = date.today()
         context['review_list'] = Review.objects.filter(hotel__city=self.object)
+        ids_typeofobject = Hotel.objects.filter(city=self.object).values_list('object_type',flat=True).distinct()
+        context['typeobject'] = TypeofObject.objects.filter(id__in=ids_typeofobject)
+        context['filter'] = HotelFilterForm()
         return context
 
 

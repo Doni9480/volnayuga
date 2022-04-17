@@ -34,6 +34,7 @@ class HotelOption(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     category = models.CharField(max_length=50, choices=OPTIONCATEGORYCHOICE, default='food', verbose_name='Категория')
     icon = models.CharField(max_length=50, blank=True, verbose_name='Класс иконки font-awesome')
+
     class Meta:
         verbose_name = 'Опцию'
         verbose_name_plural = ' Опции для гостиниц'
@@ -77,6 +78,16 @@ BEACHCHOICE = (
     ('pesok', ('Песок')),
 )
 
+BEACHREMOTENESS = (
+    (100, ('100')),
+    (200, ('200')),
+    (500, ('500')),
+    (800, ('800')),
+    (1000, ('1000')),
+    (1500, ('1500')),
+)
+
+
 class Hotel(models.Model):
     """Отель"""
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name='Владелец')
@@ -87,7 +98,7 @@ class Hotel(models.Model):
     object_type = models.ForeignKey(TypeofObject, on_delete=models.CASCADE, null=True, verbose_name='Тип жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
-    remoteness = models.IntegerField(null=True, blank=True, verbose_name='Расстояние до моря')
+    remoteness = models.IntegerField(null=True, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
     beach = models.CharField(max_length=50, choices=BEACHCHOICE, default=1, verbose_name='Пляж')
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
     description = RichTextField(blank=True, verbose_name='Описание')
@@ -197,8 +208,10 @@ class Number(models.Model):
 
 class PricePeriodToday(models.Manager):
     """Today manager"""
+
     def get_queryset(self):
         return super(PricePeriodToday, self).get_queryset().filter(start__lte=date.today(), end__gte=date.today())
+
 
 class PricePeriod(models.Model):
     """Периоды цен"""
@@ -207,13 +220,13 @@ class PricePeriod(models.Model):
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Гостиница')
     objects = models.Manager()
     today = PricePeriodToday()
+
     class Meta:
         verbose_name = 'Периоды цен'
         verbose_name_plural = 'Период'
 
     def __str__(self):
         return str(self.start) + ' - ' + str(self.end)
-
 
 
 class Price(models.Model):
@@ -231,8 +244,6 @@ class Price(models.Model):
         return self.number.title
 
 
-
-
 class NumberPhoto(models.Model):
     """Фотографии номера"""
     number = models.ForeignKey(Number, on_delete=models.CASCADE)
@@ -241,5 +252,3 @@ class NumberPhoto(models.Model):
     class Meta:
         verbose_name = 'Фотографии номера'
         verbose_name_plural = 'Фотографии номера'
-
-

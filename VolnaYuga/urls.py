@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from accounts.views import register_request, login_request,  logout_request, password_reset_request
-from hotel.views import home_view
-from region.views import Home
+from core.views import AboutPage, ContactPage, RentPage, HomePage
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -26,6 +25,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('about/', AboutPage.as_view(), name='about'),
+    path('contact/', ContactPage.as_view(), name='contact'),
+    path('rent/', RentPage.as_view(), name='rent'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('register', register_request, name="register"),
@@ -38,7 +40,7 @@ urlpatterns = [
     path('<region_slug>/attraction/', include('attraction.urls', namespace='attraction')),
     path('<slug>/', include('region.urls', namespace='region')),
 
-    path('', Home.as_view(), name='home'),
+    path('', HomePage.as_view(), name='home'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

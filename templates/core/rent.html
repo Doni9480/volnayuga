@@ -1,0 +1,423 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+{% block header %}
+    <header class="main-header rent-header">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+            <div class="headerTitle">
+                <h1>Зарегистрируйтесь <br>
+                    <span>Зна «Волна.Юга»</span></h1>
+            </div>
+            <div class="header-bottom">
+                <p class="rentHeaderText">
+                    <img src="{% static 'img/rent-header1.png' %}" alt="">
+                    <span>Идеальная презентация объекта в интернете</span>
+                </p>
+                <p class="rentHeaderText">
+                    <img src="{% static 'img/rent-header2.png' %}" alt="">
+                    <span>Разумная экономия на посредниках</span>
+                </p>
+                <p class="rentHeaderText">
+                    <img src="{% static 'img/rent-header3.png' %}" alt="">
+                    <span>Увеличение дохода объекта размещения</span>
+                </p>
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="room-rent">
+                <div class="room-rent-head flex alignCenter juatifyBetween">
+                    <ul class="flex direction-ul">
+                        <li class="active " data-class="addObjectli">
+                            <span>Разместить объект</span>
+                        </li>
+                        <li class="" data-class="orderCallli">
+                            <span>Обратный звонок</span>
+                        </li>
+                    </ul>
+                    <p>Заполните все необходимые поля*</p>
+                </div>
+                <form action="" class="addObject">
+                    <div class="flex juatifyBetween mb-30">
+                        <input type="text" placeholder="Ваше имя">
+                        <input type="email" placeholder="Ваш E-mail">
+                        <input type="tel" placeholder="Ваш телефон">
+
+                        <div class="room-flex">
+                            <div class="dropdown rent-dropdown">
+                                <div class="dropbtn rent-drop"><span>Стандарт “Номера” - 7 900 руб.</span> <img
+                                        src="{% static 'img/deopdown-img.png' %}" alt=""></div>
+                                <div class="dropdown-content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
+                                <input type="checkbox" name="" value="" id="checkboxRoom">
+                                <label for="checkboxRoom"><p>Принимаю условия <span> пользовательского соглашения</span>
+                                </p></label>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <button>Отправить заявку</button>
+                        </div>
+                    </div>
+                </form>
+                <form action="" class="orderCall">
+                    <div class="flex juatifyBetween mb-30">
+                        <input type="tel" placeholder="Телефон">
+                        <div class="room-flex">
+                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
+                                <input type="checkbox" name="" value="" id="checkboxTel">
+                                <label for="checkboxTel"><p>Принимаю условия <span> пользовательского соглашения</span>
+                                </p></label>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <button>Отправить заявку</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+
+                <h2>Наша компания<span> в цифрах</span></h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>1000</h3>
+                            <p>просмотров объекта</p>
+                            <p>Размещение на Сервис.Тур - это сотни благодарных вам гостей.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>10</h3>
+                            <p>лет работы</p>
+                            <p>Многолетний опыт заселения гостиниц и организации отдыха туристов.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>8000</h3>
+                            <p>объектов на сайте</p>
+                            <p>Их владельцы уже выбрали нас и принимают заявки.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+                <h2>Как<span> это работает?</span></h2>
+                <div class="row rent-responcive">
+                    <div class="col-md-4">
+                        <div class="howitworkcont">
+                            <div class="howitworkcontitem">Вы получаете доступ к личному кабинету и размещаете свой
+                                объект. Наш менеджер помогает довести наполнение и оформление вашего объекта до
+                                идеального состояния.
+                            </div>
+                            <div class="howabs">#01</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="howitworkcont">
+                            <div class="howitworkcontitem">После публикации на «Сервис.Тур» вы видите идеальную
+                                презентацию вашего объекта «глазами клиента» и только после этого оплачиваете годовое
+                                размещение.
+                            </div>
+                            <div class="howabs">#02</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="howitworkcont">
+                            <div class="howitworkcontitem">Получаете заявки со всей России по телефону, электронной
+                                почте, смс — любым удобным способом. Фиксируете оплату, даты брони и другую информацию в
+                                личном кабинете.
+                            </div>
+                            <div class="howabs">#03</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="popular">
+                <h2>Наши <span>клиенты</span></h2>
+                <div class="row ourClients">
+                    <div class="col-md-4">
+                        <div class="popularUp">
+                            <div class="ourClient relative">
+                                <img class="lazyOwl" src="{% static 'img/our-clients1.png' %}" alt="Lazy Owl Image">
+                                <div class="popular-bottom flex alignCenter juatifyBetween">
+                                    <span>150 заявок</span>
+                                    <span>за год размещения</span>
+                                </div>
+                            </div>
+                            <p class="ourClientP">Частный сектор «У моря» на Калараш 2а</p>
+                            <p>Краснодарский край, Лазаревское</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="popularUp">
+                            <div class="ourClient relative">
+                                <img class="lazyOwl" src="{% static 'img/our-clients2.png' %}" alt="Lazy Owl Image">
+                                <div class="popular-bottom flex alignCenter juatifyBetween">
+                                    <span>150 заявок</span>
+                                    <span>за год размещения</span>
+                                </div>
+                            </div>
+                            <p class="ourClientP">Частный сектор Багликова 36</p>
+                            <p>Крым, Алушта</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="popularUp">
+                            <div class="ourClient relative">
+                                <img class="lazyOwl" src="{% static 'img/our-clients3.png' %}" alt="Lazy Owl Image">
+                                <div class="popular-bottom flex alignCenter juatifyBetween">
+                                    <span>150 заявок</span>
+                                    <span>за год размещения</span>
+                                </div>
+                            </div>
+                            <p class="ourClientP">Частный сектор «У самого синего моря»</p>
+                            <p>Абхазия, Гагра</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+                <h2 class="readyH2">Годовое размещение<span> на сайте “Волна.Юга”</span></h2>
+                <div class="row rent-responcive">
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <div class="howitworkcontitem1">
+                                <p class="yearP">Квартиры, дома целиком
+                                    (приоритетные показы «Проверено»)</p>
+                                <p>Вас найдут те, кто ценит уединенный отдых. Семьи, друзья, теплые компании под одной
+                                    крышей вашего дома!</p>
+                                <div class="responciveReady">
+                                    <div class="yearPrice">
+                                        <span>3 900 руб.</span>
+                                        <span>5 000 руб.</span>
+                                    </div>
+                                    <button>Разместить объект</button>
+                                </div>
+
+                            </div>
+                            <div class="howabs1">Стандарт “Дом”</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <div class="howitworkcontitem1">
+                                <p class="yearP">Отели, гостевые дома и т.п.
+                                    (приоритетные показы «Проверено»)</p>
+                                <p>У вас уютно, удобно и весело! Давайте вместе сделаем всё, чтобы туристы стали вашими
+                                    благодарными и постоянными клиентами.</p>
+                                <div class="responciveReady">
+                                    <div class="yearPrice">
+                                        <span>7 900 руб.</span>
+                                        <span>8 500 руб.</span>
+                                    </div>
+                                    <button>Разместить объект</button>
+                                </div>
+
+                            </div>
+                            <div class="howabs1">Стандарт «Номера»</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="relative">
+                            <div class="howitworkcontitem1">
+                                <p class="yearP">осталось 2 из 8 мест
+                                    (в 3 раза больше просмотров и заявок)</p>
+                                <p>Горячая распродажа всего 8 премиальных мест! Максимальное количество показов Вашего
+                                    объекта по России и на всех разделах сайта.
+                                    Вы всегда на вершине.</p>
+                                <div class="responciveReady">
+                                    <div class="yearPrice">
+                                        <span>39 900 руб.</span>
+                                        <span>50 000 руб.</span>
+                                    </div>
+                                    <button>Разместить объект</button>
+                                </div>
+
+                                <div class="best-choice">Лучший выбор!</div>
+                            </div>
+                            <div class="howabs1">Премиум
+                                «Всегда в ТОПе»
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+                <h2>Часто<span> задаваемые вопросы</span></h2>
+                <div class="row faqRow">
+                    <div class="col-md-12">
+                        <div class="faq fixed-faq">
+                            <div class="faq-title flex juatifyBetween">
+                                <h4>Мой объект находится в списке объектов ниже других, и значит, его видит меньшее
+                                    количество людей?</h4>
+                                <div class="collaps-button">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <p>К сожалению, многие создатели сайтов действуют по правилу «кто первый — того и тапки», в
+                                итоге многие объекты падают в списке сотен вариантов, и их просто не находят. Это
+                                характерно для сайтов с низкой производительностью. Для того, чтобы устранить эту
+                                несправедливость, «ПриветТур» использует техническое решение, которое уравнивает шансы
+                                всех владельцев на просмотры туристами. Более того, в случае «отставания» по просмотрам
+                                того или иного объекта включается «турборежим», позволяющий набирать необходимое
+                                количество просмотров со всех каналов трафика.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="faq fixed-faq">
+                            <div class="faq-title flex juatifyBetween">
+                                <h4>Как мой объект найдут клиенты?</h4>
+                                <div class="collaps-button">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <p>К сожалению, многие создатели сайтов действуют по правилу «кто первый — того и тапки», в
+                                итоге многие объекты падают в списке сотен вариантов, и их просто не находят. Это
+                                характерно для сайтов с низкой производительностью. Для того, чтобы устранить эту
+                                несправедливость, «ПриветТур» использует техническое решение, которое уравнивает шансы
+                                всех владельцев на просмотры туристами. Более того, в случае «отставания» по просмотрам
+                                того или иного объекта включается «турборежим», позволяющий набирать необходимое
+                                количество просмотров со всех каналов трафика.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="faq fixed-faq">
+                            <div class="faq-title flex juatifyBetween">
+                                <h4>Когда мой объект появится на сайте?</h4>
+                                <div class="collaps-button">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <p>К сожалению, многие создатели сайтов действуют по правилу «кто первый — того и тапки», в
+                                итоге многие объекты падают в списке сотен вариантов, и их просто не находят. Это
+                                характерно для сайтов с низкой производительностью. Для того, чтобы устранить эту
+                                несправедливость, «ПриветТур» использует техническое решение, которое уравнивает шансы
+                                всех владельцев на просмотры туристами. Более того, в случае «отставания» по просмотрам
+                                того или иного объекта включается «турборежим», позволяющий набирать необходимое
+                                количество просмотров со всех каналов трафика.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="faq fixed-faq">
+                            <div class="faq-title flex juatifyBetween">
+                                <h4>Чем вы лучше других сайтов?</h4>
+                                <div class="collaps-button">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <p>К сожалению, многие создатели сайтов действуют по правилу «кто первый — того и тапки», в
+                                итоге многие объекты падают в списке сотен вариантов, и их просто не находят. Это
+                                характерно для сайтов с низкой производительностью. Для того, чтобы устранить эту
+                                несправедливость, «ПриветТур» использует техническое решение, которое уравнивает шансы
+                                всех владельцев на просмотры туристами. Более того, в случае «отставания» по просмотрам
+                                того или иного объекта включается «турборежим», позволяющий набирать необходимое
+                                количество просмотров со всех каналов трафика.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+
+                <h2>Мы<span> гарантируем</span></h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="waranty">
+                            <img src="{% static 'img/waranty1.png' %}" alt="">
+                            <div class="responcive-flex-p">
+                                <p class="warantyTitle">Качество просмотров</p>
+                                <p class="warantytext">
+                                    Ваш объект будут просматривать только потенциальные клиенты. Вы не услышите от
+                                    туриста: «Я еще не определился с датами», «А сколько метров до моря?», «А можно с
+                                    животными?» и т. д. Все ответы клиент найдет на странице вашего объекта. Вы
+                                    экономите время и работаете «в деньги».
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="waranty">
+                            <img src="{% static 'img/waranty2.png' %}" alt="">
+                            <div class="responcive-flex-p">
+                                <p class="warantyTitle">Количество просмотров</p>
+                                <p class="warantytext">
+                                    Позиции сайта в Яндекс/Гугл — это важно, но реальную ценность имеет факт заявок и
+                                    просмотров именно вашего объекта. Мы гарантируем 1000 качественных просмотров, что
+                                    приведет минимум 5 потенциальных клиентов. Общайтесь, принимайте предоплату и ждите
+                                    гостей.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="waranty">
+                            <img src="{% static 'img/waranty3.png' %}" alt="">
+                            <div class="responcive-flex-p">
+                                <p class="warantyTitle">Сделки с клиентами</p>
+                                <p class="warantytext">
+                                    При работе с вами мы учитываем стоимость услуг за рекламу на «ПриветТур» и средний
+                                    чек вашего гостя. С «Сервис.Тур» мы гарантируем вам клиентов «в деньги». По
+                                    окончании каждого сезона смотрим статистику и принимаем совместное решение —
+                                    работаем дальше или компенсируем вам затраты на рекламу.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="bottom-banner relative">
+                <h3><span>Присоединяйтесь</span> к восьми тысячам ваших коллег-отельеров!</h3>
+                <div class="banner-button">
+                    <button class="addObjectButton" data-toggle="modal" data-target="#modalRoom1">разместить объект
+                    </button>
+                    <button class="addObjectButton1" data-toggle="modal" data-target="#modalRoom2">заказать обратный
+                        звонок
+                    </button>
+                </div>
+                <div class="bottom-banner-img">
+                    <img src="{% static 'img/bottom-banner-img.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}

@@ -1,4 +1,8 @@
 from django.urls import path, include
+from django_filters.views import FilterView
+
+from hotel.models import Hotel
+from region.models import Region
 from region.views import HotelDetail
 from region.views import RegionDetail
 

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+{% block header %}
+    <header class="main-header about-header">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+            <div class="headerTitle">
+                <h1>Желаете отдохнуть на
+                    курортах Краснодарского
+                    края и Крыма?</h1>
+            </div>
+            <p class="headerText">
+                Мы подберем для вас жилье по самым привлекательным ценам. Отдых начинается здесь и сейчас — мы
+                делаем всё, чтобы вы могли с лёгкостью найти для себя комфортный вариант проживания. Сервис.Тур
+                сотрудничает только с надёжными отельерами. Вы полюбите наш сервис!
+            </p>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="room-rent">
+                <div class="room-rent-head flex alignCenter juatifyBetween">
+                    <ul class="flex direction-ul">
+                        <li class="active " data-class="addObjectli">
+                            <span>Разместить объект</span>
+                        </li>
+                        <li class="" data-class="orderCallli">
+                            <span>Обратный звонок</span>
+                        </li>
+                    </ul>
+                    <p>Заполните все необходимые поля*</p>
+                </div>
+                <form action="" class="addObject">
+                    <div class="flex juatifyBetween mb-30">
+                        <input type="text" placeholder="Ваше имя">
+                        <input type="email" placeholder="Ваш E-mail">
+                        <input type="tel" placeholder="Ваш телефон">
+
+                        <div class="room-flex">
+                            <div class="dropdown rent-dropdown">
+                                <div class="dropbtn rent-drop"><span>Стандарт “Номера” - 7 900 руб.</span> <img
+                                        src="{% static 'img/deopdown-img.png' %}" alt=""></div>
+                                <div class="dropdown-content">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
+                                <input type="checkbox" name="" value="" id="checkboxRoom">
+                                <label for="checkboxRoom"><p>Принимаю условия <span> пользовательского соглашения</span>
+                                </p></label>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <button>Отправить заявку</button>
+                        </div>
+                    </div>
+                </form>
+                <form action="" class="orderCall">
+                    <div class="flex juatifyBetween mb-30">
+                        <input type="tel" placeholder="Телефон">
+                        <div class="room-flex">
+                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
+                                <input type="checkbox" name="" value="" id="checkboxTel">
+                                <label for="checkboxTel"><p>Принимаю условия <span> пользовательского соглашения</span>
+                                </p></label>
+                            </div>
+                        </div>
+                        <div class="room-flex">
+                            <button>Отправить заявку</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="travel aboutH2">
+
+                <h2>Наша компания<span> в цифрах</span></h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>1000</h3>
+                            <p>просмотров объекта</p>
+                            <p>Размещение на Сервис.Тур - это сотни благодарных вам гостей.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>10</h3>
+                            <p>лет работы</p>
+                            <p>Многолетний опыт заселения гостиниц и организации отдыха туристов.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="company-count flex directionColumn juatifyCenter">
+                            <h3>8000</h3>
+                            <p>объектов на сайте</p>
+                            <p>Их владельцы уже выбрали нас и принимают заявки.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

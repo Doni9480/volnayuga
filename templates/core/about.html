@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static thumbnail %}
+{% block header %}
+    <header class="main-header about-header">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+            <div class="headerTitle">
+                <h1>Желаете отдохнуть на
+                    курортах Краснодарского
+                    края и Крыма?</h1>
+            </div>
+            <p class="headerText">
+                Мы подберем для вас жилье по самым привлекательным ценам. Отдых начинается здесь и сейчас — мы
+                делаем всё, чтобы вы могли с лёгкостью найти для себя комфортный вариант проживания. Сервис.Тур
+                сотрудничает только с надёжными отельерами. Вы полюбите наш сервис!
+            </p>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="travel about">
+                <p class="headerText2">
+                    Мы подберем для вас жилье по самым привлекательным ценам. Отдых начинается здесь и сейчас — мы
+                    делаем всё, чтобы вы могли с лёгкостью найти для себя комфортный вариант проживания. Сервис.Тур
+                    сотрудничает только с надёжными отельерами. Вы полюбите наш сервис!
+                </p>
+                <h2>Факты <span>о “Волна.Юга”</span></h2>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aboutFact">
+                            <img src="{% static 'img/aboutfact1.png' %}" alt="">
+                            <div>
+                                <p>Тысячи достоверных объявлений</p>
+                                <p>Мы тщательно отбираем и проверяем все наши объявления. У нас вы найдете жилье на
+                                    любой вкус и кошелек.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aboutFact">
+                            <img src="{% static 'img/aboutfact2.png' %}" alt="">
+                            <div>
+                                <p>Удобный поиск по датам и ценам</p>
+                                <p>С легкостью находите подходящее жильё. Какой бы вариант проживания вы ни искали, вы
+                                    найдете его у нас.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aboutFact">
+                            <img src="{% static 'img/aboutfact3.png' %}" alt="">
+                            <div>
+                                <p>Надёжное бронирование</p>
+                                <p>Бронируйте отели в самых популярных курортах России и Абхазии. Мы гарантируем
+                                    успешное заселение.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="aboutFact">
+                            <img src="{% static 'img/aboutfact4.png' %}" alt="">
+                            <div>
+                                <p>Оплата без комиссий и скидки</p>
+                                <p>Общайтесь с владельцами жилья напрямую. Здесь только отдых и жилье без посредников и
+                                    комиссий.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mt-100">
+        <div class="container">
+            <div class="travel">
+                <h2>Путешествие <span>с “Волна.Юга”!</span></h2>
+                <div id="owl-demo" class="owl-carousel">
+                    {% for item in region_most_interesting_list %}
+                        <div class="item">
+                            <a href="{% url 'region:region_detail' slug=item.slug %}">
+                                <div class="item-img">
+                                    <div class="back">
+                                        <ul>
+                                            <li class="wallet">
+                                                <p>Средняя цена</p>
+                                                <p>{% if item.get_average_price %}
+                                                    {{ item.get_average_price|floatformat:"0" }}{% else %}
+                                                    0{% endif %} рублей</p>
+                                            </li>
+                                            <li class="calendar">
+                                                <p>Сезон</p>
+                                                <p>{{ item.season }}</p>
+                                            </li>
+                                            <li class="middle">
+                                                <p>Средняя оценка</p>
+                                                <p>4.7 на основе отзывов</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {% thumbnail item.image '255x292' crop='center' as img %}
+                                        <img class="lazyOwl" data-src="{{ img.url }}" width="{{ im.width }}"
+                                             height="{{ im.height }}" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                </div>
+                            </a>
+                            <p>{{ item.title }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="direction">
+                <h2>Все наши <span> направления </span></h2>
+                <ul class="flex direction-ul">
+                    {% for item in region_most_interesting_list %}
+                        <li {% if forloop.first %}class="active"{% endif %} data-show="{{ item.slug }}">
+                            <span>{{ item }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="direction-tab-content">
+                    {% for item in region_most_interesting_list %}
+                        <div id="{{ item.slug }}" class="tabContent  {% if forloop.first %} active {% endif %}">
+                            <div class="row">
+                                {% for child in item.children.all %}
+                                    <div class="col-md-3 col-sm-6 col-6">
+                                        <div class="direction-way">
+                                            <p class="direction-title"><a
+                                                    href="{% url 'region:region_detail' slug=child.slug %}">{{ child }}</a>
+                                            </p>
+                                            {% for grandchild in child.children.all %}
+                                                <p>
+                                                    <a href="{% url 'region:region_detail' slug=grandchild.slug %}">{{ grandchild }}</a>
+                                                </p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

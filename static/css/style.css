@@ -423,7 +423,6 @@ a, a:hover {
 /*---------------------------------------- font end -------------------------------------*/
 /*-------------------------------------------index----------------------------------------*/
 .main-header {
-    background-image: url("../img/headerBack.png");
     background-size: cover !important;
     background-position: center top;
 }
