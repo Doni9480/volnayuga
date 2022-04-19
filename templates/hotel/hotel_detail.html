@@ -436,7 +436,7 @@
                                     <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
                                 {% endthumbnail %}
                                 <p class="bold"><a
-                                        href="">{{ item }}</a>
+                                        href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
                                 </p>
                                 <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
                                 <p>
