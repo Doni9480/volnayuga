@@ -420,17 +420,14 @@
                             </div>
                             <button class="send-request">Отправить заявку</button>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
-
-
         <div class="black-sea other-object">
-
-            <h2> Другие<span> объекты Адлера</span></h2>
+            <h2> Другие<span> объекты {{ object.city }}</span></h2>
             <div id="owl-demo-object" class="owl-carousel">
+            {% if another_hotels %}
                 {% for item in another_hotels %}
                     <div class="item">
                         <div class="popularUp">
@@ -464,12 +461,10 @@
                         </div>
                     </div>
                 {% endfor %}
-
+            {% endif %}
             </div>
-
         </div>
         </div>
-
     </section>
 {% endblock %}
 {% block styleandscripts %}
@@ -556,7 +551,7 @@
                 items: 2,
                 lazyLoad: true,
                 navigation: true,
-                navigationText: ['<img src="static/img/prev.png">', '<img src="static/img/next.png">'],
+                navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
                 itemsDesktop: [1200, 2],
                 itemsDesktopSmall: [992, 2],
                 itemsMobile: [576, 1],
@@ -565,7 +560,7 @@
                 items: 4,
                 lazyLoad: true,
                 navigation: true,
-                navigationText: ['<img src="static/img/prev.png">', '<img src="static/img/next.png">'],
+                navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
                 itemsDesktopSmall: [1200, 3],
                 itemsMobile: [576, 1],
             });
