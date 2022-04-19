@@ -379,10 +379,14 @@
                         <div class="item">
                             <div class="popularUp">
                                 <div class="popularUpImg">
-                                    {% thumbnail item.image '262x180' crop='center' as im %}
-                                        <img class="lazyOwl" data-src="{{ im.url }}" width="{{ im.width }}"
-                                             height="{{ im.height }}" alt="Lazy Owl Image">
-                                    {% endthumbnail %}
+                                    {% if item.image %}
+                                        {% thumbnail item.image '262x180' crop='center' as im %}
+                                            <img class="lazyOwl" data-src="{{ im.url }}" width="{{ im.width }}"
+                                                 height="{{ im.height }}" alt="Lazy Owl Image">
+                                        {% endthumbnail %}
+                                    {% else %}
+                                        <img src="{% static 'img/black1.png' %}" alt="Lazy Owl Image">
+                                    {% endif %}
                                 </div>
                                 <p>{{ item }}</p>
                             </div>
@@ -474,20 +478,20 @@
             <div class="row">
                 <div class="col-md-3">
                     {% if object.is_city %}
-                        <div class="adler-left mb-50">
-
-                            <p>Интересные места</p>
-
-                            <img src="{% static 'img/adler-left-image.png' %}" alt="">
-                            <div class="adler-left-cont">
-                                <div class="adler-left-cont-up">
-                                    {% for item in attraction_category_list %}
-                                        <a href="{% url 'attraction:attraction_list' region_slug=object.slug category_slug=item.slug %}">
-                                            <p>{{ item }}</p></a>
-                                    {% endfor %}
+                        {% if attraction_category_list %}
+                            <div class="adler-left mb-50">
+                                <p>Интересные места</p>
+                                <img src="{% static 'img/adler-left-image.png' %}" alt="">
+                                <div class="adler-left-cont">
+                                    <div class="adler-left-cont-up">
+                                        {% for item in attraction_category_list %}
+                                            <a href="{% url 'attraction:attraction_list' region_slug=object.slug category_slug=item.slug %}">
+                                                <p>{{ item }}</p></a>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endif %}
                     {% else %}
                         <div class="hotel-left mb-50">
                             {% for hotel in hotel_premium_list %}
@@ -655,56 +659,60 @@
         </div>
     </section>
     <!--SECTION INTERESTING PLACES-->
-    <!--SECTION ATTRACTION-->
-    <section>
-        <div class="container">
-            <div class="good-views">
-                <h2>Достопримечательности</h2>
-                <div class="row">
-                    {% for item in region_attraction_list %}
-                        <div class="col-md-4 col-sm-6">
-                            <div class="good-views-cont">
-                                {% thumbnail item.thumb '262x180' crop='center' as im %}
-                                    <img src="{{ im.url }}" alt="{{ item.title }}">
-                                {% endthumbnail %}
-                                <p class="good-title"><a
-                                        href="{% url 'attraction:attraction_detail' region_slug=object.slug category_slug=item.category.slug slug=item.slug %}">{{ item.title }}</a>
-                                </p>
-                                <p>{{ item.content|slice:"150"|safe }} ...</p>
+    {% if region_attraction_list %}
+        <!--SECTION ATTRACTION-->
+        <section>
+            <div class="container">
+                <div class="good-views">
+                    <h2>Достопримечательности</h2>
+                    <div class="row">
+                        {% for item in region_attraction_list %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="good-views-cont">
+                                    {% thumbnail item.thumb '262x180' crop='center' as im %}
+                                        <img src="{{ im.url }}" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                    <p class="good-title"><a
+                                            href="{% url 'attraction:attraction_detail' region_slug=object.slug category_slug=item.category.slug slug=item.slug %}">{{ item.title }}</a>
+                                    </p>
+                                    <p>{{ item.content|slice:"150"|safe }} ...</p>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- END SECTION ATTRACTION-->
+        </section>
+        <!-- END SECTION ATTRACTION-->
+    {% endif %}
     {% if object.is_city %}
         <!--SECTION REVIEWS-->
         <section>
             <div class="container">
                 <div class="curort-feedback">
-                    <h2>Последние <span>отзывы</span></h2>
-                    <div class="owl-carousel curort-feedback-cont">
-                        {% for item in review_list %}
-                            <div class="item">
-                                <div class="curort-feedback-item">
-                                    <p class="feedback-title">{{ item }}</p>
-                                    <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
-                                    <p class="feedback-name">{{ item.name }}</p>
-                                    <p class="feedback-rate">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/rateempty.png' %}" alt="">
-                                    </p>
-                                    <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
-                                    <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                    {% if review_list %}
+                        <h2>Последние <span>отзывы</span></h2>
+                        <div class="owl-carousel curort-feedback-cont">
+                            {% for item in review_list %}
+                                <div class="item">
+                                    <div class="curort-feedback-item">
+                                        <p class="feedback-title">{{ item }}</p>
+                                        <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
+                                        <p class="feedback-name">{{ item.name }}</p>
+                                        <p class="feedback-rate">
+                                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            <img src="{% static 'img/rateempty.png' %}" alt="">
+                                        </p>
+                                        <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
+                                        <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                                    </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
@@ -714,44 +722,50 @@
         <section>
             <div class="container">
                 <div class="closert-curorts">
-                    <h2>Курорты <span>рядом</span></h2>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                    {% if curort_near_list %}
+                        <h2>Курорты <span>рядом</span></h2>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="closest-cont">
+                                    <img src="{% static 'img/closest-img.png' %}" alt="">
+                                    <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                     alt="">
+                                        <span>350 км</span>
+                                    </p>
+                                    <p class="closets-name">Красная поляна</p>
+                                    <p class="closest-text">от 800 руб. за человека всутки</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="closest-cont">
+                                    <img src="{% static 'img/closest-img.png' %}" alt="">
+                                    <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                     alt="">
+                                        <span>350 км</span>
+                                    </p>
+                                    <p class="closets-name">Красная поляна</p>
+                                    <p class="closest-text">от 800 руб. за человека всутки</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="closest-cont">
+                                    <img src="{% static 'img/closest-img.png' %}" alt="">
+                                    <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                     alt="">
+                                        <span>350 км</span>
+                                    </p>
+                                    <p class="closets-name">Красная поляна</p>
+                                    <p class="closest-text">от 800 руб. за человека всутки</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}" alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
-
             </div>
+
         </section>
         <!--END SECTION OBJECTS NEAR-->
+
     {% endif %}
 
 
