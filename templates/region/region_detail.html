@@ -548,8 +548,11 @@
                                 </div>
                             {% endfor %}
                         </div>
-                    <h2>На карте</h2>
-                        <div id="map"/>
+                        <div class="mt-100">
+                            <h2>На карте</h2>
+                            <div id="map"/>
+                        </div>
+
                         <!--       <div class="curort-diagram mt-100">
                                    <h2>График <span>цен, температуры воздуха и воды по месяцам в Адлере</span></h2>
                                    <ul class="flex direction-ul curort-ul">
@@ -770,9 +773,9 @@
 
     {% endif %}
 
-<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
             type="text/javascript"></script>
-     <script>ymaps.ready(init);
+    <script>ymaps.ready(init);
 
     function init() {
         var myMap = new ymaps.Map('map', {
