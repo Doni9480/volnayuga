@@ -12,6 +12,11 @@ class HotelDistanceAdmin(admin.TabularInline):
     extra = 3
     classes = ('collapse',)
 
+class HotelNumberInline(admin.StackedInline):
+    model = Number
+    extra = 3
+    classes = ('collapse',)
+
 class HotelAdmin(admin.ModelAdmin):
     inlines = [HotelImageAdmin, HotelDistanceAdmin]
     list_display = ['title', 'city']
@@ -72,6 +77,12 @@ class NumberPriceAdmin(admin.ModelAdmin):
     def get_hotel(self, obj):
         return obj.number.hotel
 
+class PricePeriodAdmin(admin.ModelAdmin):
+    list_display = ['period', 'hotel']
+    list_filter = ['hotel']
+
+    def period(self, obj):
+        return str(obj.start) + '/' + str(obj.end)
 
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Number, NumberAdmin)
@@ -82,7 +93,7 @@ admin.site.register(NumberOption)
 admin.site.register(Distance)
 admin.site.register(DistanceTime)
 admin.site.register(Price, NumberPriceAdmin)
-admin.site.register(PricePeriod)
+admin.site.register(PricePeriod, PricePeriodAdmin)
 
 
 
