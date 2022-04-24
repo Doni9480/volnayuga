@@ -212,19 +212,21 @@
                     </div>
                     <div class="object-prices mb-100">
                         <h2 class="photo-rooms">Номера и цены</h2>
-                        <div class="my-object-card-cont curort-card-count">
+                        <div class="my-object-card-cont curort-card-cont">
                             {% for number in object.number_set.all %}
                                 <div class="my-object-card flex mt-30">
                                     <div class="card-image">
-                                        <div class="owl-admin" class="owl-carousel">
+                                        <div class="owl-admin owl-carousel">
                                             {% for item in number.numberphoto_set.all %}
                                                 <div class="item">
                                                     <div class="item-img">
+                                                    <a href="">
                                                         {% thumbnail item.image '262x180' crop='center' as img %}
                                                             <img class="lazyOwl" data-src="{{ img.url }}"
                                                                  width="{{ im.width }}"
                                                                  height="{{ im.height }}" alt="{{ img.name }}">
                                                         {% endthumbnail %}
+                                                    </a>
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -236,21 +238,20 @@
                                             <div class="card-body-cont">
                                                 <p>{{ number.title }}</p>
                                                 <p class="card-location">{{ number.room_number }} комната
-                                                    | {{ number.room_square }} м2</p>
+                                                    {{ number.room_square }} м2</p>
                                                 <p class="card-distance">{{ number.sleep_place }} спальных места</p>
                                             </div>
                                             <div class="room-price flex room-price-fixed">
-
                                                 {% for option in number.options.all %}
                                                     <span>{{ option }}</span>
                                                 {% endfor %}
-                                                <div>{{ number.furniture|safe }}</div>
+                                            <div class="">{{ number.furniture|safe}}</div>
                                             </div>
                                         </div>
                                         <div class="card-body-right flex directionColumn juatifyBetween">
                                             <div class="curort-price">
                                                 <div class="curort-price1">{{ number.get_price_today }} руб.</div>
-                                                <div class="curort-price2">за 1 ночь</div>
+                                                <div class="curort-price2">за 1 сутки</div>
                                             </div>
                                             <button class="show-price">Оставить заявку</button>
                                             <button class="show-price-show">Показать все <i
