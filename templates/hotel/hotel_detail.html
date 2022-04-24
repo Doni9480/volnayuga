@@ -212,7 +212,7 @@
                     </div>
                     <div class="object-prices mb-100">
                         <h2 class="photo-rooms">Номера и цены</h2>
-                        <div class="my-object-card-cont">
+                        <div class="my-object-card-cont curort-card-count">
                             {% for number in object.number_set.all %}
                                 <div class="my-object-card flex mt-30">
                                     <div class="card-image">
@@ -427,145 +427,49 @@
         <div class="black-sea other-object">
             <h2> Другие<span> объекты {{ object.city }}</span></h2>
             <div id="owl-demo-object" class="owl-carousel">
-            {% if another_hotels %}
-                {% for item in another_hotels %}
-                    <div class="item">
-                        <div class="popularUp">
-                            <div class="black-cont">
-                                {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
-                                    <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
-                                {% endthumbnail %}
-                                <p class="bold"><a
-                                        href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
-                                </p>
-                                <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
-                                <p>
-                                    <span>от 400 руб.</span>
-                                    / за 1 ночь
-                                </p>
-                            </div>
-                            <div class="black-sea-icon flex">
-                                <div class="black-sea-check">
-                                    <img src="{% static 'img/check.png' %}" alt="">
+                {% if another_hotels %}
+                    {% for item in another_hotels %}
+                        <div class="item">
+                            <div class="popularUp">
+                                <div class="black-cont">
+                                    <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
+                                        {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
+                                            <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
+                                        {% endthumbnail %}
+                                    </a>
+                                    <p class="bold"><a
+                                            href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
+                                    </p>
+                                    <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
+                                    <p>
+                                        <span>от 400 руб.</span>
+                                        / за 1 ночь
+                                    </p>
                                 </div>
-                                <div class="black-sea-link">
-                                    <img src="{% static 'img/like.png' %}" alt="">
+                                <div class="black-sea-icon flex">
+                                    <div class="black-sea-check">
+                                        <img src="{% static 'img/check.png' %}" alt="">
+                                    </div>
+                                    <div class="black-sea-link">
+                                        <img src="{% static 'img/like.png' %}" alt="">
+                                    </div>
+                                    <div class="black-sea-taxi">
+                                        <img src="{% static 'img/taxi.png' %}" alt="">
+                                    </div>
+                                    {% for option in object.options.all %}
+                                        <span>{{ option }}</span>
+                                    {% endfor %}
                                 </div>
-                                <div class="black-sea-taxi">
-                                    <img src="{% static 'img/taxi.png' %}" alt="">
-                                </div>
-                                {% for option in object.options.all %}
-                                    <span>{{ option }}</span>
-                                {% endfor %}
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
         </div>
     </section>
-{% endblock %}
-{% block styleandscripts %}
-    <style>
-        .curort-feedback-cont .item, #owl-demo-object .item {
-            margin: 0 15px 0 15px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .curort-feedback-cont {
-            margin: 0 -15px 0 -15px;
-            width: calc(100% + 30px);
-        }
-
-        .curort-feedback-cont .owl-pagination {
-            top: 0;
-        }
-
-        #owl-demo .item img, #owl-demo-object .item img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 25px;
-        }
-
-        .owl-theme .owl-controls .owl-page span {
-            background: none !important;
-            border: 1px solid #F2C700;
-            width: 8px;
-            height: 8px;
-        }
-
-        .owl-theme .owl-controls .owl-page.active span {
-            background: #F2C700 !important;
-            border: none;
-        }
-
-        .owl-theme .owl-controls {
-            margin-top: 0 !important;
-        }
-
-        .owl-pagination {
-            top: -35px;
-        }
-
-        #exampleModalCenter .modal-header {
-            border-bottom: none;
-        }
-
-        #exampleModalCenter .modal-body {
-            padding-bottom: 30px;
-        }
-
-        .big-tel {
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        .small-tel {
-            color: #003D7C;
-            margin-bottom: 20px;
-        }
-
-        .modalPromo {
-            width: 60%;
-            text-align: center;
-        }
-    </style>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
             type="text/javascript"></script>
-    <script>
-  $(document).ready(function () {
-
-    $(".owl-admin").owlCarousel({
-      items: 1,
-      lazyLoad: true,
-      navigation: false,
-      itemsDesktop: [1199, 1],
-      itemsDesktopSmall: [992, 1],
-      itemsTablet: [768, 1],
-    });
-    $(".curort-feedback-cont").owlCarousel({
-      items: 2,
-      lazyLoad: true,
-      navigation: true,
-      navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
-      itemsDesktop: [1200, 2],
-      itemsDesktopSmall: [992, 2],
-      itemsMobile: [576, 1],
-    })
-    $("#owl-demo-object").owlCarousel({
-      items: 4,
-      lazyLoad: true,
-      navigation: true,
-      navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
-      itemsDesktopSmall: [1200, 3],
-      itemsMobile: [576, 1],
-    });
-  });
-</script>
     <script>ymaps.ready(init);
 
     function init() {
@@ -659,5 +563,6 @@
         });
     }</script>
 {% endblock %}
+
 
 

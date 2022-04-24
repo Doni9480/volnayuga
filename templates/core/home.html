@@ -112,10 +112,14 @@
                                     <div class="item">
                                         <div class="popularUp">
                                             <div class="black-cont">
-                                                <img class="lazyOwl" data-src="{% static 'img/black1.png' %}"
-                                                     alt="Lazy Owl Image">
-                                                <p class="bold"><a
-                                                        href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
+                                                <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
+                                                    {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
+                                                        <img class="lazyOwl" data-src="{{ im.url }}"
+                                                             alt="{{ im.name }}">
+                                                    {% endthumbnail %}
+                                                </a>
+                                                <p class="bold">
+                                                    <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
                                                 </p>
                                                 <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
                                                 <p>
@@ -154,8 +158,12 @@
                                 <div class="item">
                                     <div class="popularUp">
                                         <div class="black-cont">
-                                            <img class="lazyOwl" data-src="{% static 'img/black1.png' %}"
-                                                 alt="Lazy Owl Image">
+                                            <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
+                                                {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
+                                                    <img class="lazyOwl" data-src="{{ im.url }}"
+                                                         alt="{{ im.name }}">
+                                                {% endthumbnail %}
+                                            </a>
                                             <p class="bold">{{ item.title }}</p>
                                             <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
                                             <p>
@@ -192,8 +200,12 @@
                                 <div class="item">
                                     <div class="popularUp">
                                         <div class="black-cont">
-                                            <img class="lazyOwl" data-src="{% static 'img/black1.png' %}"
-                                                 alt="Lazy Owl Image">
+                                            <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
+                                                {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
+                                                    <img class="lazyOwl" data-src="{{ im.url }}"
+                                                         alt="{{ im.name }}">
+                                                {% endthumbnail %}
+                                            </a>
                                             <p class="bold">{{ item }}</p>
                                             <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
                                             <p>
