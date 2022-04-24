@@ -32,6 +32,7 @@ OPTIONCATEGORYCHOICE = (
 class HotelOption(models.Model):
     """Опции объекта"""
     title = models.CharField(max_length=100, verbose_name='Название')
+    comment = models.CharField(max_length=100, blank=True, verbose_name='Комментарии')
     category = models.CharField(max_length=50, choices=OPTIONCATEGORYCHOICE, default='food', verbose_name='Категория')
     icon = models.CharField(max_length=50, blank=True, verbose_name='Класс иконки font-awesome')
 

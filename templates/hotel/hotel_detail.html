@@ -537,35 +537,35 @@
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
             type="text/javascript"></script>
     <script>
-        $(document).ready(function () {
+  $(document).ready(function () {
 
-            $(".owl-admin").owlCarousel({
-                items: 1,
-                lazyLoad: true,
-                navigation: false,
-                itemsDesktop: [1199, 1],
-                itemsDesktopSmall: [992, 1],
-                itemsTablet: [768, 1],
-            });
-            $(".curort-feedback-cont").owlCarousel({
-                items: 2,
-                lazyLoad: true,
-                navigation: true,
-                navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
-                itemsDesktop: [1200, 2],
-                itemsDesktopSmall: [992, 2],
-                itemsMobile: [576, 1],
-            })
-            $("#owl-demo-object").owlCarousel({
-                items: 4,
-                lazyLoad: true,
-                navigation: true,
-                navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
-                itemsDesktopSmall: [1200, 3],
-                itemsMobile: [576, 1],
-            });
-        });
-    </script>
+    $(".owl-admin").owlCarousel({
+      items: 1,
+      lazyLoad: true,
+      navigation: false,
+      itemsDesktop: [1199, 1],
+      itemsDesktopSmall: [992, 1],
+      itemsTablet: [768, 1],
+    });
+    $(".curort-feedback-cont").owlCarousel({
+      items: 2,
+      lazyLoad: true,
+      navigation: true,
+      navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
+      itemsDesktop: [1200, 2],
+      itemsDesktopSmall: [992, 2],
+      itemsMobile: [576, 1],
+    })
+    $("#owl-demo-object").owlCarousel({
+      items: 4,
+      lazyLoad: true,
+      navigation: true,
+      navigationText: ['<img src="/static/img/prev.png">', '<img src="/static/img/next.png">'],
+      itemsDesktopSmall: [1200, 3],
+      itemsMobile: [576, 1],
+    });
+  });
+</script>
     <script>ymaps.ready(init);
 
     function init() {
