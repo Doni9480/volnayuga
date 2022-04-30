@@ -220,13 +220,13 @@
                                             {% for item in number.numberphoto_set.all %}
                                                 <div class="item">
                                                     <div class="item-img">
-                                                    <a href="">
-                                                        {% thumbnail item.image '262x180' crop='center' as img %}
-                                                            <img class="lazyOwl" data-src="{{ img.url }}"
-                                                                 width="{{ im.width }}"
-                                                                 height="{{ im.height }}" alt="{{ img.name }}">
-                                                        {% endthumbnail %}
-                                                    </a>
+                                                        <a href="">
+                                                            {% thumbnail item.image '262x180' crop='center' as img %}
+                                                                <img class="lazyOwl" data-src="{{ img.url }}"
+                                                                     width="{{ im.width }}"
+                                                                     height="{{ im.height }}" alt="{{ img.name }}">
+                                                            {% endthumbnail %}
+                                                        </a>
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -241,13 +241,16 @@
                                                     {{ number.room_square }} м2</p>
                                                 <p class="card-distance">{{ number.sleep_place }} спальных места</p>
                                             </div>
-                                            <div class="room-price flex room-price-fixed">
+                                            <div class="room-price flex room-price-fixed  hidden">
                                                 {% for option in number.options.all %}
                                                     <span>{{ option }}</span>
                                                 {% endfor %}
-                                            <div class="">{{ number.furniture|safe}}</div>
+                                                <div class="row">
+                                                    <div class="col-md-11">{{ number.furniture|safe }}</div>
+                                                </div>
                                             </div>
                                         </div>
+
                                         <div class="card-body-right flex directionColumn juatifyBetween">
                                             <div class="curort-price">
                                                 <div class="curort-price1">{{ number.get_price_today }} руб.</div>
@@ -258,6 +261,7 @@
                                                     class="fa fa-angle-down"></i>
                                             </button>
                                         </div>
+
                                     </div>
                                 </div>
                             {% endfor %}

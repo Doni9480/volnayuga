@@ -2394,9 +2394,14 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
 }
 
 .card-image {
-    width: 262px;
+    width: 262px !important;
 }
-
+.hidden {
+    display: none;
+}
+.hidden-none{
+    display: block !important;
+}
 /*-------------------------------------------------end myObject-------------------------------------*/
 /*-------------------------------------------------start addObject-------------------------------------*/
 

@@ -26,7 +26,7 @@ $(document).ready(function () {
     }
   });
   $(".show-price-show").click(function () {
-    $(this).closest(".card-body").find(".room-price").toggleClass('room-price-fixed')
+    $(this).closest(".card-body").find(".room-price").toggleClass('room-price-fixed hidden-none')
     $(this).find("i").toggleClass("flip")
   })
 
