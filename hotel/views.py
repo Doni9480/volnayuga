@@ -14,3 +14,6 @@ def home_view(request):
     return render(request, template_name='hotel/home.html', context=context)
 
 
+
+
+

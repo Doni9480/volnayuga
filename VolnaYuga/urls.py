@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
+
 from accounts.views import register_request, login_request,  logout_request, password_reset_request
 from core.views import AboutPage, ContactPage, RentPage, HomePage
 from django.conf import settings
@@ -25,6 +27,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
     path('about/', AboutPage.as_view(), name='about'),
     path('contact/', ContactPage.as_view(), name='contact'),
     path('rent/', RentPage.as_view(), name='rent'),

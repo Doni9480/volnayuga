@@ -12,6 +12,7 @@ from region.models import Region
 class TypeofObject(models.Model):
     """Типы объектов сдачи"""
     title = models.CharField(max_length=100, verbose_name='Название')
+    slug = models.SlugField(default='default', verbose_name='URL')
     image = models.ImageField(upload_to='hotel/hoteltype', null=True, blank=True, verbose_name='Изображение')
 
     class Meta:

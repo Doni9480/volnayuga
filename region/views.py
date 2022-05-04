@@ -26,7 +26,8 @@ class RegionDetail(DetailView):
             (city=self.object))
         context['hotel_type'] = TypeofObject.objects.all()  # Подборка жилья по типу
         region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(
-            Q(odd=False, parent__parent=self.object, is_popular=True) | Q(odd=False, parent=self.object,is_popular=True))
+            Q(odd=False, parent__parent=self.object, is_popular=True) | Q(odd=False, parent=self.object,
+                                                                          is_popular=True))
         region_popular_list2 = Region.objects.annotate(odd=F('id') % 2).filter(
             Q(odd=True, parent__parent=self.object, is_popular=True) | Q(odd=True, parent=self.object, is_popular=True))
         context['region_popular_list'] = zip(region_popular_list, region_popular_list2)
@@ -39,7 +40,9 @@ class RegionDetail(DetailView):
             Q(city__parent=self.object, premium=True) | Q(city__parent__parent=self.object, premium=True))
         context['today'] = date.today()
         context['review_list'] = Review.objects.filter(hotel__city=self.object)
-        ids_typeofobject = Hotel.objects.filter(city=self.object).values_list('object_type',flat=True).distinct()
+        ids_typeofobject = Hotel.objects.filter(
+            Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
+            'object_type', flat=True).distinct()
         context['typeobject'] = TypeofObject.objects.filter(id__in=ids_typeofobject)
         context['filter'] = HotelFilterForm()
         return context
@@ -58,3 +61,12 @@ class HotelDetail(DetailView):
         context['options_category'] = HotelOption.objects.filter(hotel=self.get_object())
         context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         return context
+
+
+class HotelFilterByType(DetailView):
+    """Filter by object`s type"""
+    model = Region
+
+    def get_context_data(self, **kwargs):
+        context = super(HotelFilterByType, self).get_context_data(**kwargs)
+        context['hotel_list'] = Hotel.objects.all()

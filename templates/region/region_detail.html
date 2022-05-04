@@ -381,14 +381,16 @@
                         <div class="item">
                             <div class="popularUp">
                                 <div class="popularUpImg">
+                                    <a href="{% url 'region:hotel_type_filter' slug=object.slug type_slug=item.slug %}">
                                     {% if item.image %}
                                         {% thumbnail item.image '262x180' crop='center' as im %}
                                             <img class="lazyOwl" data-src="{{ im.url }}" width="{{ im.width }}"
-                                                 height="{{ im.height }}" alt="Lazy Owl Image">
+                                                 height="{{ im.height }}" alt="{{ item.meta_title }}" title="{{ item.meta_title }}">
                                         {% endthumbnail %}
                                     {% else %}
-                                        <img src="{% static 'img/black1.png' %}" alt="Lazy Owl Image">
+                                        <img src="{% static 'img/black1.png' %}" alt="{{ item.meta_title }}" title="{{ item.meta_title }}">
                                     {% endif %}
+                                    </a>
                                 </div>
                                 <p>{{ item }}</p>
                             </div>
