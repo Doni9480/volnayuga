@@ -2534,7 +2534,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
 }
 
 .show-all-pic {
-    background: linear-gradient(0deg, rgba(33, 41, 62, 0.8), rgba(33, 41, 62, 0.8)), url(image.png);
+    background: linear-gradient(0deg, rgba(33, 41, 62, 0.8), rgba(33, 41, 62, 0.8));
     border-radius: 15px;
     position: absolute;
     top: 0;
@@ -2683,7 +2683,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     font-family: 'Montserrat';
     font-weight: 500;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 32px;
     color: #21293E;
     padding: 5px 10px;
     background: rgba(69, 129, 218, 0.15);
