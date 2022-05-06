@@ -173,7 +173,7 @@
                                 {% endfor %}
                             </div>
                             <div class="object-left-second-down flex">
-                                {% for item in object.hotelphoto_set.all|slice:"3:6" %}
+                                {% for item in object.hotelphoto_set.all|slice:"3:5" %}
                                     <div class="object-left-second-down-{% if forloop.counter|divisibleby:2 %}two relative{% else %}one{% endif %}">
                                         {% thumbnail item.image '202x141' crop='center' as im %}
                                             <img class="lightboxed" rel="group1" src="{{ im.url }}"

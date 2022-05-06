@@ -230,6 +230,7 @@
                 items: 1,
                 lazyLoad: true,
                 navigation: true,
+                pagination:false,
                 navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
                 itemsDesktop: [1199, 1],
                 itemsDesktopSmall: [992, 1],
@@ -279,11 +280,11 @@
                 itemsMobile: [576, 1],
             });
             $(".owl-demo-object").owlCarousel({
-                items: 6,
+                items: 5,
                 lazyLoad: true,
                 navigation: true,
                 navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
-                itemsDesktop: [1199, 6],
+                itemsDesktop: [1199, 5],
                 itemsDesktopSmall: [992, 4],
                 itemsTablet: [768, 3],
                 itemsMobile: [576, 2],

@@ -327,15 +327,6 @@
                                                         км</p>
                                                 </div>
                                                 <div class="black-sea-icon flex">
-                                                    <div class="black-sea-check">
-                                                        <img src="{% static 'img/check.png' %}" alt="">
-                                                    </div>
-                                                    <div class="black-sea-link">
-                                                        <img src="{% static 'img/like.png' %}" alt="">
-                                                    </div>
-                                                    <div class="black-sea-taxi">
-                                                        <img src="{% static 'img/taxi.png' %}" alt="">
-                                                    </div>
                                                     {% for option in hotel.options.all|slice:":3" %}
                                                         <span>{{ option }}</span>
                                                     {% endfor %}

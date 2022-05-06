@@ -187,23 +187,11 @@ CKEDITOR_ALLOW_NONIMAGE_FILES = False  # False - Only image files. (At your disc
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
-        'height': 200,
+        'height': 230,
         'width': 550,
     },
-    'djeym': {
-        'toolbar': 'Basic',
-        'height': 200,
-        'width': 600,
-        'colorButton_colors': 'F44336,C62828,E91E63,AD1457,9C27B0,6A1B9A,'
-                              '673AB7,4527A0,3F51B5,283593,2196F3,1565C0,'
-                              '03A9F4,0277BD,00BCD4,00838F,009688,00695C,'
-                              '4CAF50,2E7D32,8BC34A,558B2F,CDDC39,9E9D24,'
-                              'FFEB3B,F9A825,FFC107,FF8F00,FF9800,EF6C00,'
-                              'FF5722,D84315,795548,4E342E,607D8B,37474F,'
-                              '9E9E9E,424242,000000,FFFFFF',
-        'colorButton_enableAutomatic': False,
-        'colorButton_enableMore': True
-    }
+    'allowedContent': 'true',
+
 }
 
 YANDEX_MAPS_API_KEY=env('YANDEX_MAPS_API_KEY')
