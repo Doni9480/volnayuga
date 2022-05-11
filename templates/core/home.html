@@ -214,7 +214,7 @@
                                             </p>
                                         </div>
                                         <div class="black-sea-icon flex">
-                                            {% for option in item.options.all %}
+                                            {% for option in item.options.all|slice:":2" %}
                                                 <span>{{ option }}</span>
                                             {% endfor %}
                                         </div>
