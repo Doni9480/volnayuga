@@ -128,15 +128,15 @@
                                                 </p>
                                             </div>
                                             <div class="black-sea-icon flex">
-                                                <div class="black-sea-check">
-                                                    <img src="{% static 'img/check.png' %}" alt="">
-                                                </div>
-                                                <div class="black-sea-link">
-                                                    <img src="{% static 'img/like.png' %}" alt="">
-                                                </div>
-                                                <div class="black-sea-taxi">
-                                                    <img src="{% static 'img/taxi.png' %}" alt="">
-                                                </div>
+{#                                                <div class="black-sea-check">#}
+{#                                                    <img src="{% static 'img/check.png' %}" alt="">#}
+{#                                                </div>#}
+{#                                                <div class="black-sea-link">#}
+{#                                                    <img src="{% static 'img/like.png' %}" alt="">#}
+{#                                                </div>#}
+{#                                                <div class="black-sea-taxi">#}
+{#                                                    <img src="{% static 'img/taxi.png' %}" alt="">#}
+{#                                                </div>#}
                                                 {% for option in item.options.all|slice:":2" %}
                                                     <span>{{ option }}</span>
                                                 {% endfor %}
@@ -172,15 +172,15 @@
                                             </p>
                                         </div>
                                         <div class="black-sea-icon flex">
-                                            <div class="black-sea-check">
-                                                <img src="{% static 'img/check.png' %}" alt="">
-                                            </div>
-                                            <div class="black-sea-link">
-                                                <img src="{% static 'img/like.png' %}" alt="">
-                                            </div>
-                                            <div class="black-sea-taxi">
-                                                <img src="{% static 'img/taxi.png' %}" alt="">
-                                            </div>
+{#                                            <div class="black-sea-check">#}
+{#                                                <img src="{% static 'img/check.png' %}" alt="">#}
+{#                                            </div>#}
+{#                                            <div class="black-sea-link">#}
+{#                                                <img src="{% static 'img/like.png' %}" alt="">#}
+{#                                            </div>#}
+{#                                            <div class="black-sea-taxi">#}
+{#                                                <img src="{% static 'img/taxi.png' %}" alt="">#}
+{#                                            </div>#}
                                             {% for option in item.options.all|slice:":2" %}
                                                 <span>{{ option }}</span>
                                             {% endfor %}
@@ -214,15 +214,6 @@
                                             </p>
                                         </div>
                                         <div class="black-sea-icon flex">
-                                            <div class="black-sea-check">
-                                                <img src="{% static 'img/check.png' %}" alt="">
-                                            </div>
-                                            <div class="black-sea-link">
-                                                <img src="{% static 'img/like.png' %}" alt="">
-                                            </div>
-                                            <div class="black-sea-taxi">
-                                                <img src="{% static 'img/taxi.png' %}" alt="">
-                                            </div>
                                             {% for option in item.options.all %}
                                                 <span>{{ option }}</span>
                                             {% endfor %}
