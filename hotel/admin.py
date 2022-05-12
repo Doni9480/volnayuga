@@ -1,6 +1,10 @@
 from django.contrib import admin
 from hotel.models import *
 
+class TypeOfObjectAdmin(admin.ModelAdmin):
+    model = TypeofObject
+    prepopulated_fields = {"slug": ("title",)}
+
 
 class HotelImageAdmin(admin.TabularInline):
     model = HotelPhoto
@@ -84,11 +88,13 @@ class PricePeriodAdmin(admin.ModelAdmin):
     def period(self, obj):
         return str(obj.start) + '/' + str(obj.end)
 
+
+
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Number, NumberAdmin)
 admin.site.register(HotelOption)
 admin.site.register(HotelContact)
-admin.site.register(TypeofObject)
+admin.site.register(TypeofObject,TypeOfObjectAdmin)
 admin.site.register(NumberOption)
 admin.site.register(Distance)
 admin.site.register(DistanceTime)
