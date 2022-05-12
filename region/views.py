@@ -66,7 +66,15 @@ class HotelDetail(DetailView):
 class HotelFilterByType(DetailView):
     """Filter by object`s type"""
     model = Region
+    template_name = 'region/hotel_filter.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Region, slug=self.kwargs['slug'])
 
     def get_context_data(self, **kwargs):
         context = super(HotelFilterByType, self).get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.all()
+        region = Region.objects.get(slug=self.kwargs['slug'])
+        context['hotel_list'] = region.hotel_set.filter(object_type__slug=self.kwargs['type_slug'])
+        context['filter'] = HotelFilterForm()
+        context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
+        return context

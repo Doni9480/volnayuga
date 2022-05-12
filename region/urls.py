@@ -10,6 +10,6 @@ app_name = 'region'
 
 urlpatterns = [
     path('', RegionDetail.as_view(), name='region_detail'),
-    path('<pk>/', HotelDetail.as_view(), name='hotel_detail'),
+    path('<int:pk>/', HotelDetail.as_view(), name='hotel_detail'),
     path('<type_slug>/', HotelFilterByType.as_view(), name='hotel_type_filter'),
 ]
