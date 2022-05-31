@@ -12,6 +12,8 @@ class Region(models.Model):
     slug = models.SlugField(unique=True, verbose_name='URL')
     meta_title = models.CharField(max_length=100, blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
+    h1_title = models.CharField(max_length=100, blank=True, verbose_name='Заголовок H1')
+    short_description = models.TextField(blank=True, verbose_name='Короткое описание в шапке')
     is_city = models.BooleanField(default=False, verbose_name='Если город, то ставь галочку!')
     is_popular = models.BooleanField(default=False, verbose_name='Показывать в блоке популярные на главной')
     is_most_interesting = models.BooleanField(default=False, verbose_name='Показывать на главной в первом блоке')

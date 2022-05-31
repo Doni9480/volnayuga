@@ -3,9 +3,8 @@ from datetime import date
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
-from accounts.forms import HotelFilterForm
+from hotel.forms import HotelFilterForm, HotelFilter
 from attraction.models import Attraction, AttractionCategory
-from hotel.filter import ProductFilter
 from review.models import Review
 from .models import *
 from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod
@@ -73,8 +72,23 @@ class HotelFilterByType(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(HotelFilterByType, self).get_context_data(**kwargs)
-        region = Region.objects.get(slug=self.kwargs['slug'])
-        context['hotel_list'] = region.hotel_set.filter(object_type__slug=self.kwargs['type_slug'])
+        context['hotel_list'] = Hotel.objects.filter(Q(object_type__slug=self.kwargs['type_slug'], city=self.object)|
+                                                     Q(object_type__slug=self.kwargs['type_slug'], city__parent=self.object)|
+                                                     Q(object_type__slug=self.kwargs['type_slug'],
+                                                       city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         return context
+
+
+class HotelFilterLeftBlock(ListView):
+    """Ajax filter in left block"""
+    model = Hotel
+    template_name = 'region/hotel_filter.html'
+
+    def get_queryset(self):
+        return self.objects.all()
+
+def hotel_list(request, slug):
+    form = HotelFilterForm(request.GET)
+    return render(request, 'region/filter.html', {'filter': form})

@@ -126,11 +126,11 @@
                 {% endif %}
             </ul>
             <div class="headerTitle">
-                <h1>{{ object.meta_title }}</h1>
+                <h1>{{ object.h1_title }}</h1>
                 {% if object.is_city %}
                     <p class="search-result">Найдено объектов {{ object.hotel_set.count }}</p>
                 {% endif %}
-                <p>{{ object.meta_description|safe }}</p>
+                <p>{{ object.short_description|safe }}</p>
             </div>
             <button class="hidden-find" data-toggle="modal" data-target="#searchModal1">найти курорт</button>
             <div class="header-form">
