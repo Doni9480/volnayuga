@@ -40,13 +40,15 @@ class HotelFilterForm(forms.ModelForm):
                 HTML("""<p>Цена за номер, руб.</p>"""),
                 Div(
                     Div(
-                        'price_min',
-                        HTML("""<p>-</p>"""),
-                        'price_max',
+                        HTML("""<input type="text" class="range_min light left">"""),
+                        HTML("""<div>-</div>"""),
+                        HTML("""<input type="text" class="range_max light right">"""),
 
                         css_class='input-cont flex juatifyBetween alignCenter',
                     ),
-
+                    HTML("""<input class="min" name="range_1" type="range" min="1" max="100" value="10">
+                    <input class="max" name="range_2" type="range" min="1" max="100" value="90">"""
+                    ),
                     css_class='rangeSlider',
                 ),
                 css_class='left-filter1',

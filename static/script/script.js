@@ -55,18 +55,18 @@ $(document).ready(function () {
       $(minBtn).val(maxVal - 5);
     }
     var minVal = parseInt($(minBtn).val());
-    $(range_min).val(addSeparator(minVal * 1000));
+    $(range_min).val(addSeparator(minVal * 100));
     if (origin === 'max' && maxVal - 5 < minVal) {
       $(maxBtn).val(5 + minVal);
     }
     var maxVal = parseInt($(maxBtn).val());
-    $(range_max).val(addSeparator(maxVal * 1000));
+    $(range_max).val(addSeparator(maxVal * 100));
   }
 
   (function () {
     let range_min, range_max, minVal, maxVal;
-    $(".range_min").val($(".min").val() * 1000);
-    $(".range_max").val($(".max").val() * 1000);
+    $(".range_min").val($(".min").val() * 100);
+    $(".range_max").val($(".max").val() * 100);
     $('input[type="range"]').on('input', rangeInputChangeEventHandler);
   })();
 

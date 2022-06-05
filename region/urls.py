@@ -3,7 +3,7 @@ from django_filters.views import FilterView
 
 from hotel.models import Hotel
 from region.models import Region
-from region.views import HotelDetail, HotelFilterByType, hotel_list
+from region.views import HotelDetail, HotelFilterByType, hotel_list, HotelFilterLeftBlock
 from region.views import RegionDetail
 
 app_name = 'region'
