@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'region',
     'review',
     'core',
+    'seo',
 
     'phonenumber_field',
     'django_registration',

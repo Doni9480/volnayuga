@@ -120,13 +120,6 @@ def hotel_list(request, slug):
 
 
 
-
-
-
-
-
-
-
     return render(request, 'region/filter.html', {'filter': form,
                                                   'hotel_list':hotel_list,
                                                   'object':object,

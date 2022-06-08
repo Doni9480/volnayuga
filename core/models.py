@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
 class StaticData(models.Model):
@@ -14,3 +15,4 @@ class StaticData(models.Model):
 
     def __str__(self):
         return 'Логотипы и контактная информация'
+

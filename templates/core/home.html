@@ -128,15 +128,15 @@
                                                 </p>
                                             </div>
                                             <div class="black-sea-icon flex">
-{#                                                <div class="black-sea-check">#}
-{#                                                    <img src="{% static 'img/check.png' %}" alt="">#}
-{#                                                </div>#}
-{#                                                <div class="black-sea-link">#}
-{#                                                    <img src="{% static 'img/like.png' %}" alt="">#}
-{#                                                </div>#}
-{#                                                <div class="black-sea-taxi">#}
-{#                                                    <img src="{% static 'img/taxi.png' %}" alt="">#}
-{#                                                </div>#}
+                                                {#                                                <div class="black-sea-check">#}
+                                                {#                                                    <img src="{% static 'img/check.png' %}" alt="">#}
+                                                {#                                                </div>#}
+                                                {#                                                <div class="black-sea-link">#}
+                                                {#                                                    <img src="{% static 'img/like.png' %}" alt="">#}
+                                                {#                                                </div>#}
+                                                {#                                                <div class="black-sea-taxi">#}
+                                                {#                                                    <img src="{% static 'img/taxi.png' %}" alt="">#}
+                                                {#                                                </div>#}
                                                 {% for option in item.options.all|slice:":2" %}
                                                     <span>{{ option }}</span>
                                                 {% endfor %}
@@ -172,15 +172,15 @@
                                             </p>
                                         </div>
                                         <div class="black-sea-icon flex">
-{#                                            <div class="black-sea-check">#}
-{#                                                <img src="{% static 'img/check.png' %}" alt="">#}
-{#                                            </div>#}
-{#                                            <div class="black-sea-link">#}
-{#                                                <img src="{% static 'img/like.png' %}" alt="">#}
-{#                                            </div>#}
-{#                                            <div class="black-sea-taxi">#}
-{#                                                <img src="{% static 'img/taxi.png' %}" alt="">#}
-{#                                            </div>#}
+                                            {#                                            <div class="black-sea-check">#}
+                                            {#                                                <img src="{% static 'img/check.png' %}" alt="">#}
+                                            {#                                            </div>#}
+                                            {#                                            <div class="black-sea-link">#}
+                                            {#                                                <img src="{% static 'img/like.png' %}" alt="">#}
+                                            {#                                            </div>#}
+                                            {#                                            <div class="black-sea-taxi">#}
+                                            {#                                                <img src="{% static 'img/taxi.png' %}" alt="">#}
+                                            {#                                            </div>#}
                                             {% for option in item.options.all|slice:":2" %}
                                                 <span>{{ option }}</span>
                                             {% endfor %}
@@ -234,6 +234,17 @@
     <section>
         <div class="container">
             <div class="direction">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ object.content_1|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="direction">
                 <h2>Все наши <span> направления </span></h2>
                 <ul class="flex direction-ul">
                     {% for item in region_most_interesting_list %}
@@ -263,6 +274,17 @@
                             </div>
                         </div>
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="direction">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ object.content_2|safe }}
+                    </div>
                 </div>
             </div>
         </div>

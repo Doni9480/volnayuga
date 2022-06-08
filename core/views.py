@@ -4,15 +4,17 @@ from django.db.models import F
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
+from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
 
 
 class HomePage(TemplateView):
-    """View site page"""
+    """Home page"""
     template_name = 'core/home.html'
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(HomePage, self).get_context_data(**kwargs)
         context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
@@ -22,6 +24,7 @@ class HomePage(TemplateView):
         context['hotel_list_low_price'] = Hotel.objects.all()
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
+        context['object'] = SeoPage.objects.get(slug='home')
         return context
 
 

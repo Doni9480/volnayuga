@@ -1,6 +1,7 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, ButtonHolder, Submit
 from django import forms
+from django.forms import HiddenInput
 from django.urls import reverse
 
 from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS
@@ -34,7 +35,7 @@ class HotelFilterForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_show_labels = False
         self.helper.form_method = 'GET'
-        self.helper.form_action = reverse('region:hotel_filter_left', kwargs={'slug': 'tuapse2'})
+        self.helper.form_action = reverse('region:hotel_filter_left', kwargs={'slug': 'tuapse'})
         self.helper.layout = Layout(
             Div(
                 HTML("""<p>Цена за номер, руб.</p>"""),
