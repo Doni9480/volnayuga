@@ -24,7 +24,16 @@ class HomePage(TemplateView):
         context['hotel_list_low_price'] = Hotel.objects.all()
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
-        context['object'] = SeoPage.objects.get(slug='home')
+        try:
+            context['object'] = SeoPage.objects.get(slug='home')
+        except Exception:
+            context['object'] = {
+                'meta_title': 'meta_title',
+                'meta_description':'meta_description',
+                'h1':'h1',
+                'content_1':'Создай страницу в админке',
+                'content_2': 'Создай страницу в админке',
+            }
         return context
 
 
