@@ -4,7 +4,7 @@ from django import forms
 from django.forms import HiddenInput
 from django.urls import reverse
 
-from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS
+from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS, TypeofObject
 
 import django_filters
 
@@ -20,15 +20,20 @@ class HotelFilterForm(forms.ModelForm):
     options_booking = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
                                                      queryset=HotelOption.objects.filter(category='booking'),
                                                      required=False)
+    object_type = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
+                                            queryset=TypeofObject.objects.all(),
+                                            required=False)
     beach = forms.MultipleChoiceField(choices=BEACHCHOICE, widget=forms.CheckboxSelectMultiple(), required=False)
     remoteness = forms.MultipleChoiceField(choices=BEACHREMOTENESS, widget=forms.CheckboxSelectMultiple(), required=False)
 
     price_min = forms.DecimalField(required=False)
     price_max = forms.DecimalField(required=False)
 
+
+
     class Meta:
         model = Hotel
-        fields = ['options_food', 'options_service', 'options_booking', 'object_type', 'beach', 'remoteness']
+        fields = ['object_type','options_food', 'options_service', 'options_booking', 'object_type', 'beach', 'remoteness']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -66,6 +71,11 @@ class HotelFilterForm(forms.ModelForm):
             css_class='left-filter2'
 
         ),
+         Div(
+             HTML("""<p>Тип жилья</p>"""),
+             'object_type',
+             css_class='left-filter2'
+         ),
         Div(
             HTML("""<p>Бронирование</p>"""),
             'options_booking',
@@ -92,7 +102,7 @@ class HotelFilter(django_filters.FilterSet):
     class Meta:
         model = Hotel
         form = HotelFilterForm
-        fields = ['options', 'object_type', 'beach', 'remoteness']
+        fields = ['object_type', 'options', 'object_type', 'beach', 'remoteness']
 
 
 

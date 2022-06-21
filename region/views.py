@@ -96,31 +96,46 @@ def hotel_list(request, slug):
     form = HotelFilterForm(request.GET)
     object = Region.objects.get(slug=slug)
     if request.GET:
-        option_list = []
-        options = request.GET
-        if 'options_service' or 'options_food' or 'options_booking' in options:
-            options_service = request.GET.getlist('options_service')
-            for item in options_service:
-                option_list.append(item)
-            options_food = request.GET.getlist('options_food')
-            for item in options_food:
-                option_list.append(item)
-            options_booking = request.GET.getlist('options_booking')
-            for item in options_booking:
-                option_list.append(item)
-
-            hotel_list = Hotel.objects.filter(options__in=option_list).distinct()
-
-        if 'range_1' and 'range_2' in options:
+        request.GET._mutable = True
+        request.GET.pop('submit', None)
+        filters = {}
+        for param, value in request.GET.items():
+            if 'options_food' or param == 'options_service' or param == 'options_service':
+                param = 'options'
+                filters['{}'.format(param)] = value
+        if 'range_1' and 'range_2' in request.GET:
             price_min = int(request.GET.get('range_1')) * 100
             price_max = int(request.GET.get('range_2')) * 100
+        hotel_list = Hotel.objects.filter(number__price__price__gte=price_min,
+                                          number__price__price__lte=price_max).distinct()
+        hotel_list.filter(**filters)
 
-            hotel_list = Hotel.objects.filter(number__price__price__gte=price_min, number__price__price__lte=price_max).distinct()
-
-
+        # option_list = []
+        # options = request.GET
+        # if 'options_service' or 'options_food' or 'options_booking' in options:
+        #     options_service = request.GET.getlist('options_service')
+        #     for item in options_service:
+        #         option_list.append(item)
+        #     options_food = request.GET.getlist('options_food')
+        #     for item in options_food:
+        #         option_list.append(item)
+        #     options_booking = request.GET.getlist('options_booking')
+        #     for item in options_booking:
+        #         option_list.append(item)
+        #
+        #     hotel_list = Hotel.objects.filter(options__in=option_list).distinct()
+        #
+        # if 'range_1' and 'range_2' in options:
+        #     price_min = int(request.GET.get('range_1')) * 100
+        #     price_max = int(request.GET.get('range_2')) * 100
+        #
+        #     hotel_list = Hotel.objects.filter(number__price__price__gte=price_min, number__price__price__lte=price_max).distinct()
+        #
+        #
 
 
     return render(request, 'region/filter.html', {'filter': form,
                                                   'hotel_list':hotel_list,
                                                   'object':object,
-                                                  'options_list': option_list})
+
+                                                 })

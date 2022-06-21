@@ -97,7 +97,7 @@ class Hotel(models.Model):
     meta_title = models.CharField(max_length=100, blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     premium = models.BooleanField(default=False, verbose_name='Премиум гостиница')
-    object_type = models.ForeignKey(TypeofObject, on_delete=models.CASCADE, null=True, verbose_name='Тип жилья')
+    object_type = models.ManyToManyField(TypeofObject, null=True, verbose_name='Тип жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
     remoteness = models.IntegerField(null=True, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
