@@ -81,12 +81,12 @@ BEACHCHOICE = (
 )
 
 BEACHREMOTENESS = (
-    (100, ('100')),
-    (200, ('200')),
-    (500, ('500')),
-    (800, ('800')),
-    (1000, ('1000')),
-    (1500, ('1500')),
+    ('100', ('100')),
+    ('200', ('200')),
+    ('500', ('500')),
+    ('800', ('800')),
+    ('1000', ('1000')),
+    ('1500', ('1500')),
 )
 
 
@@ -100,8 +100,8 @@ class Hotel(models.Model):
     object_type = models.ManyToManyField(TypeofObject, null=True, verbose_name='Тип жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
-    remoteness = models.IntegerField(null=True, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
-    beach = models.CharField(max_length=50, choices=BEACHCHOICE, default=1, verbose_name='Пляж')
+    remoteness = models.IntegerField(blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
+    beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default=1, verbose_name='Пляж')
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
     description = RichTextField(blank=True, verbose_name='Описание')
     video = models.URLField(blank=True, verbose_name='Ссылка на видео объекта')

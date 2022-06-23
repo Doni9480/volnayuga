@@ -99,20 +99,52 @@ def hotel_list(request, slug):
         request.GET._mutable = True
         request.GET.pop('submit', None)
         filters = {}
+        options_ids = []
+        remoteness_ids = []
+        beach_ids = []
         for param, value in request.GET.items():
-            if param == 'options_food' or param == 'options_service' or param == 'options_booking':
+            if param == 'range_1' or param == 'range_2':
+                price_min = int(request.GET.get('range_1')) * 100
+                price_max = int(request.GET.get('range_2')) * 100
+                hotel_list = Hotel.objects.filter(city=region, number__price__price__gte=price_min,
+                                              number__price__price__lte=price_max).distinct()
+            elif param == 'object_type':
+                list_id = []
+                for i in request.GET.getlist('object_type'):
+                    list_id.append(i)
+                filters['{}__in'.format(param)] = list_id
+            elif param == 'options_food':
                 param = 'options'
-                filters['{}'.format(param)] = value
+                for i in request.GET.getlist('options_food'):
+                    options_ids.append(i)
+                filters['{}__in'.format(param)] = options_ids
+            elif param == 'options_service':
+                param = 'options'
+                for i in request.GET.getlist('options_service'):
+                    options_ids.append(i)
+                filters['{}__in'.format(param)] = options_ids
+            elif param == 'options_booking':
+                param = 'options'
+                for i in request.GET.getlist('options_booking'):
+                    options_ids.append(i)
+                filters['{}__in'.format(param)] = options_ids
             elif param == 'beach':
-                filters['{}'.format(param)] = value
-        if 'range_1' and 'range_2' in request.GET:
-            price_min = int(request.GET.get('range_1')) * 100
-            price_max = int(request.GET.get('range_2')) * 100
-            hotel_list = Hotel.objects.filter(city=region, number__price__price__gte=price_min,
-                                          number__price__price__lte=price_max).distinct()
-        else:
-            hotel_list = Hotel.objects.filter(city=region)
-        hotel_list.filter(**filters)
+                for i in request.GET.getlist('beach'):
+                    beach_ids.append(i)
+                filters['{}__in'.format(param)] = beach_ids
+            elif param == 'remoteness':
+                for i in request.GET.getlist('remoteness'):
+                    remoteness_ids.append(i)
+                filters['{}__in'.format(param)] = remoteness_ids
+
+
+            # # elif param == 'beach':
+            # #     filters['{}'.format(param)] = value
+            # # elif param == 'object_type':
+            # #     filters['{}'.format(param)] = value
+            #
+            # else:
+        hotel_list = hotel_list.filter(city=region, **filters)
 
 
         # option_list = []
@@ -142,4 +174,5 @@ def hotel_list(request, slug):
     return render(request, 'region/filter.html', {'filter': form,
                                                   'hotel_list':hotel_list,
                                                   'object':region,
+                                                  'data_filter': filters,
                                                  })

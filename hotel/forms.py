@@ -24,6 +24,7 @@ class HotelFilterForm(forms.ModelForm):
                                             queryset=TypeofObject.objects.all(),
                                             required=False)
     beach = forms.MultipleChoiceField(choices=BEACHCHOICE, widget=forms.CheckboxSelectMultiple(), required=False)
+    remoteness = forms.MultipleChoiceField(choices=BEACHREMOTENESS, widget=forms.CheckboxSelectMultiple(), required=False)
 
     price_min = forms.DecimalField(required=False)
     price_max = forms.DecimalField(required=False)
