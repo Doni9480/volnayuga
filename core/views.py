@@ -48,7 +48,16 @@ class AboutPage(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AboutPage, self).get_context_data(**kwargs)
-        context['object'] = SeoPage.objects.get(slug='about')
+        try:
+            context['object'] = SeoPage.objects.get(slug='about')
+        except Exception:
+            context['object'] = {
+                'meta_title': 'meta_title',
+                'meta_description': 'meta_description',
+                'h1': 'h1',
+                'content_1': 'Создай страницу в админке',
+                'content_2': 'Создай страницу в админке',
+            }
         context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
         return context
 
@@ -57,7 +66,16 @@ class  RentPage(TemplateView):
     template_name = 'core/rent.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(AboutPage, self).get_context_data(**kwargs)
-        context['object'] = SeoPage.objects.get(slug='rent')
+        context = super(RentPage, self).get_context_data(**kwargs)
+        try:
+            context['object'] = SeoPage.objects.get(slug='rent')
+        except Exception:
+            context['object'] = {
+                'meta_title': 'meta_title',
+                'meta_description': 'meta_description',
+                'h1': 'h1',
+                'content_1': 'Создай страницу в админке',
+                'content_2': 'Создай страницу в админке',
+            }
         return context
 
