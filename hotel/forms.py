@@ -24,7 +24,6 @@ class HotelFilterForm(forms.ModelForm):
                                             queryset=TypeofObject.objects.all(),
                                             required=False)
     beach = forms.MultipleChoiceField(choices=BEACHCHOICE, widget=forms.CheckboxSelectMultiple(), required=False)
-    remoteness = forms.MultipleChoiceField(choices=BEACHREMOTENESS, widget=forms.CheckboxSelectMultiple(), required=False)
 
     price_min = forms.DecimalField(required=False)
     price_max = forms.DecimalField(required=False)
@@ -33,14 +32,13 @@ class HotelFilterForm(forms.ModelForm):
 
     class Meta:
         model = Hotel
-        fields = ['object_type','options_food', 'options_service', 'options_booking', 'object_type', 'beach', 'remoteness']
+        fields = ['city','object_type','options_food', 'options_service', 'options_booking', 'object_type', 'beach', 'remoteness']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_show_labels = False
         self.helper.form_method = 'GET'
-        self.helper.form_action = reverse('region:hotel_filter_left', kwargs={'slug': 'tuapse'})
         self.helper.layout = Layout(
             Div(
                 HTML("""<p>Цена за номер, руб.</p>"""),
@@ -60,6 +58,11 @@ class HotelFilterForm(forms.ModelForm):
                 css_class='left-filter1',
             ),
         Div(
+            HTML("""<p>Тип жилья</p>"""),
+            'object_type',
+            css_class='left-filter2'
+        ),
+        Div(
             HTML("""<p>Питание</p>"""),
             'options_food',
             css_class='left-filter2'
@@ -71,11 +74,6 @@ class HotelFilterForm(forms.ModelForm):
             css_class='left-filter2'
 
         ),
-         Div(
-             HTML("""<p>Тип жилья</p>"""),
-             'object_type',
-             css_class='left-filter2'
-         ),
         Div(
             HTML("""<p>Бронирование</p>"""),
             'options_booking',

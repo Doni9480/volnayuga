@@ -25,7 +25,7 @@ class HomePage(TemplateView):
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
         try:
-            context['object'] = SeoPage.objects.get(slug='home')
+            context['object'] = SeoPage.objects.get(slug=self.slug)
         except Exception:
             context['object'] = {
                 'meta_title': 'meta_title',
@@ -48,10 +48,16 @@ class AboutPage(TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(AboutPage, self).get_context_data(**kwargs)
+        context['object'] = SeoPage.objects.get(slug='about')
         context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
         return context
 
 class  RentPage(TemplateView):
     """Rent room`s page"""
     template_name = 'core/rent.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(AboutPage, self).get_context_data(**kwargs)
+        context['object'] = SeoPage.objects.get(slug='rent')
+        return context
 

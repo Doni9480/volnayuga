@@ -94,21 +94,26 @@ class HotelFilterLeftBlock(ListView):
 
 def hotel_list(request, slug):
     form = HotelFilterForm(request.GET)
-    object = Region.objects.get(slug=slug)
+    region = Region.objects.get(slug=slug)
     if request.GET:
         request.GET._mutable = True
         request.GET.pop('submit', None)
         filters = {}
         for param, value in request.GET.items():
-            if 'options_food' or param == 'options_service' or param == 'options_service':
+            if param == 'options_food' or param == 'options_service' or param == 'options_booking':
                 param = 'options'
+                filters['{}'.format(param)] = value
+            elif param == 'beach':
                 filters['{}'.format(param)] = value
         if 'range_1' and 'range_2' in request.GET:
             price_min = int(request.GET.get('range_1')) * 100
             price_max = int(request.GET.get('range_2')) * 100
-        hotel_list = Hotel.objects.filter(number__price__price__gte=price_min,
+            hotel_list = Hotel.objects.filter(city=region, number__price__price__gte=price_min,
                                           number__price__price__lte=price_max).distinct()
+        else:
+            hotel_list = Hotel.objects.filter(city=region)
         hotel_list.filter(**filters)
+
 
         # option_list = []
         # options = request.GET
@@ -136,6 +141,5 @@ def hotel_list(request, slug):
 
     return render(request, 'region/filter.html', {'filter': form,
                                                   'hotel_list':hotel_list,
-                                                  'object':object,
-
+                                                  'object':region,
                                                  })

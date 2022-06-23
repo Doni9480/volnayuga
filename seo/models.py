@@ -7,14 +7,13 @@ from region.models import Region
 
 class SeoPage(models.Model):
     """SEO static page model"""
-
     title = models.CharField(max_length=50, verbose_name='Название страницы')
-    slug = models.SlugField(verbose_name='URL')
+    slug = models.SlugField(verbose_name='URL страницы, к которой привязываем')
     h1 = models.CharField(max_length=50, blank=True, verbose_name='Заголовок H1')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
-    content_1 = RichTextUploadingField(verbose_name='Текстовый блок №1')
-    content_2 = RichTextUploadingField(verbose_name='Текстовый блок №2')
+    content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
+    content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
 
     class Meta:
         verbose_name = 'SEO для страницы'
@@ -32,8 +31,8 @@ class SeoForType(models.Model):
     image_title = models.CharField(max_length=50, blank=True, verbose_name='Title для изображения')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
-    content_1 = RichTextUploadingField(verbose_name='Текстовый блок №1')
-    content_2 = RichTextUploadingField(verbose_name='Текстовый блок №2')
+    content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
+    content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
 
     class Meta:
         verbose_name = 'SEO для страницы типа жилья'
