@@ -51,8 +51,8 @@ class HotelFilterForm(forms.ModelForm):
 
                         css_class='input-cont flex juatifyBetween alignCenter',
                     ),
-                    HTML("""<input class="min" name="range_1" type="range" min="1" max="100" value="10">
-                    <input class="max" name="range_2" type="range" min="1" max="100" value="90">"""
+                    HTML("""<input class="min" name="range_1" type="range" min="1" max="100" value="0">
+                    <input class="max" name="range_2" type="range" min="1" max="100" value="100">"""
                     ),
                     css_class='rangeSlider',
                 ),
