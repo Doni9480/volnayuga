@@ -25,7 +25,7 @@ class HomePage(TemplateView):
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
         try:
-            context['object'] = SeoPage.objects.get(slug=self.slug)
+            context['object'] = SeoPage.objects.get(slug='home')
         except Exception:
             context['object'] = {
                 'meta_title': 'meta_title',
