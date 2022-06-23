@@ -10,6 +10,7 @@ class SeoPage(models.Model):
     title = models.CharField(max_length=50, verbose_name='Название страницы')
     slug = models.SlugField(verbose_name='URL страницы, к которой привязываем')
     h1 = models.CharField(max_length=50, blank=True, verbose_name='Заголовок H1')
+    header_text = models.TextField(blank=True, verbose_name='Текст под заголовком')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
