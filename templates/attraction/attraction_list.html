@@ -22,67 +22,21 @@
     <!--SECTION INTERESTING PLACES-->
     <section class="mt-100 interesting">
         <div class="container ">
-            <div class="row">
-                <div class="col-md-3">
-
-
-                    {% for hotel in hotel_premium_list %}
-                        <div class="hotel-left mb-50">
-                            <div class="card-image">
-                                <img src="{% static 'img/adler-left-image.png' %}" alt="">
-                            </div>
-                            <div class="curort-card mt-10">
-                                <div class="card-body-cont">
-                                    <p>
-                                        <a href="{% url 'region:hotel_detail' pk=hotel.pk slug=region.slug %}">{{ hotel }}</a>
-                                    </p>
-                                    <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
-                                    <p class="card-distance">Море - {{ hotel.remoteness }} м</p>
-                                </div>
-                                <div class="curort-price-cont">
-                                    <div class="curort-price1 cur1">от {{ hotel.get_min_price }} руб.</div>
-                                    <div class="curort-price2">за 1 ночь</div>
-                                </div>
-                                <div class="black-sea-icon flex">
-                                    <div class="black-sea-check">
-                                        <img src="{% static 'img/check.png' %}" alt="check">
-                                    </div>
-                                    <div class="black-sea-link">
-                                        <img src="{% static 'img/like.png' %}" alt="like">
-                                    </div>
-                                    <div class="black-sea-taxi">
-                                        <img src="{% static 'img/taxi.png' %}" alt="taxi">
-                                    </div>
-                                    {% for option in hotel.options.all|slice:":2" %}
-                                        <span>{{ option }}</span>
-                                    {% endfor %}
+            <div class="good-views">
+                <div class="row">
+                        {% for item in attraction_list %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="good-views-cont">
+                                    <a href="{% url 'attraction:attraction_detail' region_slug=region.slug category_slug=attraction_category.slug slug=item.slug %}">
+                                        <img src="{{ item.thumb.url }}" alt="{{ item }}"></a>
+                                    <h4>
+                                        <a href="{% url 'attraction:attraction_detail' region_slug=region.slug category_slug=attraction_category.slug slug=item.slug %}">{{ item }}</a>
+                                    </h4>
+                                    <p>{{ item.meta_description|slice:"100" }}</p>
                                 </div>
                             </div>
+                        {% endfor %}
 
-                        </div>
-                    {% endfor %}
-
-
-                </div>
-                <div class="col-md-9">
-                    <div class="adler-right ">
-                        <div class="row">
-                            <div class="my-object-card-cont curort-card-cont">
-                                {% for item in attraction_list %}
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="good-views-cont">
-                                            <a href="{% url 'attraction:attraction_detail' region_slug=region.slug category_slug=attraction_category.slug slug=item.slug %}">
-                                                <img src="{{ item.thumb.url }}" alt="{{ item }}"></a>
-                                            <h4><a href="{% url 'attraction:attraction_detail' region_slug=region.slug category_slug=attraction_category.slug slug=item.slug %}">{{ item }}</a></h4>
-                                            <p>{{ item.meta_description|slice:"100" }}</p>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from hotel.forms import HotelFilterForm, HotelFilter
 from attraction.models import Attraction, AttractionCategory
 from review.models import Review
+from seo.models import SeoForType
 from .models import *
 from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod
 from django.views.generic import DetailView, ListView
@@ -65,26 +66,40 @@ class HotelDetail(DetailView):
 class HotelFilterByType(DetailView):
     """Filter by object`s type"""
     model = Region
-    template_name = 'region/hotel_filter.html'
+    template_name = 'region/filter.html'
 
     def get_object(self, queryset=None):
         return get_object_or_404(Region, slug=self.kwargs['slug'])
 
     def get_context_data(self, **kwargs):
         context = super(HotelFilterByType, self).get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.filter(Q(object_type__slug=self.kwargs['type_slug'], city=self.object)|
-                                                     Q(object_type__slug=self.kwargs['type_slug'], city__parent=self.object)|
+        context['hotel_list'] = Hotel.objects.filter(Q(object_type__slug=self.kwargs['type_slug'], city=self.object) |
+                                                     Q(object_type__slug=self.kwargs['type_slug'],
+                                                       city__parent=self.object) |
                                                      Q(object_type__slug=self.kwargs['type_slug'],
                                                        city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
+        try:
+            context['seo'] = SeoForType.objects.get(city=self.get_object(),
+                                                    type_of_object__slug=self.kwargs['type_slug'])
+        except Exception:
+            context['seo'] = {
+                'meta_title': f"{TypeofObject.objects.get(slug=self.kwargs['type_slug'])} {self.get_object()}",
+                'meta_description': f"{TypeofObject.objects.get(slug=self.kwargs['type_slug'])} {self.get_object()}",
+                'h1': f"{TypeofObject.objects.get(slug=self.kwargs['type_slug'])} {self.get_object()}",
+                'content_1': '',
+                'content_2': '',
+            }
+        return context
+
         return context
 
 
 class HotelFilterLeftBlock(ListView):
     """Ajax filter in left block"""
     model = Hotel
-    template_name = 'region/hotel_filter.html'
+    template_name = 'region/filter.html'
     form_class = HotelFilterForm
 
     def get_queryset(self):
@@ -107,7 +122,7 @@ def hotel_list(request, slug):
                 price_min = int(request.GET.get('range_1')) * 100
                 price_max = int(request.GET.get('range_2')) * 100
                 hotel_list = Hotel.objects.filter(city=region, number__price__price__gte=price_min,
-                                              number__price__price__lte=price_max).distinct()
+                                                  number__price__price__lte=price_max).distinct()
             elif param == 'object_type':
                 list_id = []
                 for i in request.GET.getlist('object_type'):
@@ -137,7 +152,6 @@ def hotel_list(request, slug):
                     remoteness_ids.append(i)
                 filters['{}__in'.format(param)] = remoteness_ids
 
-
             # # elif param == 'beach':
             # #     filters['{}'.format(param)] = value
             # # elif param == 'object_type':
@@ -145,7 +159,6 @@ def hotel_list(request, slug):
             #
             # else:
         hotel_list = hotel_list.filter(city=region, **filters)
-
 
         # option_list = []
         # options = request.GET
@@ -170,9 +183,8 @@ def hotel_list(request, slug):
         #
         #
 
-
     return render(request, 'region/filter.html', {'filter': form,
-                                                  'hotel_list':hotel_list,
-                                                  'object':region,
+                                                  'hotel_list': hotel_list,
+                                                  'object': region,
                                                   'data_filter': filters,
-                                                 })
+                                                  })

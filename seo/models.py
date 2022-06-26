@@ -32,8 +32,8 @@ class SeoForType(models.Model):
     image_title = models.CharField(max_length=50, blank=True, verbose_name='Title для изображения')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
+    h1 = models.CharField(max_length=50, blank=True, verbose_name='H1 заголовок')
     content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
-    content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
 
     class Meta:
         verbose_name = 'SEO для страницы типа жилья'

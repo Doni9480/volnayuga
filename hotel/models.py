@@ -22,6 +22,19 @@ class TypeofObject(models.Model):
     def __str__(self):
         return self.title
 
+class ServiceFilterofObject(models.Model):
+    """Фильтр критериев удобств объектов сдачи"""
+    title = models.CharField(max_length=100, verbose_name='Название')
+    slug = models.SlugField(unique=True, verbose_name='URL')
+    image = models.ImageField(upload_to='hotel/filterservice', null=True, blank=True, verbose_name='Изображение')
+
+    class Meta:
+        verbose_name = 'Критерий удобства'
+        verbose_name_plural = ' Критерии удобства'
+
+    def __str__(self):
+        return self.title
+
 
 OPTIONCATEGORYCHOICE = (
     ('food', ('Питание')),
@@ -81,13 +94,14 @@ BEACHCHOICE = (
 )
 
 BEACHREMOTENESS = (
-    ('100', ('100')),
-    ('200', ('200')),
-    ('500', ('500')),
-    ('800', ('800')),
-    ('1000', ('1000')),
-    ('1500', ('1500')),
+    ('100', '100'),
+    ('200', '200'),
+    ('500', '500'),
+    ('800', '800'),
+    ('1000', '1000'),
+    ('1500', '1500'),
 )
+
 
 
 class Hotel(models.Model):
@@ -97,7 +111,8 @@ class Hotel(models.Model):
     meta_title = models.CharField(max_length=100, blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     premium = models.BooleanField(default=False, verbose_name='Премиум гостиница')
-    object_type = models.ManyToManyField(TypeofObject, null=True, verbose_name='Тип жилья')
+    object_type = models.ManyToManyField(TypeofObject, blank=True, verbose_name='Тип жилья')
+    object_service = models.ManyToManyField(ServiceFilterofObject, blank=True, verbose_name='Фильтр по критериям жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
     remoteness = models.IntegerField(blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')

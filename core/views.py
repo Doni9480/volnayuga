@@ -41,6 +41,20 @@ class ContactPage(TemplateView):
     """Contact page"""
     template_name = 'core/contact.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            context['object'] = SeoPage.objects.get(slug='contact')
+        except Exception:
+            context['object'] = {
+                'meta_title': 'meta_title',
+                'meta_description':'meta_description',
+                'h1':'h1',
+                'content_1':'Создай страницу в админке',
+                'content_2': 'Создай страницу в админке',
+            }
+        return context
+
 
 class AboutPage(TemplateView):
     """About company"""
