@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static thumbnail crispy_forms_tags %}
+{% block meta %}
+    <meta name="description" content="{{ seo.meta_description }}">
+    <title>{{ seo.meta_title }}</title>
+{% endblock %}
 {% block modal-search %}
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -126,11 +130,11 @@
                 {% endif %}
             </ul>
             <div class="headerTitle">
-                <h1>{{ object.h1_title }}</h1>
+                <h1>{{ seo.h1 }}</h1>
                 {% if object.is_city %}
                     <p class="search-result">Найдено объектов {{ object.hotel_set.count }}</p>
                 {% endif %}
-                <p>{{ object.short_description|safe }}</p>
+{#                <p>{{ object.short_description|safe }}ffff</p>#}
             </div>
             <button class="hidden-find" data-toggle="modal" data-target="#searchModal1">найти курорт</button>
             <div class="header-form">
@@ -528,7 +532,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="adler-right">
-                        {{ object.description|safe }}
+                        {{ seo.content_1|safe }}
 
                         <div class="owl-admin owl-admin1" class="owl-carousel">
                             {% for item in object.galleryforregion_set.all %}

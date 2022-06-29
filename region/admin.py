@@ -14,14 +14,9 @@ class RegionAdmin(admin.ModelAdmin):
     list_editable = ['is_city', 'is_most_interesting', 'is_popular']
     list_filter = ['parent','is_popular', 'is_most_interesting']
     fieldsets = (
-        ('Описание в шапке', {
-            'fields':('h1_title', 'short_description')
-        }),
-        ('Мета описание', {
-            'fields': ('meta_title', 'meta_description')
-        }),
+
         ('Основное', {
-            'fields': ('title','slug','is_city', 'is_popular', 'is_most_interesting', 'image', 'parent', 'description', 'season')
+            'fields': ('title','slug','is_city', 'is_popular', 'is_most_interesting', 'image', 'parent', 'season')
         }),
 
     )

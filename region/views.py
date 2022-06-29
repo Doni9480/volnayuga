@@ -6,7 +6,7 @@ from django.shortcuts import render, get_object_or_404
 from hotel.forms import HotelFilterForm, HotelFilter
 from attraction.models import Attraction, AttractionCategory
 from review.models import Review
-from seo.models import SeoForType
+from seo.models import SeoForType, SeoForRegion
 from .models import *
 from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod
 from django.views.generic import DetailView, ListView
@@ -19,6 +19,7 @@ class RegionDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RegionDetail, self).get_context_data(**kwargs)
+        context['seo'] = SeoForRegion.objects.get(city=self.object)
         context['region_list'] = Region.objects.filter(parent__parent=self.object, is_city=True)
         context['region_parent_list'] = Region.objects.filter(parent=self.object)
         context['hotel_list'] = Hotel.objects.filter(

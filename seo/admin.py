@@ -7,3 +7,4 @@ class SeoForTypeAdmin(admin.ModelAdmin):
 
 admin.site.register(SeoPage)
 admin.site.register(SeoForType, SeoForTypeAdmin)
+admin.site.register(SeoForRegion)

@@ -10,9 +10,6 @@ class Region(models.Model):
     """Направления"""
     title = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='URL')
-    meta_title = models.CharField(max_length=100, blank=True, verbose_name='Мета заголовок')
-    meta_description = models.TextField(blank=True, verbose_name='Мета описание')
-    h1_title = models.CharField(max_length=100, blank=True, verbose_name='Заголовок H1')
     short_description = models.TextField(blank=True, verbose_name='Короткое описание в шапке')
     is_city = models.BooleanField(default=False, verbose_name='Если город, то ставь галочку!')
     is_popular = models.BooleanField(default=False, verbose_name='Показывать в блоке популярные на главной')
@@ -20,7 +17,6 @@ class Region(models.Model):
     image = models.FileField(upload_to='region', verbose_name='Изображение')
     parent = models.ForeignKey("self", on_delete=models.CASCADE, null=True, blank=True, verbose_name='Родитель',
                                related_name='children')
-    description = RichTextUploadingField(blank=True, null=True, verbose_name='Описание')
     season = models.CharField(max_length=100, null=True, blank=True,
                               verbose_name='Задайте сезон, например(январь-февраль)')
 
