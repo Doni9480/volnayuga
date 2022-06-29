@@ -40,10 +40,10 @@ class RegionDetail(DetailView):
             Q(city__parent=self.object, premium=True) | Q(city__parent__parent=self.object, premium=True))
         context['today'] = date.today()
         context['review_list'] = Review.objects.filter(hotel__city=self.object)
-        ids_typeofobject = Hotel.objects.filter(
-            Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
-            'object_type', flat=True).distinct()
-        context['typeobject'] = TypeofObject.objects.filter(id__in=ids_typeofobject)
+        #ids_typeofobject = Hotel.objects.filter(
+        #    Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
+        #    'object_type', flat=True).distinct()
+        context['typeobject'] = TypeofObject.objects.all()
         context['filter'] = HotelFilterForm()
         return context
 
