@@ -19,7 +19,15 @@ class RegionDetail(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RegionDetail, self).get_context_data(**kwargs)
-        context['seo'] = SeoForRegion.objects.get(city=self.object)
+        try:
+            context['seo'] = SeoForRegion.objects.get(city=self.object)
+        except Exception:
+            context['seo'] = {
+                'meta_title': self.object,
+                'meta_description': self.object,
+                'h1': self.object,
+                'content_1': self.object,
+            }
         context['region_list'] = Region.objects.filter(parent__parent=self.object, is_city=True)
         context['region_parent_list'] = Region.objects.filter(parent=self.object)
         context['hotel_list'] = Hotel.objects.filter(
