@@ -1,7 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 
-from hotel.models import TypeofObject
+from hotel.models import TypeofObject, ServiceFilterofObject
 from region.models import Region
 
 
@@ -41,6 +41,24 @@ class SeoForType(models.Model):
 
     def __str__(self):
         return f'SEO для страницы "{self.type_of_object}" в регионе {self.city}'
+
+class SeoForService(models.Model):
+    """SEO for service of objects."""
+    city = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Город')
+    service_of_object = models.ForeignKey(ServiceFilterofObject, on_delete=models.CASCADE, verbose_name='Тиж жилья')
+    image_alt = models.CharField(max_length=50, blank=True, verbose_name='ALT изображения')
+    image_title = models.CharField(max_length=50, blank=True, verbose_name='Title для изображения')
+    meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
+    meta_description = models.TextField(blank=True, verbose_name='Мета описание')
+    h1 = models.CharField(max_length=50, blank=True, verbose_name='H1 заголовок')
+    content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок')
+
+    class Meta:
+        verbose_name = 'SEO для страницы критерия жилья'
+        verbose_name_plural = 'SEO для страниц критериев жилья'
+
+    def __str__(self):
+        return f'SEO для страницы "{self.service_of_object}" в регионе {self.city}'
 
 
 class SeoForRegion(models.Model):

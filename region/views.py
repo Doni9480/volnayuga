@@ -6,9 +6,9 @@ from django.shortcuts import render, get_object_or_404
 from hotel.forms import HotelFilterForm, HotelFilter
 from attraction.models import Attraction, AttractionCategory
 from review.models import Review
-from seo.models import SeoForType, SeoForRegion
+from seo.models import SeoForType, SeoForRegion, SeoForService
 from .models import *
-from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod
+from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod, ServiceFilterofObject
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
 
@@ -52,7 +52,8 @@ class RegionDetail(DetailView):
         #ids_typeofobject = Hotel.objects.filter(
         #    Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
         #    'object_type', flat=True).distinct()
-        context['typeobject'] = TypeofObject.objects.all()
+        context['type_object'] = TypeofObject.objects.all()
+        context['service_object'] = ServiceFilterofObject.objects.all()
         context['filter'] = HotelFilterForm()
         return context
 
@@ -87,6 +88,7 @@ class HotelFilterByType(DetailView):
                                                        city__parent=self.object) |
                                                      Q(object_type__slug=self.kwargs['type_slug'],
                                                        city__parent__parent=self.object))
+        context['service_object'] = ServiceFilterofObject.objects.all()
         context['filter'] = HotelFilterForm()
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         try:
@@ -102,7 +104,38 @@ class HotelFilterByType(DetailView):
             }
         return context
 
+class HotelFilterByService(DetailView):
+    """Hotel filter by service block in bottom page"""
+    model = Region
+    template_name = 'region/filter.html'
+
+    def get_object(self, queryset=None):
+        """Возвращаем регион, чтобы остаться в нем при фильтрации"""
+        return get_object_or_404(Region, slug=self.kwargs['slug'])
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hotel_list'] = Hotel.objects.filter(Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
+                                                     Q(object_service__slug=self.kwargs['service_slug'],
+                                                       city__parent=self.object) |
+                                                     Q(object_service__slug=self.kwargs['service_slug'],
+                                                       city__parent__parent=self.object))
+        context['filter'] = HotelFilterForm()
+        context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
+        try:
+            context['seo'] = SeoForService.objects.get(city=self.get_object(),
+                                                    service_of_object__slug=self.kwargs['service_slug'])
+        except Exception:
+            context['seo'] = {
+                'meta_title': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'meta_description': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'h1': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'content_1': '',
+                'content_2': '',
+            }
         return context
+
 
 
 class HotelFilterLeftBlock(ListView):

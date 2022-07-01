@@ -134,7 +134,7 @@
                 {% if object.is_city %}
                     <p class="search-result">Найдено объектов {{ object.hotel_set.count }}</p>
                 {% endif %}
-{#                <p>{{ object.short_description|safe }}ffff</p>#}
+                {#                <p>{{ object.short_description|safe }}ffff</p>#}
             </div>
             <button class="hidden-find" data-toggle="modal" data-target="#searchModal1">найти курорт</button>
             <div class="header-form">
@@ -374,7 +374,7 @@
             <div class="popular">
                 <h2>Подборки жилья <span>по разделению на типы жилья</span></h2>
                 <div class="owl-carousel owl-demo1">
-                    {% for item in typeobject %}
+                    {% for item in type_object %}
                         <div class="item">
                             <div class="popularUp">
                                 <div class="popularUpImg">
@@ -406,70 +406,17 @@
             <div class="travel curort-travel mt-100">
                 <h2>Объекты <span>по критериям удобства</span></h2>
                 <div class="owl-demo-object owl-carousel">
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>Недорого</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>У моря</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-3.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>В центре</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-4.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С детьми</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-5.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С бассейном</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-6.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С питанием</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>Недорого</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>У моря</p>
-                    </div>
+                    {% for item in service_object %}
+                        <div class="item">
+                            <a href="{% url 'region:hotel_service_filter' slug=object.slug service_slug=item.slug %}">
+                                <div class="item-img">
+                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                         alt="Lazy Owl Image">
+                                </div>
+                            </a>
+                            <p>{{ item }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
