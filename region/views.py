@@ -125,6 +125,7 @@ class HotelFilterByService(DetailView):
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
+                                                       type_of_object__slug=self.kwargs['type_slug'],
                                                     service_of_object__slug=self.kwargs['service_slug'])
         except Exception:
             context['seo'] = {

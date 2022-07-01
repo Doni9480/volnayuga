@@ -45,7 +45,8 @@ class SeoForType(models.Model):
 class SeoForService(models.Model):
     """SEO for service of objects."""
     city = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name='Город')
-    service_of_object = models.ForeignKey(ServiceFilterofObject, on_delete=models.CASCADE, verbose_name='Тиж жилья')
+    service_of_object = models.ForeignKey(ServiceFilterofObject, on_delete=models.CASCADE, verbose_name='Критерий жилья')
+    type_of_object = models.ForeignKey(TypeofObject, null=True, blank=True, on_delete=models.CASCADE, verbose_name='Тиж жилья')
     image_alt = models.CharField(max_length=50, blank=True, verbose_name='ALT изображения')
     image_title = models.CharField(max_length=50, blank=True, verbose_name='Title для изображения')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
