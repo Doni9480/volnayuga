@@ -59,7 +59,7 @@ class SeoForService(models.Model):
         verbose_name_plural = 'SEO для страниц критериев жилья'
 
     def __str__(self):
-        return f'SEO для страницы "{self.service_of_object}" в регионе {self.city}'
+        return f'SEO для страницы фильтра "{self.city} -> {self.type_of_object} -> {self.service_of_object}"'
 
 
 class SeoForRegion(models.Model):
