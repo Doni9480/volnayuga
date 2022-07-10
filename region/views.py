@@ -1,14 +1,11 @@
 from datetime import date
-
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404
-
-from hotel.forms import HotelFilterForm, HotelFilter
+from hotel.forms import HotelFilterForm
 from attraction.models import Attraction, AttractionCategory
 from review.models import Review
 from seo.models import SeoForType, SeoForRegion, SeoForService
 from .models import *
-from hotel.models import Hotel, Number, TypeofObject, HotelOption, PricePeriod, ServiceFilterofObject
+from hotel.models import Hotel, TypeofObject, HotelOption, ServiceFilterofObject
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
 
@@ -104,15 +101,15 @@ class HotelFilterByType(DetailView):
             }
         return context
 
-class HotelFilterByService(DetailView):
-    """Hotel filter by service block in bottom page"""
+
+class HotelFilterByTypeAndService(DetailView):
+    """Hotel filter by type and service block in bottom page"""
     model = Region
     template_name = 'region/filter.html'
 
     def get_object(self, queryset=None):
         """Возвращаем регион, чтобы остаться в нем при фильтрации"""
         return get_object_or_404(Region, slug=self.kwargs['slug'])
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -126,7 +123,8 @@ class HotelFilterByService(DetailView):
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
                                                        type_of_object__slug=self.kwargs['type_slug'],
-                                                    service_of_object__slug=self.kwargs['service_slug'])
+                                                       service_of_object__slug=self.kwargs['service_slug'],
+                                                       )
         except Exception:
             context['seo'] = {
                 'meta_title': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
@@ -137,6 +135,39 @@ class HotelFilterByService(DetailView):
             }
         return context
 
+
+class HotelFilterByService(DetailView):
+    """Hotel filter by service block in bottom page"""
+    model = Region
+    template_name = 'region/filter.html'
+
+    def get_object(self, queryset=None):
+        """Возвращаем регион, чтобы остаться в нем при фильтрации"""
+        return get_object_or_404(Region, slug=self.kwargs['slug'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hotel_list'] = Hotel.objects.filter(Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
+                                                     Q(object_service__slug=self.kwargs['service_slug'],
+                                                       city__parent=self.object) |
+                                                     Q(object_service__slug=self.kwargs['service_slug'],
+                                                       city__parent__parent=self.object))
+        context['filter'] = HotelFilterForm()
+        context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
+        try:
+            context['seo'] = SeoForService.objects.get(city=self.get_object(),
+                                                       type_of_object__slug=None,
+                                                       service_of_object__slug=self.kwargs['service_slug']
+                                                       )
+        except Exception:
+            context['seo'] = {
+                'meta_title': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'meta_description': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'h1': f"{ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])} {self.get_object()}",
+                'content_1': '',
+                'content_2': '',
+            }
+        return context
 
 
 class HotelFilterLeftBlock(ListView):

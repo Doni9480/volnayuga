@@ -1,6 +1,5 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
-
 from hotel.models import TypeofObject, ServiceFilterofObject
 from region.models import Region
 
@@ -41,6 +40,7 @@ class SeoForType(models.Model):
 
     def __str__(self):
         return f'SEO для страницы "{self.type_of_object}" в регионе {self.city}'
+
 
 class SeoForService(models.Model):
     """SEO for service of objects."""
