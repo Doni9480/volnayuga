@@ -274,8 +274,11 @@
                                 {% for number in object.number_set.all %}
                                     {% if forloop.first %}
                                         <tr>
-                                            <td colspan="2" class="sticky">
+                                            <td class="sticky">
                                                 <div class="td-title">*Стоимость за сутки проживания</div>
+                                            </td>
+                                            <td class="sticky">
+
                                             </td>
                                             {% for period in object.priceperiod_set.all %}
                                                 <td>
@@ -286,10 +289,10 @@
                                     {% endif %}
                                     <tr>
                                         <td>
-                                            <div class="td-title">{{ number.title }} </div>
+                                            <div class="td-title">{{ number.title }}</div>
                                         </td>
                                         <td>
-                                            <div class="td-title" class="sticky odd">за номер</div>
+                                            <div class="td-title">за номер</div>
                                         </td>
                                         {% for period in number.price_set.all %}
                                             <td>

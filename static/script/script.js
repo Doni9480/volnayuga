@@ -350,9 +350,13 @@ if($(window).width() > 768) {
 //Table
 $('.object-table-cont tr').each(function(i, item) {
 	if (i % 2 === 0) {
-		$(item).find(':first-child').addClass('sticky').addClass('even')
+		$(item).find('td').eq(0).addClass('sticky').addClass('even')
+		$(item).find('td').eq(1).addClass('sticky2').addClass('even')
 	} else {
-		$(item).find(':first-child').addClass('sticky').addClass('odd')
+		$(item).find('td').eq(0).addClass('sticky').addClass('odd')
+		$(item).find('td').eq(1).addClass('sticky2').addClass('odd')
 	}
 
 });
+
+

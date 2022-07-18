@@ -67,13 +67,21 @@ h2.not-margin {
 }
 
 .object-table-cont td.sticky {
-	width: 183px;
-	min-width: 183px;
-	max-width: 183px;
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
 	left: 0px;
 	position: sticky;
 	overflow: hidden;
-	box-shadow: 4px 0px 15px rgba(0,0,0,.05);
+}
+.object-table-cont td.sticky2 {
+	width: 200px;
+	min-width: 200px;
+	max-width: 200px;
+	left: 200px;
+	position: sticky;
+	overflow: hidden;
+	box-shadow: 5px 0px 5px rgba(0,0,0,.05);
 }
 
 .object-table-cont td.sticky.even {
@@ -81,6 +89,14 @@ h2.not-margin {
 }
 
 .object-table-cont td.sticky.odd {
+	background-color: #fff;
+}
+
+.object-table-cont td.sticky2.even {
+	background-color: #edf4ff;
+}
+
+.object-table-cont td.sticky2.odd {
 	background-color: #fff;
 }
 
