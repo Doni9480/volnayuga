@@ -87,6 +87,7 @@ class HotelFilterByType(DetailView):
                                                        city__parent__parent=self.object))
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['filter'] = HotelFilterForm()
+        context['service_object'] = ServiceFilterofObject.objects.all()
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         try:
             context['seo'] = SeoForType.objects.get(city=self.get_object(),
@@ -119,7 +120,9 @@ class HotelFilterByTypeAndService(DetailView):
                                                      Q(object_service__slug=self.kwargs['service_slug'],
                                                        city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
+        context['service_object'] = ServiceFilterofObject.objects.all()
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
+        context['type_object'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
                                                        type_of_object__slug=self.kwargs['type_slug'],
@@ -153,6 +156,8 @@ class HotelFilterByService(DetailView):
                                                      Q(object_service__slug=self.kwargs['service_slug'],
                                                        city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
+        context['service_object'] = ServiceFilterofObject.objects.all()
+
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
