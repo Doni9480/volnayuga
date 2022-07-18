@@ -35,3 +35,72 @@ h2.not-margin {
     border-radius: 10px;
     margin-bottom: 90px;
 }
+
+#object.fixed-menu {
+	position: fixed;
+	z-index: 100;
+	width: 100%;
+	left: 0;
+	top: 0;
+	height: 89px;
+	background: rgb(227, 236, 250);
+	animation-name: menuSlideDown;
+	animation-duration: .4s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
+}
+
+.object-section.fixed-menu {
+	padding-top: 89px;
+}
+
+.object-right.fixed {
+	position: fixed;
+	width: 255px;
+	top: 114px;
+}
+
+.object-right.fixed.absolute {
+	position: absolute;
+	bottom: 0;
+	top: inherit;
+}
+
+.object-table-cont td.sticky {
+	width: 183px;
+	min-width: 183px;
+	max-width: 183px;
+	left: 0px;
+	position: sticky;
+	overflow: hidden;
+	box-shadow: 4px 0px 15px rgba(0,0,0,.05);
+}
+
+.object-table-cont td.sticky.even {
+	background-color: #edf4ff;
+}
+
+.object-table-cont td.sticky.odd {
+	background-color: #fff;
+}
+
+@media (max-width: 1200px) {
+	.object-right.fixed {
+		width: 290px;
+	}
+}
+
+@media (max-width: 992px) {
+	.object-right.fixed {
+		width: 210px;
+	}
+}
+
+@keyframes menuSlideDown {
+	0% {
+		top: -90px
+	}
+	100% {
+		top: 0;
+	}
+}

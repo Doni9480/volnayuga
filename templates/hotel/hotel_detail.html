@@ -286,10 +286,10 @@
                                     {% endif %}
                                     <tr>
                                         <td>
-                                            <div class="td-title">{{ number.title }}</div>
+                                            <div class="td-title">{{ number.title }} </div>
                                         </td>
                                         <td>
-                                            <div class="td-title">за номер</div>
+                                            <div class="td-title" class="sticky odd">за номер</div>
                                         </td>
                                         {% for period in number.price_set.all %}
                                             <td>

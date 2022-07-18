@@ -306,3 +306,53 @@ $(document).ready(function () {
 })
 
 })
+
+$(window).on('scroll', function() {
+
+	if($(window).scrollTop() > 90) {
+		$('#object').addClass('fixed-menu')
+		$('.object-section').addClass('fixed-menu')
+	} else {
+		$('#object').removeClass('fixed-menu')
+		$('.object-section').removeClass('fixed-menu')
+	}
+
+});
+
+if($(window).width() > 768) {
+
+	let containerHeght = $('.row').height(),
+			containerDistance = $('.row').offset().top,
+			containerSum = containerDistance + containerHeght;
+
+	$(window).on('scroll', function() {
+
+		let distance = document.querySelector(".object-right").getBoundingClientRect();
+
+		if(distance.top > 90 || distance.top < 0) {
+			$('.object-right').addClass('fixed')
+		}
+
+		if( ($(window).scrollTop() < 240)) {
+			$('.object-right').removeClass('fixed')
+		}
+
+		if($(window).scrollTop() > (containerSum - 114)) {
+			$('.object-right').addClass('absolute')
+		} else {
+			$('.object-right').removeClass('absolute')
+		}
+
+	});
+
+}
+
+//Table
+$('.object-table-cont tr').each(function(i, item) {
+	if (i % 2 === 0) {
+		$(item).find(':first-child').addClass('sticky').addClass('even')
+	} else {
+		$(item).find(':first-child').addClass('sticky').addClass('odd')
+	}
+
+});
