@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static thumbnail %}
+{% block meta %}
+    <meta name="description" content="Забронировать {{ object }} в {{ object.city }} по адресу {{ object.address }}. Контакты владельцев, отзывы постояльцев, фотографии номеров – на сайте Вашеморе.ру">
+    <title>{{ object }} в {{ object.city }} – цены, фото, отзывы | Вашеморе.ру</title>
+{% endblock %}
 {% block modal-search %}
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -158,7 +162,8 @@
                         <div class="object-left-first">
                             {% thumbnail object.hotelphoto_set.first '404x284' crop='center' as im %}
                                 <img class="lightboxed" rel="group1" src="{{ im.url }}"
-                                     data-link="{{ object.hotelphoto_set.first.image.url }}" alt="{{ im.name }}">
+                                     data-link="{{ object.hotelphoto_set.first.image.url }}"
+                                     alt="{{ im }}{{ forloop.counter }}">
                             {% endthumbnail %}
                         </div>
                         <div class="object-left-second flex directionColumn juatifyBetween">
@@ -167,7 +172,7 @@
                                     <div class="object-left-second-up-{% if forloop.counter|divisibleby:2 %}two{% else %}one{% endif %}">
                                         {% thumbnail item.image '202x141' crop='center' as im %}
                                             <img class="lightboxed" rel="group1" src="{{ im.url }}"
-                                                 data-link="{{ item.image.url }}" alt="{{ im.name }}">
+                                                 data-link="{{ item.image.url }}" alt="{{ im }}{{ forloop.counter }}">
                                         {% endthumbnail %}
                                     </div>
                                 {% endfor %}
@@ -177,7 +182,7 @@
                                     {% for item in object.hotelphoto_set.all|slice:"3:4" %}
                                         {% thumbnail item.image '202x141' crop='center' as im %}
                                             <img class="lightboxed" rel="group1" src="{{ im.url }}"
-                                                 data-link="{{ item.image.url }}" alt="{{ im.name }}">
+                                                 data-link="{{ item.image.url }}" alt="{{ im }}{{ forloop.counter }}">
                                         {% endthumbnail %}
                                     {% endfor %}
                                 </div>
@@ -224,7 +229,8 @@
                                                             {% thumbnail item.image '262x180' crop='center' as img %}
                                                                 <img class="lazyOwl" data-src="{{ img.url }}"
                                                                      width="{{ im.width }}"
-                                                                     height="{{ im.height }}" alt="{{ img.name }}">
+                                                                     height="{{ im.height }}"
+                                                                     alt="{{ number }}{{ forloop.counter }}">
                                                             {% endthumbnail %}
                                                         </a>
                                                     </div>
@@ -310,7 +316,7 @@
                             {{ object.description|safe }}
                         </div>
 
-                        <h3>Питание</h3>
+                        <h2>Питание</h2>
                         <ul class="listNone">
                             {% for option in object.options.all %}
                                 {% if option.get_category_display == 'Питание' %}
@@ -318,7 +324,7 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
-                        <h3>Удобства и услуги</h3>
+                        <h2>Удобства и услуги</h2>
                         <ul class="listNone">
                             {% for option in object.options.all %}
                                 {% if option.get_category_display == 'Удобства и услуги' %}
@@ -326,7 +332,7 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
-                        <h3>Условия бронирования</h3>
+                        <h2>Условия бронирования</h2>
                         <ul class="listNone">
                             {% for option in object.options.all %}
                                 {% if option.get_category_display == 'Условия бронирования' %}
@@ -334,13 +340,13 @@
                                 {% endif %}
                             {% endfor %}
                         </ul>
-                        <h3>Расстояния</h3>
+                        <h2>Расстояния</h2>
                         <ul class="listNone">
                             {% for item in object.distancetime_set.all %}
                                 <li>{{ item.distance }} - {{ item.time }} минуты ({{ item.get_method_display }})</li>
                             {% endfor %}
                         </ul>
-                        <h3 class="rule-rooms">Бронирование</h3>
+                        <h2 class="rule-rooms">Бронирование</h2>
                         <ul class="listNone">
                             <li>Размер предоплаты: {{ object.prepayment }}%</li>
                             <li>Условия бесплатной отмены брони: {{ object.free_cancel }}</li>
@@ -355,7 +361,7 @@
                             {% endif %}
                             <li>Минимальный срок проживания (день): {{ object.minimum }} </li>
                         </ul>
-                        <h3 class="rule-rooms">Правила проживания</h3>
+                        <h2 class="rule-rooms">Правила проживания</h2>
                         <ul class="listNone">
                             <li>Заезд после: {{ object.chek_in }}. Выезд до: {{ object.chek_out }}</li>
                             <li>С питомцами: {% if object.pets %}Можно{% else %}Нельзя{% endif %}</li>

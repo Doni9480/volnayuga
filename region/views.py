@@ -20,8 +20,8 @@ class RegionDetail(DetailView):
             context['seo'] = SeoForRegion.objects.get(city=self.object)
         except Exception:
             context['seo'] = {
-                'meta_title': self.object,
-                'meta_description': self.object,
+                'meta_title': f'Отдых в { self.object } – недорогие цены, фото, лучшие отзывы | Вашеморе.ру',
+                'meta_description': f'Отдых в {self.object} – недорогие цены, отзывы, фото номеров. Забронировать жилье без посредников: отели и гостиницы, гостевые дома, квартиры. Большое количество предложений с максимальными удобствами.',
                 'h1': self.object,
                 'content_1': self.object,
             }
