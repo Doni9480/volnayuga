@@ -93,16 +93,14 @@ BEACHCHOICE = (
     ('pesok', ('Песок')),
 )
 
-BEACHREMOTENESS = (
+BEACHREMOTENESS = [
     ('100', '100'),
     ('200', '200'),
     ('500', '500'),
     ('800', '800'),
     ('1000', '1000'),
     ('1500', '1500'),
-)
-
-
+]
 
 class Hotel(models.Model):
     """Отель"""
@@ -115,8 +113,8 @@ class Hotel(models.Model):
     object_service = models.ManyToManyField(ServiceFilterofObject, blank=True, verbose_name='Фильтр по критериям жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
-    remoteness = models.IntegerField(blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
-    beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default=1, verbose_name='Пляж')
+    remoteness = models.CharField(max_length=10, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
+    beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default='1000', verbose_name='Пляж')
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
     description = RichTextField(blank=True, verbose_name='Описание')
     video = models.URLField(blank=True, verbose_name='Ссылка на видео объекта')
@@ -142,7 +140,7 @@ class Hotel(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.number_set.all().aggregate(min_price=Min('price__price'))['min_price']
+        return self.priceperiod_set.all().aggregate(min_price=Min('price'))['min_price']
 
 
 class HotelPhoto(models.Model):
@@ -192,6 +190,13 @@ class NumberOption(models.Model):
 
 
 class Number(models.Model):
+    ORDERCHOICE = (
+        ('number', ('за номер')),
+        ('people', ('за человека')),
+    )
+
+    order_choice = models.CharField(max_length=10, choices=ORDERCHOICE, default='за номер',
+                                    verbose_name='Цена в объявлении')
     hotel = models.ForeignKey(Hotel, default=1, on_delete=models.CASCADE, verbose_name='Отель')
     title = models.CharField(max_length=100, verbose_name='Название')
     room_number = models.IntegerField(null=True, blank=True, verbose_name='Количество комнат')
@@ -210,14 +215,14 @@ class Number(models.Model):
 
     def get_min_price(self):
         """Самая низкая цена номера"""
-        return Price.objects.filter(number=self).aggregate(min_price=Min('price'))['min_price']
+        return PricePeriod.objects.filter(number=self).aggregate(min_price=Min('price'))['min_price']
 
     def get_price_today(self):
         """Цена номера на сегодня"""
         today = date.today()
-        number_price_list = Price.objects.filter(number=self)
+        number_price_list = PricePeriod.objects.filter(hotel=self.hotel)
         for item in number_price_list:
-            if today >= item.period.start and today <= item.period.end:
+            if today >= item.start and today <= item.end:
                 return item.price
             else:
                 return self.get_min_price()
@@ -235,30 +240,34 @@ class PricePeriod(models.Model):
     start = models.DateField(verbose_name='Начало периода')
     end = models.DateField(verbose_name='Конец периода')
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Гостиница')
+    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
+    price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
+    extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
     objects = models.Manager()
     today = PricePeriodToday()
 
     class Meta:
-        verbose_name = 'Периоды цен'
-        verbose_name_plural = 'Период'
+        verbose_name = 'Период цен'
+        verbose_name_plural = 'Периоды цен на гостиницы'
 
     def __str__(self):
-        return str(self.start) + ' - ' + str(self.end)
+        return f'{self.hotel} период цен с {self.start} по {self.end}'
 
 
-class Price(models.Model):
-    """Number Price"""
-    price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
-    number = models.ForeignKey(Number, on_delete=models.CASCADE, verbose_name='Номер')
-    period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, verbose_name='Период')
-    objects = models.Manager()
-
-    class Meta:
-        verbose_name = 'Цены'
-        verbose_name_plural = 'Цены на номера'
-
-    def __str__(self):
-        return self.number.title
+# class Price(models.Model):
+#     """Number Price"""
+#     price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
+#     extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
+#     number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
+#     period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, verbose_name='Период')
+#
+#
+#     class Meta:
+#         verbose_name = 'Цены'
+#         verbose_name_plural = 'Цены гостиницы'
+#
+#     def __str__(self):
+#         return f'Цены'
 
 
 class NumberPhoto(models.Model):

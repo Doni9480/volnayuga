@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static thumbnail %}
 {% block meta %}
-    <meta name="description" content="Забронировать {{ object }} в {{ object.city }} по адресу {{ object.address }}. Контакты владельцев, отзывы постояльцев, фотографии номеров – на сайте Вашеморе.ру">
+    <meta name="description"
+          content="Забронировать {{ object }} в {{ object.city }} по адресу {{ object.address }}. Контакты владельцев, отзывы постояльцев, фотографии номеров – на сайте Вашеморе.ру">
     <title>{{ object }} в {{ object.city }} – цены, фото, отзывы | Вашеморе.ру</title>
 {% endblock %}
 {% block modal-search %}
@@ -276,7 +277,8 @@
                     <div class="object-table mb-100">
                         <h2 class="price-rooms">Цены на 2022 год</h2>
                         <div class="object-table-cont">
-                            <table>
+                        {% if object.number_set.all %}
+                             <table>
                                 {% for number in object.number_set.all %}
                                     {% if forloop.first %}
                                         <tr>
@@ -294,20 +296,76 @@
                                         </tr>
                                     {% endif %}
                                     <tr>
-                                        <td>
+                                        <td rowspan="2">
                                             <div class="td-title">{{ number.title }}</div>
                                         </td>
                                         <td>
-                                            <div class="td-title">за номер</div>
+                                            <div class="td-title">{{ number.get_order_choice_display }}</div>
                                         </td>
-                                        {% for period in number.price_set.all %}
+                                        {% for period in number.priceperiod_set.all %}
                                             <td>
                                                 <div class="td-text">{{ period.price }}</div>
                                             </td>
                                         {% endfor %}
                                     </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="td-title">за доп</div>
+                                            </td>
+                                            {% for period in number.priceperiod_set.all %}
+                                                <td>
+                                                    <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
                                 {% endfor %}
                             </table>
+                            <div>* {{ object.another_rules }}</div>
+                        {% else %}
+                             <table>
+                                {% for number in object.priceperiod_set.all %}
+                                    {% if forloop.first %}
+                                        <tr>
+                                            <td class="sticky">
+                                                <div class="td-title">*Стоимость за сутки проживания</div>
+                                            </td>
+                                            <td class="sticky">
+
+                                            </td>
+                                            {% for period in object.priceperiod_set.all %}
+                                                <td>
+                                                    <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td rowspan="2">
+                                            <div class="td-title">{{ object }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="td-title">за весь дом</div>
+                                        </td>
+                                        {% for price in hotel.priceperiod_set.all %}
+                                            <td>
+                                                <div class="td-text">{{ price.price }}</div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="td-title">за доп</div>
+                                            </td>
+                                            {% for period in hotel.priceperiod_set.all %}
+                                                <td>
+                                                    <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                {% endfor %}
+                            </table>
+                            <div>* {{ object.another_rules }}</div>
+                        {% endif %}
                         </div>
                     </div>
                     <div class="object-description">
