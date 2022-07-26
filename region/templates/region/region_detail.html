@@ -305,7 +305,7 @@
                                     <div class="my-object-card flex mt-30">
                                         <div class="card-image">
                                             <div class="owl-admin" class="owl-carousel">
-                                                {% for image in hotel.hotelphoto_set.all %}
+                                                {% for image in hotel.hotelphoto_set.all|slice:'5' %}
                                                     <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}"
                                                        title="{{ item }}">
                                                         <div class="item">

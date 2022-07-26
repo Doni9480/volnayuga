@@ -152,6 +152,7 @@ class HotelPhoto(models.Model):
     class Meta:
         verbose_name = 'Фотографию'
         verbose_name_plural = 'Фотографии объекта для страниц фильтрации'
+        ordering = ['hotel']
 
     def __str__(self):
         return self.image.name
