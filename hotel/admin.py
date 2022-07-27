@@ -1,5 +1,27 @@
 from django.contrib import admin
+from django.contrib.admin import AdminSite
 from hotel.models import *
+
+class MyAdminSite(AdminSite):
+
+    def get_app_list(self, request):
+        """
+        Return a sorted list of all the installed apps that have been
+        registered in this site.
+        """
+        app_dict = self._build_app_dict(request)
+
+        # Sort the apps alphabetically.
+        app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
+
+        # Sort the models alphabetically within each app.
+        #for app in app_list:
+        #    app['models'].sort(key=lambda x: x['name'])
+
+        return app_list
+
+
+admin.site = MyAdminSite()
 
 
 class TypeOfObjectAdmin(admin.ModelAdmin):
@@ -58,6 +80,7 @@ class HotelAdmin(admin.ModelAdmin):
 
     )
 
+
 class NumberImageInline(admin.TabularInline):
     model = NumberPhoto
     extra = 3
@@ -78,40 +101,55 @@ class NumberImageInline(admin.TabularInline):
 #                 formfield.queryset = formfield.queryset.none()
 #         return formfield
 
+
 class NumberAdmin(admin.ModelAdmin):
     inlines = [NumberImageInline]
     list_filter = ['hotel']
-
-
 
     def get_form(self, request, obj=None, **kwargs):
         request._place_obj = obj
         return super(NumberAdmin, self).get_form(request, obj, **kwargs)
 
 
-# class NumberPriceAdmin(admin.ModelAdmin):
-#     list_display = ['price','get_period','number','get_hotel']
-#     list_filter = ['period__hotel',]
-#
-#     def get_period(self, obj):
-#         return obj.period
-#
-#     def get_hotel(self, obj):
-#         return obj.period.hotel
+class HotelPriceAdmin(admin.ModelAdmin):
+    list_display = ['price','get_period','number','get_hotel']
+    list_filter = ['period__hotel',]
+
+    def get_period(self, obj):
+        return obj.period
+
+    def get_hotel(self, obj):
+        return obj.period.hotel
+
+
+class PricePeriodInline(admin.TabularInline):
+    model = Price
+    extra = 3
+    classes = ('collapse',)
+
+    def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
+        formfield = super(PricePeriodInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        if db_field.name == 'number':
+            if request.resolver_match.kwargs['object_id'] is not None:
+                period = PricePeriod.objects.get(id=request.resolver_match.kwargs['object_id'])
+                formfield.queryset = formfield.queryset.filter(hotel__id=period.hotel.id)
+            else:
+                formfield.queryset = formfield.queryset.none()
+        return formfield
 
 class PricePeriodAdmin(admin.ModelAdmin):
+    inlines = [PricePeriodInline]
     list_display = ['period', 'hotel']
     list_filter = ['hotel']
 
     def period(self, obj):
-        return str(obj.start) + '/' + str(obj.end)
-
-
-
+        return f'Период с {obj.start.strftime("%d-%m-%Y")} -  по {obj.end.strftime("%d-%m-%Y")}'
 
 
 admin.site.register(Hotel, HotelAdmin)
 admin.site.register(Number, NumberAdmin)
+admin.site.register(PricePeriod, PricePeriodAdmin)
+admin.site.register(Price, HotelPriceAdmin)
 admin.site.register(HotelOption)
 admin.site.register(HotelContact)
 admin.site.register(TypeofObject,TypeOfObjectAdmin)
@@ -119,7 +157,7 @@ admin.site.register(ServiceFilterofObject)
 admin.site.register(NumberOption)
 admin.site.register(Distance)
 admin.site.register(DistanceTime)
-admin.site.register(PricePeriod, PricePeriodAdmin)
+
 
 
 

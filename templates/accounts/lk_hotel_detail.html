@@ -118,25 +118,34 @@
                 </div>
                 <div class="tabContent" id="mainImage">
                     <div class="imagelabel">
-                        <div class="addImageHeader">Добавьте фотографии, которые будут отображатся в карточке объекта
-                        </div>
+
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    {% for image in object.hotelphoto_set.all %}
+                                        <div class="mr-10 mb-10">
+                                            {% thumbnail image.image "193x115" crop="center" as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}">
+                                            {% endthumbnail %}
+                                            <button class="btn btn-delete">
+                                                <span class="mdi mdi-delete mdi-24px"></span>
+                                                <span class="mdi mdi-delete-empty mdi-24px"></span>
+                                                <span>Удалить</span>
+                                            </button>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="addImageHeader">Добавьте фотографии, которые будут отображатся в карточке
+                                объекта
+                            </div>
                             <div class="col-md-12">
                                 <form enctype='multipart/form-data'
                                       action="{% url 'accounts:hotel_image_upload' pk=object.id %}" method="POST"
                                       class="dropzone dz" id="my-dropzone">
                                     {% csrf_token %}
-                                    <div class="row">
-                                        {% for image in object.hotelphoto_set.all %}
 
-                                            <div class="mr-10 mb-10">
-                                                {% thumbnail image.image "193x115" crop="center" as im %}
-                                                    <img src="{{ im.url }}" width="{{ im.width }}"
-                                                         height="{{ im.height }}">
-                                                {% endthumbnail %}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
                                     <div class="dz-message" data-dz-message><span>Перетащите сюда фото или просто нажмите на область</span>
                                     </div>
 

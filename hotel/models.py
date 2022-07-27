@@ -140,7 +140,7 @@ class Hotel(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.priceperiod_set.all().aggregate(min_price=Min('price'))['min_price']
+        return self.number_set.all().aggregate(min_price=Min('price__price'))['min_price']
 
 
 class HotelPhoto(models.Model):
@@ -152,7 +152,6 @@ class HotelPhoto(models.Model):
     class Meta:
         verbose_name = 'Фотографию'
         verbose_name_plural = 'Фотографии объекта для страниц фильтрации'
-        ordering = ['hotel']
 
     def __str__(self):
         return self.image.name
@@ -216,14 +215,14 @@ class Number(models.Model):
 
     def get_min_price(self):
         """Самая низкая цена номера"""
-        return PricePeriod.objects.filter(number=self).aggregate(min_price=Min('price'))['min_price']
+        return Price.objects.filter(number=self).aggregate(min_price=Min('price'))['min_price']
 
     def get_price_today(self):
         """Цена номера на сегодня"""
         today = date.today()
-        number_price_list = PricePeriod.objects.filter(hotel=self.hotel)
+        number_price_list = Price.objects.filter(number=self)
         for item in number_price_list:
-            if today >= item.start and today <= item.end:
+            if today >= item.period.start and today <= item.period.end:
                 return item.price
             else:
                 return self.get_min_price()
@@ -241,34 +240,33 @@ class PricePeriod(models.Model):
     start = models.DateField(verbose_name='Начало периода')
     end = models.DateField(verbose_name='Конец периода')
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Гостиница')
-    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
-    price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
-    extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
     objects = models.Manager()
     today = PricePeriodToday()
 
     class Meta:
-        verbose_name = 'Период цен'
-        verbose_name_plural = 'Периоды цен на гостиницы'
+        verbose_name = 'Календарные периоды цен'
+        verbose_name_plural = 'Период цен'
+        ordering = ['start']
 
     def __str__(self):
         return f'{self.hotel} период цен с {self.start} по {self.end}'
 
 
-# class Price(models.Model):
-#     """Number Price"""
-#     price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
-#     extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
-#     number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
-#     period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, verbose_name='Период')
-#
-#
-#     class Meta:
-#         verbose_name = 'Цены'
-#         verbose_name_plural = 'Цены гостиницы'
-#
-#     def __str__(self):
-#         return f'Цены'
+class Price(models.Model):
+    """Number Price"""
+
+    price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
+    extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
+    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
+    period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, verbose_name='Период')
+
+    class Meta:
+        verbose_name = 'Цены'
+        verbose_name_plural = 'Цены гостиницы'
+        ordering = ['period__start']
+
+    def __str__(self):
+        return f'Цены'
 
 
 class NumberPhoto(models.Model):

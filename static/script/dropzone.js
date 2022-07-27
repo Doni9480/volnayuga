@@ -386,7 +386,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
          * already uploading) the file. The `dictCancelUpload`, `dictCancelUploadConfirmation`
          * and `dictRemoveFile` options are used for the wording.
          */
-        addRemoveLinks: false,
+        addRemoveLinks: true,
 
         /**
          * Defines where to display the file previews – if `null` the
@@ -487,7 +487,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         /**
          * If `addRemoveLinks` is true, the text to be used to remove a file.
          */
-        dictRemoveFile: "Remove file",
+        dictRemoveFile: "Удалить?",
 
         /**
          * If this is not null, then the user will be prompted before removing a file.

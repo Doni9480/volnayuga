@@ -196,6 +196,5 @@ CKEDITOR_CONFIGS = {
     'allowedContent': 'true',
 
 }
-
 YANDEX_MAPS_API_KEY=env('YANDEX_MAPS_API_KEY')
 

@@ -302,9 +302,9 @@
                                         <td>
                                             <div class="td-title">{{ number.get_order_choice_display }}</div>
                                         </td>
-                                        {% for period in number.priceperiod_set.all %}
+                                        {% for price in number.price_set.all %}
                                             <td>
-                                                <div class="td-text">{{ period.price }}</div>
+                                                <div class="td-text">{{ price.price }}</div>
                                             </td>
                                         {% endfor %}
                                     </tr>
@@ -312,7 +312,7 @@
                                             <td>
                                                 <div class="td-title">за доп</div>
                                             </td>
-                                            {% for period in number.priceperiod_set.all %}
+                                            {% for period in number.price_set.all %}
                                                 <td>
                                                     <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
                                                 </td>
@@ -346,7 +346,7 @@
                                         <td>
                                             <div class="td-title">за весь дом</div>
                                         </td>
-                                        {% for price in hotel.priceperiod_set.all %}
+                                        {% for price in number.price_set.all %}
                                             <td>
                                                 <div class="td-text">{{ price.price }}</div>
                                             </td>
@@ -356,7 +356,7 @@
                                             <td>
                                                 <div class="td-title">за доп</div>
                                             </td>
-                                            {% for period in hotel.priceperiod_set.all %}
+                                            {% for period in number.price_set.all %}
                                                 <td>
                                                     <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
                                                 </td>

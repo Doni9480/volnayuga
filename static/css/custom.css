@@ -37,86 +37,136 @@ h2.not-margin {
 }
 
 #object.fixed-menu {
-	position: fixed;
-	z-index: 100;
-	width: 100%;
-	left: 0;
-	top: 0;
-	height: 89px;
-	background: rgb(227, 236, 250);
-	animation-name: menuSlideDown;
-	animation-duration: .4s;
-	animation-fill-mode: forwards;
-	animation-timing-function: ease-out;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 89px;
+    background: rgb(227, 236, 250);
+    animation-name: menuSlideDown;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
 }
 
 .object-section.fixed-menu {
-	padding-top: 89px;
+    padding-top: 89px;
 }
 
 .object-right.fixed {
-	position: fixed;
-	width: 255px;
-	top: 114px;
+    position: fixed;
+    width: 255px;
+    top: 114px;
 }
 
 .object-right.fixed.absolute {
-	position: absolute;
-	bottom: 0;
-	top: inherit;
+    position: absolute;
+    bottom: 0;
+    top: inherit;
 }
 
 .object-table-cont td.sticky {
-	width: 200px;
-	min-width: 200px;
-	max-width: 200px;
-	left: 0px;
-	position: sticky;
-	overflow: hidden;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    left: 0px;
+    position: sticky;
+    overflow: hidden;
 }
+
 .object-table-cont td.sticky2 {
-	width: 200px;
-	min-width: 200px;
-	max-width: 200px;
-	left: 200px;
-	position: sticky;
-	overflow: hidden;
-	box-shadow: 5px 0px 5px rgba(0,0,0,.05);
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    left: 200px;
+    position: sticky;
+    overflow: hidden;
+    box-shadow: 5px 0px 5px rgba(0, 0, 0, .05);
 }
 
 .object-table-cont td.sticky.even {
-	background-color: #edf4ff;
+    background-color: #edf4ff;
 }
 
 .object-table-cont td.sticky.odd {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .object-table-cont td.sticky2.even {
-	background-color: #edf4ff;
+    background-color: #edf4ff;
 }
 
 .object-table-cont td.sticky2.odd {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 @media (max-width: 1200px) {
-	.object-right.fixed {
-		width: 290px;
-	}
+    .object-right.fixed {
+        width: 290px;
+    }
 }
 
 @media (max-width: 992px) {
-	.object-right.fixed {
-		width: 210px;
-	}
+    .object-right.fixed {
+        width: 210px;
+    }
 }
 
 @keyframes menuSlideDown {
-	0% {
-		top: -90px
-	}
-	100% {
-		top: 0;
-	}
+    0% {
+        top: -90px
+    }
+    100% {
+        top: 0;
+    }
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 1px solid gray;
+    height: 48px;
+    padding: 0 24px 0 16px;
+    letter-spacing: .25px;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+
+.btn:focus {
+    outline: none;
+}
+
+.mdi {
+    margin-right: 8px;
+}
+
+.btn-delete {
+    margin: 5px auto;
+    font-size: 16px;
+    color: #4581DA;
+}
+
+.mdi-delete-empty {
+    display: none;
+}
+
+.btn-delete:hover {
+    background-color: #4581DA;
+
+.mdi-delete-empty {
+    display: block;
+}
+
+.mdi-delete {
+    display: none;
+}
+
+
+.btn-delete:focus {
+    box-shadow: 0 0 0 4px red;
+}
+
 }

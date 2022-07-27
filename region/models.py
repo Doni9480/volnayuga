@@ -28,7 +28,7 @@ class Region(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.hotel_set.all().aggregate(min_price=Min('priceperiod__price'))['min_price']
+        return self.hotel_set.all().aggregate(min_price=Min('priceperiod__price__price'))['min_price']
 
     def get_average_price(self):
         from hotel.models import Hotel
@@ -36,18 +36,18 @@ class Region(models.Model):
             hotel_list = Hotel.objects.filter(
                 Q(city__parent__parent__parent=self) | Q(city__parent=self) | Q(city=self) | Q(
                     city__parent__parent=self))
-            return hotel_list.aggregate(average=Avg('priceperiod__price'))['average']
+            return hotel_list.aggregate(average=Avg('priceperiod__price__price'))['average']
 
         elif self.is_city:
             hotel_list = Hotel.objects.filter(city=self)
-            return hotel_list.aggregate(average=Avg('priceperiod__price'))['average']
+            return hotel_list.aggregate(average=Avg('priceperiod__price__price'))['average']
 
         elif self.parent:
             hotel_list = Hotel.objects.filter(city__parent=self)
-            return hotel_list.aggregate(average=Avg('priceperiod__price'))['average']
+            return hotel_list.aggregate(average=Avg('priceperiod__price__price'))['average']
         else:
             hotel_list = Hotel.objects.filter(city__parent__parent__parent=self)
-            return hotel_list.aggregate(average=Avg('priceperiod__price'))['average']
+            return hotel_list.aggregate(average=Avg('priceperiod__price__price'))['average']
 
     def get_average_review(self):
         from hotel.models import Hotel
