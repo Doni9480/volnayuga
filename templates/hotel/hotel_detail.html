@@ -323,13 +323,13 @@
                             <div>* {{ object.another_rules }}</div>
                         {% else %}
                              <table>
-                                {% for number in object.priceperiod_set.all %}
-                                    {% if forloop.first %}
+
+
                                         <tr>
-                                            <td class="sticky">
+                                            <td>
                                                 <div class="td-title">*Стоимость за сутки проживания</div>
                                             </td>
-                                            <td class="sticky">
+                                            <td>
 
                                             </td>
                                             {% for period in object.priceperiod_set.all %}
@@ -338,7 +338,7 @@
                                                 </td>
                                             {% endfor %}
                                         </tr>
-                                    {% endif %}
+
                                     <tr>
                                         <td rowspan="2">
                                             <div class="td-title">{{ object }}</div>
@@ -346,10 +346,12 @@
                                         <td>
                                             <div class="td-title">за весь дом</div>
                                         </td>
-                                        {% for price in number.price_set.all %}
+                                        {% for period in object.priceperiod_set.all %}
+                                            {% for price in period.price_set.all %}
                                             <td>
                                                 <div class="td-text">{{ price.price }}</div>
                                             </td>
+                                                {% endfor %}
                                         {% endfor %}
                                     </tr>
                                         <tr>
@@ -362,7 +364,7 @@
                                                 </td>
                                             {% endfor %}
                                         </tr>
-                                {% endfor %}
+
                             </table>
                             <div>* {{ object.another_rules }}</div>
                         {% endif %}
