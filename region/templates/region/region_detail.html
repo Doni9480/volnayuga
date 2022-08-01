@@ -328,9 +328,11 @@
                                                     <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}"
                                                        title="{{ item }}"><p>{{ hotel }}</p></a>
                                                     <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
-                                                    <p class="card-distance">Море - {{ hotel.remoteness }} м • Центр -
-                                                        3,9
+                                                    <p class="card-distance">Море - {{ hotel.remoteness }} м •
+                                                        {% if hotel.centr %}Центр -
+                                                        {{ hotel.centr }}
                                                         км</p>
+                                                        {% endif %}
                                                 </div>
                                                 <div class="black-sea-icon flex">
                                                     {% for option in hotel.options.all|slice:":3" %}

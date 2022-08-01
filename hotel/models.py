@@ -115,6 +115,7 @@ class Hotel(models.Model):
     city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
     remoteness = models.CharField(max_length=10, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
     beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default='1000', verbose_name='Пляж')
+    centr = models.CharField(max_length=20, blank=True, verbose_name='Расстояние до центра')
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
     description = RichTextField(blank=True, verbose_name='Описание')
     video = models.URLField(blank=True, verbose_name='Ссылка на видео объекта')

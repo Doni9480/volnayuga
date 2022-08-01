@@ -69,7 +69,7 @@ class HotelAdmin(admin.ModelAdmin):
             'fields': ('meta_title', 'meta_description')
         }),
         ('Основное', {
-            'fields': ('premium','user', 'title', 'object_type','object_service', 'remoteness', 'beach', 'options', 'description', 'video')
+            'fields': ('premium','user', 'title', 'object_type','object_service', 'remoteness', 'beach', 'centr', 'options', 'description', 'video')
         }),
         ('Адрес', {
             'fields': ('address', 'city')
