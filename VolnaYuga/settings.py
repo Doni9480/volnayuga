@@ -144,7 +144,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+THUMBNAIL_ALIASES = {
+    "": {
+        "small": {"size": (150, 150)}
+    },
+}
 AUTH_USER_MODEL = 'accounts.MyUser'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False

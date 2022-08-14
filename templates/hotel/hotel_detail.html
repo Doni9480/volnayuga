@@ -216,128 +216,134 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="object-prices mb-100">
-                        <h2 class="photo-rooms">Номера и цены</h2>
-                        <div class="my-object-card-cont curort-card-cont">
-                            {% for number in object.number_set.all %}
-                                <div class="my-object-card flex mt-30">
-                                    <div class="card-image">
-                                        <div class="owl-admin owl-carousel">
-                                            {% for item in number.numberphoto_set.all %}
-                                                <div class="item">
-                                                    <div class="item-img">
-                                                        <a href="">
-                                                            {% thumbnail item.image '262x180' crop='center' as img %}
-                                                                <img class="lazyOwl" data-src="{{ img.url }}"
-                                                                     width="{{ im.width }}"
-                                                                     height="{{ im.height }}"
-                                                                     alt="{{ number }}{{ forloop.counter }}">
-                                                            {% endthumbnail %}
-                                                        </a>
+                    {% if object.number_set.all %}
+                        <div class="object-prices mb-100">
+                            <h2 class="photo-rooms">Номера и цены</h2>
+                            <div class="my-object-card-cont curort-card-cont">
+                                {% for number in object.number_set.all %}
+                                    <div class="my-object-card flex mt-30">
+                                        <div class="card-image">
+                                            <div class="owl-admin owl-carousel">
+                                                {% for item in number.numberphoto_set.all %}
+                                                    <div class="item">
+                                                        <div class="item-img">
+                                                            <a href="">
+                                                                {% thumbnail item.image '262x180' crop='center' as img %}
+                                                                    <img class="lazyOwl" data-src="{{ img.url }}"
+                                                                         width="{{ im.width }}"
+                                                                         height="{{ im.height }}"
+                                                                         alt="{{ number }}{{ forloop.counter }}">
+                                                                {% endthumbnail %}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body curort-card flex  room-card juatifyBetween">
+                                            <div class="card-body-left flex directionColumn juatifyBetween">
+                                                <div class="card-body-cont">
+                                                    <p>{{ number.title }}</p>
+                                                    <p class="card-location">{{ number.room_number }} комната
+                                                        {{ number.room_square }} м2</p>
+                                                    <p class="card-distance">{{ number.sleep_place }} спальных места</p>
+                                                </div>
+                                                <div class="room-price flex room-price-fixed  hidden">
+                                                    {% for option in number.options.all %}
+                                                        <span>{{ option }}</span>
+                                                    {% endfor %}
+                                                    <div class="row">
+                                                        <div class="col-md-11">{{ number.furniture|safe }}</div>
                                                     </div>
                                                 </div>
-                                            {% endfor %}
-
-                                        </div>
-                                    </div>
-                                    <div class="card-body curort-card flex  room-card juatifyBetween">
-                                        <div class="card-body-left flex directionColumn juatifyBetween">
-                                            <div class="card-body-cont">
-                                                <p>{{ number.title }}</p>
-                                                <p class="card-location">{{ number.room_number }} комната
-                                                    {{ number.room_square }} м2</p>
-                                                <p class="card-distance">{{ number.sleep_place }} спальных места</p>
                                             </div>
-                                            <div class="room-price flex room-price-fixed  hidden">
-                                                {% for option in number.options.all %}
-                                                    <span>{{ option }}</span>
-                                                {% endfor %}
-                                                <div class="row">
-                                                    <div class="col-md-11">{{ number.furniture|safe }}</div>
+
+                                            <div class="card-body-right flex directionColumn juatifyBetween">
+                                                <div class="curort-price">
+                                                    <div class="curort-price1">
+                                                        {% if number.get_price_today %}{{ number.get_price_today }}
+                                                            руб.{% else %}Не задано{% endif %}</div>
+                                                    <div class="curort-price2">за 1 сутки</div>
                                                 </div>
+                                                <button class="show-price">Оставить заявку</button>
+                                                <button class="show-price-show">Показать все <i
+                                                        class="fa fa-angle-down"></i>
+                                                </button>
                                             </div>
-                                        </div>
 
-                                        <div class="card-body-right flex directionColumn juatifyBetween">
-                                            <div class="curort-price">
-                                                <div class="curort-price1">{% if number.get_price_today %}{{ number.get_price_today }} руб.{% else %}Не задано{% endif %}</div>
-                                                <div class="curort-price2">за 1 сутки</div>
-                                            </div>
-                                            <button class="show-price">Оставить заявку</button>
-                                            <button class="show-price-show">Показать все <i
-                                                    class="fa fa-angle-down"></i>
-                                            </button>
                                         </div>
-
                                     </div>
-                                </div>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     <div class="object-table mb-100">
                         <h2 class="price-rooms">Цены на 2022 год</h2>
                         <div class="object-table-cont">
-                        {% if object.number_set.all %}
-                             <table>
-                                {% for number in object.number_set.all %}
-                                    {% if forloop.first %}
-                                        <tr>
-                                            <td class="sticky">
-                                                <div class="td-title">*Стоимость за сутки проживания</div>
-                                            </td>
-                                            <td class="sticky">
+                            {% if object.number_set.all %}
+                                <table>
+                                    {% for number in object.number_set.all %}
+                                        {% if forloop.first %}
+                                            <tr>
+                                                <td class="sticky">
+                                                    <div class="td-title">*Стоимость за сутки проживания</div>
+                                                </td>
+                                                <td class="sticky">
 
+                                                </td>
+                                                {% for period in object.priceperiod_set.all %}
+                                                    <td>
+                                                        <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="td-title">{{ number.title }}</div>
                                             </td>
-                                            {% for period in object.priceperiod_set.all %}
+                                            <td>
+                                                <div class="td-title">{{ number.get_order_choice_display }}</div>
+                                            </td>
+                                            {% for price in number.price_set.all %}
                                                 <td>
-                                                    <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                                    <div class="td-text">{{ price.price }}</div>
                                                 </td>
                                             {% endfor %}
                                         </tr>
-                                    {% endif %}
-                                    <tr>
-                                        <td rowspan="2">
-                                            <div class="td-title">{{ number.title }}</div>
-                                        </td>
-                                        <td>
-                                            <div class="td-title">{{ number.get_order_choice_display }}</div>
-                                        </td>
-                                        {% for price in number.price_set.all %}
-                                            <td>
-                                                <div class="td-text">{{ price.price }}</div>
-                                            </td>
-                                        {% endfor %}
-                                    </tr>
                                         <tr>
                                             <td>
                                                 <div class="td-title">за доп</div>
                                             </td>
                                             {% for period in number.price_set.all %}
                                                 <td>
-                                                    <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
+                                                    <div class="td-text">
+                                                        {% if period.extra_bed %}{{ period.extra_bed }}{% else %}
+                                                            0 {% endif %}</div>
                                                 </td>
                                             {% endfor %}
                                         </tr>
-                                {% endfor %}
-                            </table>
-                            <div>* {{ object.another_rules }}</div>
-                        {% else %}
-                             <table>
+                                    {% endfor %}
+                                </table>
+                                <div>* {{ object.another_rules }}</div>
+                            {% else %}
+                                <table>
 
 
-                                        <tr>
+                                    <tr>
+                                        <td>
+                                            <div class="td-title">*Стоимость за сутки проживания</div>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        {% for period in object.priceperiod_set.all %}
                                             <td>
-                                                <div class="td-title">*Стоимость за сутки проживания</div>
+                                                <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
                                             </td>
-                                            <td>
-
-                                            </td>
-                                            {% for period in object.priceperiod_set.all %}
-                                                <td>
-                                                    <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
-                                                </td>
-                                            {% endfor %}
-                                        </tr>
+                                        {% endfor %}
+                                    </tr>
 
                                     <tr>
                                         <td rowspan="2">
@@ -348,26 +354,28 @@
                                         </td>
                                         {% for period in object.priceperiod_set.all %}
                                             {% for price in period.price_set.all %}
-                                            <td>
-                                                <div class="td-text">{{ price.price }}</div>
-                                            </td>
-                                                {% endfor %}
-                                        {% endfor %}
-                                    </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="td-title">за доп</div>
-                                            </td>
-                                            {% for period in number.price_set.all %}
                                                 <td>
-                                                    <div class="td-text">{% if period.extra_bed %}{{ period.extra_bed }}{% else %} 0 {% endif %}</div>
+                                                    <div class="td-text">{{ price.price }}</div>
                                                 </td>
                                             {% endfor %}
-                                        </tr>
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="td-title">за доп</div>
+                                        </td>
+                                        {% for period in number.price_set.all %}
+                                            <td>
+                                                <div class="td-text">
+                                                    {% if period.extra_bed %}{{ period.extra_bed }}{% else %}
+                                                        0 {% endif %}</div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
 
-                            </table>
-                            <div>* {{ object.another_rules }}</div>
-                        {% endif %}
+                                </table>
+                                <div>* {{ object.another_rules }}</div>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="object-description">

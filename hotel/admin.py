@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
+from django.template.loader import get_template
+
+from hotel.forms import HotelAdminForm
 from hotel.models import *
 
 class MyAdminSite(AdminSite):
@@ -33,6 +36,16 @@ class HotelImageAdmin(admin.TabularInline):
     model = HotelPhoto
     extra = 3
     classes = ('collapse',)
+    fields = ("showphoto_thumbnail",)
+    readonly_fields = ("showphoto_thumbnail",)
+    max_num = 0
+
+    def showphoto_thumbnail(self, instance):
+        """A (pseudo)field that returns an image thumbnail for a show photo."""
+
+        tpl = get_template("hotel/admin_thumbnail.html")
+        return tpl.render({"photo": instance.image})
+    showphoto_thumbnail.short_description = "Thumbnail"
 
 
 class HotelDistanceAdmin(admin.TabularInline):
@@ -62,6 +75,7 @@ class HotelPriceInline(admin.TabularInline):
         return formfield
 
 class HotelAdmin(admin.ModelAdmin):
+    form = HotelAdminForm
     inlines = [HotelImageAdmin, HotelDistanceAdmin, HotelPriceInline]
     list_display = ['title', 'city']
     fieldsets = (
@@ -77,8 +91,15 @@ class HotelAdmin(admin.ModelAdmin):
         ('Правила', {
             'fields': ('prepayment', 'free_cancel', 'early_booking_discount', 'requisites', 'prepayments_term', 'minimum', 'chek_in', 'chek_out', 'pets', 'child', 'another_rules')
         }),
+        ('Мультизагрузка фотографий', {
+            'fields': ('images',)
+        }),
 
     )
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_photos(form.instance)
 
 
 class NumberImageInline(admin.TabularInline):

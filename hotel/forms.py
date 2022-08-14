@@ -1,10 +1,11 @@
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, HTML, ButtonHolder, Submit
 from django import forms
+from django.core.validators import validate_image_file_extension
 from django.forms import HiddenInput
 from django.urls import reverse
 
-from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS, TypeofObject
+from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS, TypeofObject, HotelPhoto
 
 import django_filters
 
@@ -102,6 +103,29 @@ class HotelFilter(django_filters.FilterSet):
         model = Hotel
         form = HotelFilterForm
         fields = ['object_type', 'options', 'object_type', 'beach', 'remoteness']
+
+
+class HotelAdminForm(forms.ModelForm):
+    class Meta:
+        model = Hotel
+        fields = '__all__'
+
+    images = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        label= 'Добавить фото',
+        required=False,
+    )
+
+    def clean_photos(self):
+        """Make sure only images can be uploaded."""
+        for upload in self.files.getlist("images"):
+            validate_image_file_extension(upload)
+
+    def save_photos(self, hotel):
+        """Process each uploaded image."""
+        for upload in self.files.getlist("images"):
+            images = HotelPhoto(hotel=hotel, image=upload)
+            images.save()
 
 
 
