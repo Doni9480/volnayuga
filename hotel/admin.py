@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.admin import AdminSite
 from django.template.loader import get_template
 
-from hotel.forms import HotelAdminForm
+from hotel.forms import HotelAdminForm, NumberAdminForm
 from hotel.models import *
 
 class MyAdminSite(AdminSite):
@@ -74,6 +74,7 @@ class HotelPriceInline(admin.TabularInline):
                 formfield.queryset = formfield.queryset.none()
         return formfield
 
+
 class HotelAdmin(admin.ModelAdmin):
     form = HotelAdminForm
     inlines = [HotelImageAdmin, HotelDistanceAdmin, HotelPriceInline]
@@ -106,6 +107,17 @@ class NumberImageInline(admin.TabularInline):
     model = NumberPhoto
     extra = 3
     classes = ('collapse',)
+    fields = ("showphoto_thumbnail",)
+    readonly_fields = ("showphoto_thumbnail",)
+    max_num = 0
+
+    def showphoto_thumbnail(self, instance):
+        """A (pseudo)field that returns an image thumbnail for a show photo."""
+
+        tpl = get_template("hotel/admin_thumbnail.html")
+        return tpl.render({"photo": instance.image})
+
+    showphoto_thumbnail.short_description = "Thumbnail"
 
 # class NumberPriceInline(admin.TabularInline):
 #     model = Price
@@ -124,8 +136,13 @@ class NumberImageInline(admin.TabularInline):
 
 
 class NumberAdmin(admin.ModelAdmin):
+    form = NumberAdminForm
     inlines = [NumberImageInline]
     list_filter = ['hotel']
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_photos(form.instance)
 
     def get_form(self, request, obj=None, **kwargs):
         request._place_obj = obj
@@ -135,6 +152,10 @@ class NumberAdmin(admin.ModelAdmin):
 class HotelPriceAdmin(admin.ModelAdmin):
     list_display = ['price','get_period','number','get_hotel']
     list_filter = ['period__hotel',]
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_photos(form.instance)
 
     def get_period(self, obj):
         return obj.period
