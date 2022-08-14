@@ -260,7 +260,7 @@
 
                                         <div class="card-body-right flex directionColumn juatifyBetween">
                                             <div class="curort-price">
-                                                <div class="curort-price1">{{ number.get_price_today }} руб.</div>
+                                                <div class="curort-price1">{% if number.get_price_today %}{{ number.get_price_today }} руб.{% else %}Не задано{% endif %}</div>
                                                 <div class="curort-price2">за 1 сутки</div>
                                             </div>
                                             <button class="show-price">Оставить заявку</button>

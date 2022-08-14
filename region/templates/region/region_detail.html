@@ -344,7 +344,7 @@
                                                 <div class="curort-price">
                                                     <div class="curort-price-cont">
                                                         <div class="curort-price1 cur1">
-                                                            от {{ hotel.get_min_price }} руб.
+                                                            {% if hotel.get_min_price %}от {{ hotel.get_min_price }} руб.{% else %}Не задано{% endif %}
                                                         </div>
                                                         <div class="curort-price2">за 1 сутки</div>
                                                     </div>
