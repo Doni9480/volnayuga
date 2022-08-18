@@ -361,7 +361,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                                <button class="open-more">Открыть ещё 20 объектов</button>
+
                             </div>
                         </div>
                     </div>
@@ -412,7 +412,7 @@
                         <div class="item">
                             <a href="{% url 'region:hotel_service_filter' slug=object.slug service_slug=item.slug %}">
                                 <div class="item-img">
-                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                    <img class="lazyOwl" data-src="{{ item.image.url }}"
                                          alt="Lazy Owl Image">
                                 </div>
                             </a>
