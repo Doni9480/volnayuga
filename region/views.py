@@ -29,7 +29,7 @@ class RegionDetail(DetailView):
         context['region_parent_list'] = Region.objects.filter(parent=self.object)
         context['hotel_list'] = Hotel.objects.filter(
             Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
-            (city=self.object))
+            (city=self.object)).order_by('id')
         context['hotel_type'] = TypeofObject.objects.all()  # Подборка жилья по типу
         region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(
             Q(odd=False, parent__parent=self.object, is_popular=True) | Q(odd=False, parent=self.object,
