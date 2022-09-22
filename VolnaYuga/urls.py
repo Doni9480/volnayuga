@@ -31,6 +31,7 @@ urlpatterns = [
     path('about/', AboutPage.as_view(), name='about'),
     path('contact/', ContactPage.as_view(), name='contact'),
     path('rent/', RentPage.as_view(), name='rent'),
+    path('page/', include('page.urls', namespace='page')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('register/', register_request, name="register"),

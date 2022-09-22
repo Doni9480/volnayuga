@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'review',
     'core',
     'seo',
+    'page',
 
     'phonenumber_field',
     'django_registration',
@@ -91,6 +92,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processors.data',
+                'core.context_processors.page',
             ],
         },
     },

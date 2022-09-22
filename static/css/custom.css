@@ -153,4 +153,6 @@ h2.not-margin {
     box-shadow: 0 0 0 4px red;
 }
 
-
+.social img{
+    width: 40px;
+}

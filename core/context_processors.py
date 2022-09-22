@@ -1,3 +1,4 @@
+from page.models import Page
 from .models import StaticData
 
 def data(request):
@@ -18,6 +19,11 @@ def data(request):
             'email': None,
             'banner': None,
         }
+    return context
+
+
+def page(request):
+    context = {'page_list': Page.objects.all()}
     return context
 
 
