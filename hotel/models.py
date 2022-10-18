@@ -1,3 +1,4 @@
+import datetime
 from datetime import date
 
 from django.db import models
@@ -105,6 +106,7 @@ BEACHREMOTENESS = [
 class Hotel(models.Model):
     """Отель"""
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name='Владелец')
+    pub_date = models.DateField(default=datetime.date.today, verbose_name='Дата публикации')
     title = models.CharField(max_length=100, verbose_name='Название')
     meta_title = models.CharField(max_length=100, blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
