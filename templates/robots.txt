@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /
+
+Sitemap: https://vashemore.ru/sitemap.xml/
