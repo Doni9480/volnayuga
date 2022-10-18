@@ -24,7 +24,7 @@ class MyAdminSite(AdminSite):
         return app_list
 
 
-admin.site = MyAdminSite()
+
 
 
 class TypeOfObjectAdmin(admin.ModelAdmin):

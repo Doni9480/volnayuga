@@ -15,4 +15,4 @@ class HotelSitemap(Sitemap):
         return obj.pub_date
 
     def location(self, obj):
-        return '/hotel/%s' % (obj.id)
+        return '/%s/%s' % (obj.region.slug, obj.id)
