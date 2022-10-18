@@ -15,4 +15,4 @@ class HotelSitemap(Sitemap):
         return obj.pub_date
 
     def location(self, obj):
-        return '/blog/%s' % (obj.article_slug)
+        return '/hotel/%s' % (obj.slug)
