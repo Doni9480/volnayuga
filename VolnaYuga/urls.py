@@ -21,7 +21,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 
 from accounts.views import register_request, login_request,  logout_request, password_reset_request
-from core.sitemaps import HotelSitemap
+from core.sitemaps import HotelSitemap, RegionSitemap
 from core.views import AboutPage, ContactPage, RentPage, HomePage
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,7 +29,8 @@ from django.conf.urls.static import static
 from hotel.models import Hotel
 
 sitemaps = {
-    'blog':HotelSitemap,
+    'hotel':HotelSitemap,
+    'region':RegionSitemap,
 }
 
 
