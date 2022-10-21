@@ -229,9 +229,10 @@
                                                         <div class="item-img">
                                                             <a href="">
                                                                 {% thumbnail item.image '262x180' crop='center' as img %}
+
                                                                     <img class="lazyOwl" data-src="{{ img.url }}"
-                                                                         width="{{ im.width }}"
-                                                                         height="{{ im.height }}"
+                                                                         width="{{ img.width }}"
+                                                                         height="{{ img.height }}"
                                                                          alt="{{ number }}{{ forloop.counter }}">
                                                                 {% endthumbnail %}
                                                             </a>
