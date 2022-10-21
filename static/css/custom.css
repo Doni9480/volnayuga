@@ -157,3 +157,12 @@ h2.not-margin {
     width: 40px;
 }
 
+.curort-card-cont .owl-item {
+ width: 262px !important;
+}
+
+.curort-card-cont .owl-item img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}
