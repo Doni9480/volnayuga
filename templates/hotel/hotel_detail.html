@@ -164,7 +164,8 @@
                             {% thumbnail object.hotelphoto_set.first '404x284' crop='center' as im %}
                                 <img class="lightboxed" rel="group1" src="{{ im.url }}"
                                      data-link="{{ object.hotelphoto_set.first.image.url }}"
-                                     alt="{{ im }}{{ forloop.counter }}">
+                                     alt="{{ im }}{{ forloop.counter }}"
+                                     title="{{ im }}{{ forloop.counter }}">
                             {% endthumbnail %}
                         </div>
                         <div class="object-left-second flex directionColumn juatifyBetween">
@@ -173,7 +174,9 @@
                                     <div class="object-left-second-up-{% if forloop.counter|divisibleby:2 %}two{% else %}one{% endif %}">
                                         {% thumbnail item.image '202x141' crop='center' as im %}
                                             <img class="lightboxed" rel="group1" src="{{ im.url }}"
-                                                 data-link="{{ item.image.url }}" alt="{{ im }}{{ forloop.counter }}">
+                                                 data-link="{{ item.image.url }}"
+                                                 alt="{{ im }}{{ forloop.counter }}"
+                                                 title="{{ im }}{{ forloop.counter }}">
                                         {% endthumbnail %}
                                     </div>
                                 {% endfor %}
@@ -183,7 +186,9 @@
                                     {% for item in object.hotelphoto_set.all|slice:"3:4" %}
                                         {% thumbnail item.image '202x141' crop='center' as im %}
                                             <img class="lightboxed" rel="group1" src="{{ im.url }}"
-                                                 data-link="{{ item.image.url }}" alt="{{ im }}{{ forloop.counter }}">
+                                                 data-link="{{ item.image.url }}"
+                                                 alt="{{ im }}{{ forloop.counter }}"
+                                                 title="{{ im }}{{ forloop.counter }}">
                                         {% endthumbnail %}
                                     {% endfor %}
                                 </div>
@@ -229,12 +234,14 @@
                                                         <div class="item-img">
                                                             <a href="">
                                                                 {% thumbnail item.image '262x180' crop='center' as img %}
-                                                                    <img class="lightboxed" rel="group{{ forloop.counter }}" src="{{ img.url }}"
-                                                                         data-src="{{ item.image.url }}"
+                                                                    <img class="lightboxed"
+                                                                         rel="group{{ forloop.counter }}"
+                                                                         src="{{ img.url }}"
                                                                          data-link="{{ item.image.url }}"
                                                                          width="{{ img.width }}"
                                                                          height="{{ img.height }}"
                                                                          alt="{{ number }}{{ forloop.counter }}">
+                                                                         title="{{ number }}{{ forloop.counter }}">
                                                                 {% endthumbnail %}
                                                             </a>
                                                         </div>
