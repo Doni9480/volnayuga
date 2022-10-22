@@ -121,7 +121,8 @@
                                                 <p class="bold">
                                                     <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">{{ item }}</a>
                                                 </p>
-                                                <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
+                                                <p>{{ item.city }}</p>
+                                                <p>море: {{ item.remoteness }} м.</p>
                                                 <p>
                                                     <span>от {{ item.get_min_price|default_if_none:"0" }} руб.</span>
                                                     / за 1 ночь
@@ -165,7 +166,8 @@
                                                 {% endthumbnail %}
                                             </a>
                                             <p class="bold">{{ item.title }}</p>
-                                            <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
+                                            <p>{{ item.city }}</p>
+                                            <p>море: {{ item.remoteness }} м.</p>
                                             <p>
                                                 <span>от {{ item.get_min_price|default_if_none:"" }} руб.</span>
                                                 / за 1 ночь
@@ -207,7 +209,8 @@
                                                 {% endthumbnail %}
                                             </a>
                                             <p class="bold">{{ item }}</p>
-                                            <p>{{ item.city }}, море: {{ item.remoteness }} м.</p>
+                                            <p>{{ item.city }}</p>
+                                            <p>море: {{ item.remoteness }} м.</p>
                                             <p>
                                                 <span>от {{ item.get_min_price|default_if_none:"" }} руб.</span>
                                                 / за 1 ночь
