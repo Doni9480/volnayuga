@@ -315,10 +315,11 @@
             $(".owl-demo2").owlCarousel({
                 items: 4,
                 lazyLoad: true,
-                navigation: false,
+                navigation: true,
                 navigationText: ['<img src="{% static 'img/prev.png' %}">', '<img src="{% static 'img/next.png' %}">'],
                 itemsDesktopSmall: [1200, 3],
                 itemsMobile: [576, 1],
+                pagination: false,
             });
             $(".curort-feedback-cont").owlCarousel({
                 items: 3,
