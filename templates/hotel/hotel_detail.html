@@ -229,8 +229,9 @@
                                                         <div class="item-img">
                                                             <a href="">
                                                                 {% thumbnail item.image '262x180' crop='center' as img %}
-
-                                                                    <img class="lazyOwl" data-src="{{ img.url }}"
+                                                                    <img class="lightboxed" rel="group{{ forloop.counter }}" src="{{ img.url }}"
+                                                                         data-src="{{ item.image.url }}"
+                                                                         data-link="{{ item.image.url }}"
                                                                          width="{{ img.width }}"
                                                                          height="{{ img.height }}"
                                                                          alt="{{ number }}{{ forloop.counter }}">
@@ -247,7 +248,7 @@
                                                 <div class="card-body-cont">
                                                     <p>{{ number.title }}</p>
                                                     <p class="card-location">{{ number.room_number }} комната
-                                                        {{ number.room_square }} м2</p>
+                                                        {{ number.room_square|default_if_none:"" }} м2</p>
                                                     <p class="card-distance">{{ number.sleep_place }} спальных места</p>
                                                 </div>
                                                 <div class="room-price flex room-price-fixed  hidden">

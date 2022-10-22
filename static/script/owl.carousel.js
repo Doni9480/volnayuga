@@ -1488,7 +1488,7 @@ if (typeof Object.create !== "function") {
         baseClass : "owl-carousel",
         theme : "owl-theme",
 
-        lazyLoad : false,
+        lazyLoad : true,
         lazyFollow : true,
         lazyEffect : "fade",
 

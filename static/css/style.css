@@ -1539,7 +1539,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
 }
 
 .curort-card .card-body-cont {
-    width: 99%;
+
 }
 
 .curort-card .card-body-cont p:nth-child(2) {
@@ -1669,7 +1669,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
 }
 
 .item-img img {
-    border-radius: 15px;
+    border-radius: 0px;
 }
 
 .adler-right p {
