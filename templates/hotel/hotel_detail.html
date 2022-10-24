@@ -222,68 +222,56 @@
                         </div>
                     </div>
                     {% if object.number_set.all %}
-                        <div class="object-prices mb-100">
+                        <div class="object-prices mb-100 object-card-wrapper">
                             <h2 class="photo-rooms">Номера и цены</h2>
                             <div class="my-object-card-cont curort-card-cont">
                                 {% for number in object.number_set.all %}
-                                    <div class="my-object-card flex mt-30">
-                                        <div class="card-image">
-                                            <div class="owl-admin owl-carousel">
+                                    <div class="object-card">
+                                        <div class="object-images swiper">
+                                            <div class="swiper-wrapper">
                                                 {% for item in number.numberphoto_set.all %}
-                                                    <div class="item">
-                                                        <div class="item-img">
-                                                            <a href="">
-                                                                {% thumbnail item.image '262x180' crop='center' as img %}
-                                                                    <img class="lightboxed"
-                                                                         rel="group{{ forloop.counter }}"
-                                                                         src="{{ img.url }}"
-                                                                         data-link="{{ item.image.url }}"
-                                                                         width="{{ img.width }}"
-                                                                         height="{{ img.height }}"
-                                                                         alt="{{ number }}{{ forloop.counter }}"
-                                                                         title="{{ number }}{{ forloop.counter }}">
-                                                                {% endthumbnail %}
-                                                            </a>
-                                                        </div>
-                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        {% thumbnail item.image '262x180' crop='center' as img %}
+                                                            <img class="lightboxed" rel="number{{ forloop.counter }}" data-link="{{ item.image.url }}"
+                                                                 src="{{ img.url }}" alt=""></div>
+                                                        {% endthumbnail %}
                                                 {% endfor %}
-
                                             </div>
+                                            <div class="swiper-button-prev"><img src="{% static 'img/prev.png' %}"
+                                                                                 alt="Предыдущий"></div>
+                                            <div class="swiper-button-next"><img src="{% static 'img/next.png' %}"
+                                                                                 alt="Следующий"></div>
                                         </div>
-                                        <div class="card-body curort-card flex  room-card juatifyBetween">
-                                            <div class="card-body-left flex directionColumn juatifyBetween">
-                                                <div class="card-body-cont">
-                                                    <p>{{ number.title }}</p>
-                                                    <p class="card-location">{{ number.room_number }} комната
-                                                        {{ number.room_square|default_if_none:"" }} м2</p>
-                                                    <p class="card-distance">{{ number.sleep_place }} спальных места</p>
+                                        <div class="card-body">
+                                            <div class="info">
+                                                <div class="title">{{ number.title }}</div>
+                                                <div class="label">{{ number.room_number }} комната
+                                                    {{ number.room_square|default_if_none:"" }} м2
                                                 </div>
-                                                <div class="room-price flex room-price-fixed  hidden">
-                                                    {% for option in number.options.all %}
-                                                        <span>{{ option }}</span>
-                                                    {% endfor %}
-                                                    <div class="row">
-                                                        <div class="col-md-11">{{ number.furniture|safe }}</div>
+                                                <div class="distance">{{ number.sleep_place }} спальных места</div>
+                                                <div class="hidden-info">
+                                                    <div class="labels">
+                                                        {% for option in number.options.all %}
+                                                            <span>{{ option }}</span>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="text">
+                                                        {{ number.furniture|safe }}
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="card-body-right flex directionColumn juatifyBetween">
-                                                <div class="curort-price">
-                                                    <div class="curort-price1">
-                                                        {% if number.get_price_today %}{{ number.get_price_today }}
+                                            <div class="action">
+                                                    <div class="curort-price2">{% if number.get_price_today %}{{ number.get_price_today }}
                                                             руб.{% else %}Не задано{% endif %}</div>
-                                                    <div class="curort-price2">за 1 сутки</div>
+                                                <div class="label">за 1 сутки</div>
+                                                <div class="btn-groups">
+                                                    <div class="btn btn-accent">Оставить заявку</div>
+                                                    <div class="btn btn-light">Показать все<i
+                                                            class="fa fa-angle-down"></i></div>
                                                 </div>
-                                                <button class="show-price">Оставить заявку</button>
-                                                <button class="show-price-show">Показать все <i
-                                                        class="fa fa-angle-down"></i>
-                                                </button>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <hr style="border-width: 3px; margin-top: 30px; background-color: #4581DA">
                                 {% endfor %}
                             </div>
                         </div>

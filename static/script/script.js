@@ -393,3 +393,38 @@ function simpleTable() {
  });
 }
 
+
+swiperInit();
+showHiddenContent();
+
+function showHiddenContent() {
+	$('.object-card .card-body .btn-light').on('click', function(e) {
+		let hiddenBlock = $(e.target).closest('.action').prev().find('.hidden-info'),
+				card = $(e.target).closest('.object-card');
+
+		if($(e.target).hasClass('shown')) {
+			$(card).removeClass('full-height')
+			$(e.target).removeClass('shown');
+			hiddenBlock.slideUp(50);
+		} else {
+			$(card).addClass('full-height')
+			$(e.target).addClass('shown');
+			hiddenBlock.slideDown(50);
+		}
+	});
+
+}
+
+function swiperInit() {
+	const swiper = new Swiper('.swiper', {
+		direction: 'horizontal',
+		loop: true,
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		}
+	});
+}
+
+
+
