@@ -22,6 +22,7 @@ urlpatterns = [
     path('lk/<int:hotel_pk>/number_create/', NumberCreate.as_view(), name='number_create'),
     path('lk/<int:pk>/image_upload/', number_image_upload, name='number_image_upload'),
     path('lk/<int:pk>/hotel_image_upload/', hotel_image_upload, name='hotel_image_upload'),
+    path('lk/<int:pk>/hotel_image_delete/', hotel_image_delete, name='hotel_image_delete'),
     path('lk/<int:hotel_pk>/<int:pk>/number_update/', NumberUpdate.as_view(), name='number_update'),
     path('lk/<int:hotel_pk>/<int:pk>/number_delete/', NumberDelete.as_view(), name='number_delete'),
     path('lk/<int:hotel_pk>/<int:pk>/<int:photo_pk>/delete/', NumberPhotoDelete.as_view(), name='number_photo_delete'),

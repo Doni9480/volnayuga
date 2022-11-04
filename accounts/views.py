@@ -211,7 +211,7 @@ class HotelPhotoDelete(DeleteView):
 		obj = super(HotelPhotoDelete, self).get_object()
 		if not obj.hotel.user == self.request.user:
 			raise Http404
-		return self.get_queryset().filter(id=self.kwargs['photo_pk']).get()
+		return self.get_object().filter(id=self.kwargs['photo_pk']).get()
 
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_detail', kwargs={'pk':self.object.hotel.id})
@@ -247,12 +247,22 @@ class HotelDelete(DeleteView):
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_list')
 
+
 def hotel_image_upload(request, pk):
-	"""Добавление изображений к телю через дропбокс"""
+	"""Добавление изображений закладке фотографии гостиницы"""
 	if request.method == 'POST':
 		my_file = request.FILES.get('file')
 		hotel = Hotel.objects.get(id=pk)
 		HotelPhoto.objects.create(image=my_file, hotel=hotel)
+		return JsonResponse({'post':'true'})
+	return JsonResponse({'post':'false'})
+
+
+def hotel_image_delete(request, pk):
+	"""Удаление изображений в закладке фотографии гостиницы"""
+	if request.method == 'POST':
+		photo = HotelPhoto.objects.get(id=pk)
+		photo.delete()
 		return JsonResponse({'post':'true'})
 	return JsonResponse({'post':'false'})
 

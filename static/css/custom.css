@@ -158,7 +158,7 @@ h2.not-margin {
 }
 
 .curort-card-cont .owl-item {
- width: 262px !important;
+ width: 262px;
 }
 
 .curort-card-cont .owl-item img {
