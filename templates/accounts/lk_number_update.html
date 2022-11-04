@@ -5,19 +5,34 @@
         <div class="myObject-right">
             <h1>{{ object }}</h1>
             <div class="add-object-card-cont mb-100">
-                <form enctype='multipart/form-data' action="{% url 'accounts:number_image_upload' pk=object.id %}"
-                      method="POST" class="dropzone dz" id="my-dropzone">
-                    {% csrf_token %}
+                <div class="col-md-12">
                     <div class="row">
                         {% for image in object.numberphoto_set.all %}
+                            <div class="mr-10 mb-10">
+                                {% thumbnail image.image "193x115" crop="center" as im %}
+                                    <img src="{{ im.url }}" width="{{ im.width }}"
+                                         height="{{ im.height }}">
+                                {% endthumbnail %}
+                                <div>
+                                    <form class="photo-delete" action="{% url 'accounts:number_image_delete' image_pk=image.id %}"
+                                          id="hotel-photo-delete">
+                                        {% csrf_token %}
+                                        <button type="submit" value="Удалить"
+                                                class="btn btn-delete">Удалить
+                                        </button>
+                                    </form>
 
-                            <div class="mr-10 mb-10">   {% thumbnail image.image "171x100" crop="center" as im %}
-                                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                            {% endthumbnail %}
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
-                <div class="dz-message" data-dz-message><span>Перетащите сюда фото или просто нажмите на область</span></div>
+                </div>
+                <form enctype='multipart/form-data' action="{% url 'accounts:number_image_upload' pk=object.id %}"
+                      method="POST" class="dropzone dz" id="my-dropzone">
+                    {% csrf_token %}
+
+                    <div class="dz-message" data-dz-message>
+                        <span>Перетащите сюда фото или просто нажмите на область</span></div>
                     <div class="fallback">
                         <input name="file" type="file" multiple/>
 

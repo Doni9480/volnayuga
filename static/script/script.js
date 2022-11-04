@@ -427,28 +427,24 @@ function swiperInit() {
 }
 
 
-$(document).ready(function () {
-    $("form").submit(function () {
-        // Получение ID формы
-        var formID = $(this).attr('id');
-        // Добавление решётки к имени ID
-        var formNm = $('#' + formID);
-        $.ajax({
-            type: "POST",
-            url: this.getAttribute("action"),
-            data: formNm.serialize(),
-            success: function () {
-                // Вывод текста результата отправки
-                alert('Фотография удалена!')
-                window.location.reload();
-            },
-            error: function (jqXHR, text, error) {
-                // Вывод текста ошибки отправки
-                $(formNm).html(error);
-            }
-        });
-        return false;
+$(".photo-delete").submit(function(e) {
+
+    e.preventDefault(); // avoid to execute the actual submit of the form.
+
+    var form = $(this);
+    var actionUrl = form.attr('action');
+
+    $.ajax({
+        type: "POST",
+        url: actionUrl,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          alert('Фотография удалена!')
+            window.location.reload();
+        }
     });
+
 });
 
 

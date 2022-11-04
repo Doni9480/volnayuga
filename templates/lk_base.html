@@ -53,9 +53,7 @@
         <div class="container">
             {% block breadcrumbs %}
                 <ul class="breadcrumb">
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Краснодарский край</a></li>
-                    <li>Адлер</li>
+                    <li><a href="{% url 'accounts:user_hotel_list' %}">На главную</a></li>
                 </ul>
             {% endblock %}
             <div class="row">

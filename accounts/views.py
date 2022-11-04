@@ -339,6 +339,15 @@ class NumberPhotoDelete(DeleteView):
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_detail', kwargs={'pk':self.object.number.hotel.id})
 
+
+def number_image_delete(request, image_pk):
+	"""Удаление изображений номера"""
+	if request.method == 'POST':
+		photo = NumberPhoto.objects.get(id=image_pk)
+		photo.delete()
+		return JsonResponse({'post':'true'})
+	return JsonResponse({'post':'false'})
+
 class NumberDelete(DeleteView):
 	"""Удаляем номер"""
 	model = Number

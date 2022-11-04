@@ -129,7 +129,7 @@
                                                      height="{{ im.height }}">
                                             {% endthumbnail %}
                                             <div>
-                                                <form action="{% url 'accounts:hotel_image_delete' pk=image.id %}" id="hotel-photo-delete">
+                                                <form class="photo-delete" action="{% url 'accounts:hotel_image_delete' pk=image.id %}">
                                                     {% csrf_token %}
                                                     <button type="submit" value="Удалить"
                                                             class="btn btn-delete">Удалить

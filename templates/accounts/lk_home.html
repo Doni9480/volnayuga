@@ -1,5 +1,10 @@
 {% extends 'lk_base.html' %}
 {% load static thumbnail %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="{% url 'accounts:user_hotel_list' %}">Главная</a></li>
+    </ul>
+{% endblock %}
 {% block content %}
     <div class="col-md-9">
         <div class="myObject-right">
@@ -18,15 +23,15 @@
                         <div class="card-image">
                             <div class="owl-admin" class="owl-carousel">
                                 {% if hotel.hotelphoto_set.all %}
-                                        <div class="item">
-                                            <div class="item-img">
-                                                {% thumbnail hotel.hotelphoto_set.first.image "262x180" crop="center" as im %}
-                                                    <img src="{{ im.url }}" width="{{ im.width }}"
-                                                         height="{{ im.height }}"
-                                                         alt="Lazy Owl Image">
-                                                {% endthumbnail %}
-                                            </div>
+                                    <div class="item">
+                                        <div class="item-img">
+                                            {% thumbnail hotel.hotelphoto_set.first.image "262x180" crop="center" as im %}
+                                                <img src="{{ im.url }}" width="{{ im.width }}"
+                                                     height="{{ im.height }}"
+                                                     alt="Lazy Owl Image">
+                                            {% endthumbnail %}
                                         </div>
+                                    </div>
                                 {% else %}
                                     <div class="item">
                                         <div class="item-img">
