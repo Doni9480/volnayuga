@@ -759,7 +759,7 @@ section {
     height: 50px;
     background: #21293E;
     opacity: 0.8;
-    border-radius: 0px 0px 15px 15px;
+    border-radius: 0px 0px 0px 0px;
     bottom: 0;
     width: 100%;
     padding: 0 15px;
