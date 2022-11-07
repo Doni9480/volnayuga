@@ -1,0 +1,132 @@
+{% extends 'lk_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="myObject-right">
+            <h1>Редактирование периодов цен для гостиницы</h1>
+            <div class="mb-100">
+                <div class="col-md-12">
+                    <div class="row">
+                        <script>
+                            $(".datepicker").datepicker({
+    onSelect: function() {
+        var dateObject = $(this).datepicker('getDate');
+    }
+});
+                        </script>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ formset.management_form }}
+
+                            {% for form in formset %}
+                                <div class="card-body-right hidden-periud flex alignCenter">
+                                    {{ form }}
+                                </div>
+                            {% endfor %}
+
+
+
+
+
+                            <!-- <div class="hidden-periuds">
+                                 <div class="card-body-right hidden-periud flex alignCenter">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307296">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307297">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307298">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307299">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307300">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307301">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307302">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307303">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307304">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307305">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307306">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307307">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307308">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307309">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307310">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307311">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307312">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307313">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307314">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307315">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                                 <div class="card-body-right hidden-periud flex alignCenter d-none">
+                                     <div>с</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307316">
+                                     <div> по</div>
+                                     <input type="text" class="datepicker hasDatepicker" id="dp1648214307317">
+                                     <button class="delete-card">удалить</button>
+                                 </div>
+                             </div>
+                             <a href="" class="addPeriud">
+                                 <button class="newObject">
+                     <span class="plusCont">
+                       <i class="fa fa-plus" aria-hidden="true"></i>
+                     </span>
+                                     добавить период
+                                 </button>
+                             </a> -->
+                            <input class="newObject mt-20" type="submit" value="Сохранить">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

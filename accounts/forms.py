@@ -5,8 +5,11 @@ from crispy_forms.layout import Layout, Submit, Fieldset, HTML, Row, Column, But
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from django.forms import inlineformset_factory, CheckboxSelectMultiple
+from django.forms import inlineformset_factory, CheckboxSelectMultiple, modelformset_factory, widgets
 from django.urls import reverse
+
+
+
 
 from hotel.models import *
 
@@ -68,7 +71,19 @@ class HotelOptionForm(forms.ModelForm):
         self.helper.form_show_labels = False
 
 
+class HotelPricePeriodForm(forms.ModelForm):
+    start = forms.DateField(label="Начало периода",
+                            widget=widgets.DateInput(attrs={'class':'datepicker'}))
+    end = forms.DateField(label="Конец периода",
+                          widget=widgets.DateInput(attrs={'class':'datepicker'}))
 
+    class Meta:
+        model = PricePeriod
+        fields = ('start', 'end')
+
+
+
+PricePeriodFormset = modelformset_factory(PricePeriod, form=HotelPricePeriodForm, fields=('start','end' ), extra=12)
 class NumberCreateForm(forms.ModelForm):
     options = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple, queryset=NumberOption.objects.all(),
                                              label='Опции')

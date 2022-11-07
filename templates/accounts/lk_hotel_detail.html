@@ -129,7 +129,8 @@
                                                      height="{{ im.height }}">
                                             {% endthumbnail %}
                                             <div>
-                                                <form class="photo-delete" action="{% url 'accounts:hotel_image_delete' pk=image.id %}">
+                                                <form class="photo-delete"
+                                                      action="{% url 'accounts:hotel_image_delete' pk=image.id %}">
                                                     {% csrf_token %}
                                                     <button type="submit" value="Удалить"
                                                             class="btn btn-delete">Удалить
@@ -215,8 +216,9 @@
                 </div>
                 <div class="tabContent" id="priceTab">
                     <div class="toggleCont">
-                        <div class="no-number mb-20 mr-40">
-                            {% if not hotel.number_set.all %}
+                        {% if not hotel.number_set.all %}
+                            <div class="no-number mb-20 mr-40">
+
                                 <p>Для размещения цен, пожалуйста, добавьте хотя бы один номер.</p>
                                 <a href="{% url 'accounts:number_create' hotel_pk=hotel.id %}">
                                     <button class="newObject">
@@ -226,126 +228,137 @@
                                         добавить номер
                                     </button>
                                 </a>
-                            {% endif %}
-                        </div>
-                        <div class="has-number mb-20 mr-40">
-                            <p>Ценовые периоды</p>
-                            <div class="hidden-periuds">
-                                <div class="card-body-right hidden-periud flex alignCenter">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307296">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307297">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307298">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307299">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307300">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307301">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307302">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307303">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307304">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307305">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307306">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307307">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307308">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307309">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307310">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307311">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307312">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307313">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307314">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307315">
-                                    <button class="delete-card">удалить</button>
-                                </div>
-                                <div class="card-body-right hidden-periud flex alignCenter d-none">
-                                    <div>с</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307316">
-                                    <div> по</div>
-                                    <input type="text" class="datepicker hasDatepicker" id="dp1648214307317">
-                                    <button class="delete-card">удалить</button>
-                                </div>
                             </div>
-                            <a href="" class="addPeriud">
-                                <button class="newObject">
-                    <span class="plusCont">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
-                    </span>
-                                    добавить период
-                                </button>
-                            </a>
-                            <button class="submit mt-30 toggleContButton">добавить</button>
+                        {% else %}
+                            <div class="has-number mb-20 mr-40">
+                                <p>Ценовые периоды</p>
+
+                                <a href="{% url 'accounts:user_hotel_price_period_update' pk=object.id %}" class="submit mt-30 toggleContButton">
+                                Редактировать периоды</a>
+                            </div>
+                        {% endif %}
+
+                        <div class="object-table-cont">
+                            {% if object.number_set.all %}
+                                <table>
+                                    {% for number in object.number_set.all %}
+                                        {% if forloop.first %}
+                                            <tr>
+                                                <td class="sticky">
+                                                    <div class="td-title">*Стоимость за сутки проживания</div>
+                                                </td>
+                                                <td class="sticky">
+
+                                                </td>
+                                                {% for period in object.priceperiod_set.all %}
+                                                    <td>
+                                                        <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td rowspan="2">
+                                                <div class="td-title">{{ number.title }}</div>
+                                            </td>
+                                            <td>
+                                                <div class="td-title">{{ number.get_order_choice_display }}</div>
+                                            </td>
+                                            {% for price in number.price_set.all %}
+                                                <td>
+                                                    <input type="text" value="{{ price.price }}"
+                                                           class="td-text">
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="td-title">за доп</div>
+                                            </td>
+                                            {% for period in number.price_set.all %}
+                                                <td>
+                                                    <input type="text" value="{% if period.extra_bed %}{{ period.extra_bed }}{% else %}0 {% endif %}" class="td-text">
+
+                                                </td>
+                                            {% endfor %}
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                                <div>* {{ object.another_rules }}</div>
+                            {% else %}
+                                <table>
+
+
+                                    <tr>
+                                        <td>
+                                            <div class="td-title">*Стоимость за сутки проживания</div>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        {% for period in object.priceperiod_set.all %}
+                                            <td>
+                                                <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+
+                                    <tr>
+                                        <td rowspan="2">
+                                            <div class="td-title">{{ object }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="td-title">за весь дом</div>
+                                        </td>
+                                        {% for period in object.priceperiod_set.all %}
+                                            {% for price in period.price_set.all %}
+                                                <td>
+                                                    <div class="td-text">{{ price.price }}</div>
+                                                </td>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="td-title">за доп</div>
+                                        </td>
+                                        {% for period in number.price_set.all %}
+                                            <td>
+                                                <div class="td-text">
+                                                    {% if period.extra_bed %}{{ period.extra_bed }}{% else %}
+                                                        0 {% endif %}</div>
+                                            </td>
+                                        {% endfor %}
+                                    </tr>
+
+                                </table>
+                                <div>* {{ object.another_rules }}</div>
+                            {% endif %}
                         </div>
                     </div>
 
                     <div class="ready-number mb-20  d-none">
                         <form action="">
                             <div class="ready-number-cont">
+
+
                                 <h5>Гостевой номер в “Эврика”</h5>
 
                                 <table>
                                     <tr>
-                                        <td class="ready-number-cont-date"><span>17.02 - 18.02</span></td>
-                                        <td class="ready-number-cont-date"><span>17.02 - 18.02</span></td>
+                                        {% for item in hotel.priceperiod_set.all %}
+                                            <td class="ready-number-cont-date">
+                                                <span>{{ item.start|date:"d.m.y" }} - {{ item.end|date:"d.m.y" }}</span>
+                                            </td>
+                                        {% endfor %}
 
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <input type="text" placeholder="За номер (руб)">
-                                        </td>
-                                        <td>
-                                            <input type="text" placeholder="За номер (руб)">
-                                        </td>
+                                        {% for item in hotel.priceperiod_set.all %}
+                                            <td>
+                                                <input type="text" value="{{ item.price.price }}">
+                                            </td>
+                                        {% endfor %}
 
                                     </tr>
                                     <tr>

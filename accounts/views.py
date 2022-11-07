@@ -22,6 +22,7 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+from django.forms import formset_factory
 
 def register_request(request):
 	if request.method == "POST":
@@ -247,6 +248,71 @@ class HotelDelete(DeleteView):
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_list')
 
+
+class HotelPricePeriod(CreateView):
+	"""Создание ценового периода гостиницы"""
+	model = PricePeriod
+	template_name = "accounts/lk_hotel_priceperiod.html"
+
+	def get_object(self, queryset=None):
+		obj = super(HotelPricePeriod, self).get_object()
+		return self.get_queryset().filter(id=self.kwargs['pk']).get()
+
+	def get_success_url(self):
+		return reverse('accounts:user_hotel_list')
+
+class HotelPricePeriodUpdate(UpdateView):
+	"""Редактирование ценового периода гостиницы"""
+	model = PricePeriod
+	template_name = "accounts/lk_hotel_priceperiod.html"
+	form_class = HotelPricePeriodForm
+
+	def get_context_data(self, **kwargs):
+		context = super(HotelPricePeriodUpdate, self).get_context_data(**kwargs)
+		context['formset'] = PricePeriodFormset()
+		return context
+
+	def post(self, request, *args, **kwargs):
+		formset = PricePeriodFormset(request.POST)
+		if formset.is_valid():
+			return self.form_valid(formset)
+
+	def form_valid(self, formset):
+		instances = formset.save(commit=False)
+		for instance in instances:
+			instance.hotel = Hotel.objects.get(id=self.kwargs['pk'])
+			instance.save()
+		return HttpResponseRedirect('/')
+
+	def form_invalid(self, formset):
+		print('dfdf')
+		return self.render_to_response(self.get_context_data(formset=formset))
+
+	def get_success_url(self):
+		return reverse('accounts:user_hotel_price_period_update', kwargs={'pk': self.object.id})
+
+
+def price_period_update(request, pk):
+	"""Обновление периода цен"""
+	obj = Hotel.objects.get(id=pk)
+	price_period_list = PricePeriod.objects.filter(hotel=obj)
+	PeriodFormSet = modelformset_factory(PricePeriod, fields=('start','end'))
+	formset = PeriodFormSet(queryset=PricePeriod.objects.filter(hotel=obj))
+	context = {
+		'formset': formset
+	}
+	if request.method == 'POST':
+
+		if request.POST.getlist:
+			data = request.POST.getlist
+			for item in request.POST.getlist:
+				PricePeriod.objects.update(start=request.POST.getlist['start'], end=request.POST.getlist['end'])
+		print(request.POST.getlist('start'))
+		print(request.POST.getlist('end'))
+		return render(request, 'accounts/lk_hotel_priceperiod.html', context)
+
+	else:
+		return render(request, 'accounts/lk_hotel_priceperiod.html', context)
 
 def hotel_image_upload(request, pk):
 	"""Добавление изображений закладке фотографии гостиницы"""
