@@ -18,6 +18,7 @@ urlpatterns = [
     path('lk/<int:pk>/update/', HotelUpdate.as_view(), name='hotel_update'),
     path('lk/<int:pk>/info/', HotelDetail.as_view(), name='user_hotel_detail'),
     path('lk/<int:pk>/priceperiod/', HotelPricePeriodUpdate.as_view(), name='user_hotel_price_period_update'),
+    path('lk/<int:pk>/priceperiod_delete/', price_period_delete, name='user_hotel_price_period_delete'),
     path('lk/<int:pk>/<int:photo_pk>/delete/', HotelPhotoDelete.as_view(), name='hotel_photo_delete'),
     path('lk/<int:pk>/rules/', HotelRules.as_view(), name='hotel_rules'),
     path('lk/<int:hotel_pk>/number_create/', NumberCreate.as_view(), name='number_create'),

@@ -265,7 +265,16 @@ $(document).ready(function () {
         if (!item.classList.contains('d-none')) {
             count++;
         }
-    })
+    });
+
+    $(".newObject").click(function () {
+        if (count == 30) {
+            return false
+        } else {
+            count++
+
+        }
+    });
 
     $(".hidden-periuds").find("input").on("change", function () {
         arr.push(this)
@@ -274,6 +283,17 @@ $(document).ready(function () {
     $(".hidden-periuds").find(".delete-card").on("click", function () {
         $(this).closest(".hidden-periud").remove()
         count--
+        var id = $(this).data("data-id");
+        $.ajax({
+            type: "POST",
+            url: id,
+            data: {
+                'id': id,
+            },
+            success: function (data) {
+                alert('период удален!')
+            }
+        });
     })
 
 

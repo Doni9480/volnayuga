@@ -292,6 +292,15 @@ class HotelPricePeriodUpdate(UpdateView):
 		return reverse('accounts:user_hotel_price_period_update', kwargs={'pk': self.object.id})
 
 
+def price_period_delete(request, pk):
+	"""Удаление периода цен"""
+	if request.method == "POST":
+		price_period = PricePeriod.objects.get(id=request.POST.get('pk'))
+		price_period.delete()
+		return JsonResponse({'post': 'true'})
+	return JsonResponse({'post': 'false'})
+
+
 def hotel_image_upload(request, pk):
 	"""Добавление изображений закладке фотографии гостиницы"""
 	if request.method == 'POST':
