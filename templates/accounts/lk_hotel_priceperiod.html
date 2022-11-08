@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block breadcrumbs %}
     <ul class="breadcrumb">
-        <li><a href="http://127.0.0.1:8000/accounts/lk/{{ object.id }}/info/#tab-priceTab">Перейти в цены</a></li>
+        <li><a href="/accounts/lk/{{ object.id }}/info/#tab-priceTab">Вернуться в цены</a></li>
     </ul>
 {% endblock %}
 {% block content %}
@@ -16,16 +16,16 @@
                             $(function (event) {
                                 $('.datepicker').val(event.currentTarget.val());
                             });
-
                         </script>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ formset.management_form }}
                             <div class="hidden-periuds">
                                 {% for form in formset %}
-                                    <div class="card-body-right hidden-periud flex alignCenter {% if form.start.value %}{% else %}d-none{% endif %}">
+                                    <div class="card-body-right hidden-periud flex alignCenter
+                                            {% if form.start.value %}{% else %}d-none{% endif %}">
                                         {{ form }}
-                                     <button class="delete-card">удалить</button>
+                                        <button class="delete-card">удалить</button>
                                     </div>
                                 {% endfor %}
                             </div>
@@ -137,6 +137,7 @@
                         </form>
                     </div>
                 </div>
+               <h5 class="mt-20"><a href="/accounts/lk/{{ object.id }}/info/#tab-priceTab">Вернуться к ценам</a></h5>
             </div>
         </div>
     </div>

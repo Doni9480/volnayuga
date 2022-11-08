@@ -283,7 +283,7 @@ class HotelPricePeriodUpdate(UpdateView):
 		for instance in instances:
 			instance.hotel = Hotel.objects.get(id=self.kwargs['pk'])
 			instance.save()
-		return redirect(reverse('accounts:user_hotel_detail', kwargs={'pk': self.kwargs['pk']}))
+		return redirect(reverse('accounts:user_hotel_price_period_update', kwargs={'pk': self.kwargs['pk']}))
 
 	def form_invalid(self, formset):
 		return self.render_to_response(self.get_context_data(formset=formset))
