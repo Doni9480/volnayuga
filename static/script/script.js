@@ -235,12 +235,7 @@ $(document).ready(function () {
         $(this).closest(".image-loaded").find('.loadedImage').css("height", "0");
         $(this).css("display", "none");
     })
-    let num = 0
-    $(".addPeriud").click(function (e) {
-        e.preventDefault()
-        $(".hidden-periuds").find(".hidden-periud").eq(num).removeClass('d-none')
-        num++
-    })
+
     $(".toggleContButton").click(function () {
         $(".toggleCont").slideUp()
         $(".ready-number").removeClass("d-none")
@@ -272,9 +267,14 @@ $(document).ready(function () {
             return false
         } else {
             count++
-
         }
-    });
+    })
+
+    $(".addPeriud").click(function (e) {
+        e.preventDefault()
+        $(".hidden-periuds").find(".hidden-periud").eq(count - 1).removeClass('d-none')
+        count++
+    })
 
     $(".hidden-periuds").find("input").on("change", function () {
         arr.push(this)
@@ -283,12 +283,14 @@ $(document).ready(function () {
     $(".hidden-periuds").find(".delete-card").on("click", function () {
         $(this).closest(".hidden-periud").remove()
         count--
-        var id = $(this).data("data-id");
+        var id = $(".delete-card").attr("data-id");
+        var csrftoken = $("[name=csrfmiddlewaretoken]").val();
         $.ajax({
             type: "POST",
             url: id,
-            data: {
-                'id': id,
+            data: csrftoken ,
+            headers: {
+                "X-CSRFToken": csrftoken
             },
             success: function (data) {
                 alert('период удален!')
