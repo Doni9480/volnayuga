@@ -261,6 +261,7 @@ class HotelPricePeriod(CreateView):
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_list')
 
+
 class HotelPricePeriodUpdate(UpdateView):
 	"""Редактирование ценового периода гостиницы"""
 	model = Hotel
@@ -269,7 +270,7 @@ class HotelPricePeriodUpdate(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super(HotelPricePeriodUpdate, self).get_context_data(**kwargs)
-		context['formset'] = PricePeriodFormset()
+		context['formset'] = PricePeriodFormset(queryset=PricePeriod.objects.filter(hotel__id=self.kwargs['pk']))
 		return context
 
 	def post(self, request, *args, **kwargs):
@@ -290,28 +291,6 @@ class HotelPricePeriodUpdate(UpdateView):
 	def get_success_url(self):
 		return reverse('accounts:user_hotel_price_period_update', kwargs={'pk': self.object.id})
 
-
-def price_period_update(request, pk):
-	"""Обновление периода цен"""
-	obj = Hotel.objects.get(id=pk)
-	price_period_list = PricePeriod.objects.filter(hotel=obj)
-	PeriodFormSet = modelformset_factory(PricePeriod, fields=('start','end'))
-	formset = PeriodFormSet(queryset=PricePeriod.objects.filter(hotel=obj))
-	context = {
-		'formset': formset
-	}
-	if request.method == 'POST':
-
-		if request.POST.getlist:
-			data = request.POST.getlist
-			for item in request.POST.getlist:
-				PricePeriod.objects.update(start=request.POST.getlist['start'], end=request.POST.getlist['end'])
-		print(request.POST.getlist('start'))
-		print(request.POST.getlist('end'))
-		return render(request, 'accounts/lk_hotel_priceperiod.html', context)
-
-	else:
-		return render(request, 'accounts/lk_hotel_priceperiod.html', context)
 
 def hotel_image_upload(request, pk):
 	"""Добавление изображений закладке фотографии гостиницы"""
