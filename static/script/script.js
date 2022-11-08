@@ -257,16 +257,16 @@ $(document).ready(function () {
     })
 
 
+    let countArr = document.querySelectorAll('.card-body-right');
     let count = 0
     let arr = []
-    $(".newObject").click(function () {
-        if (count == 30) {
-            return false
-        } else {
-            count++
 
+    countArr.forEach((item, i) => {
+        if (!item.classList.contains('d-none')) {
+            count++;
         }
     })
+
     $(".hidden-periuds").find("input").on("change", function () {
         arr.push(this)
     })
@@ -427,7 +427,7 @@ function swiperInit() {
 }
 
 
-$(".photo-delete").submit(function(e) {
+$(".photo-delete").submit(function (e) {
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -438,9 +438,8 @@ $(".photo-delete").submit(function(e) {
         type: "POST",
         url: actionUrl,
         data: form.serialize(), // serializes the form's elements.
-        success: function(data)
-        {
-          alert('Фотография удалена!')
+        success: function (data) {
+            alert('Фотография удалена!')
             window.location.reload();
         }
     });
