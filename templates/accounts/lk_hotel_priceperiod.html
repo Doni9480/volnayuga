@@ -1,5 +1,10 @@
 {% extends 'lk_base.html' %}
 {% load crispy_forms_tags %}
+{% block breadcrumbs %}
+    <ul class="breadcrumb">
+        <li><a href="http://127.0.0.1:8000/accounts/lk/{{ object.id }}/info/#tab-priceTab">Перейти в цены</a></li>
+    </ul>
+{% endblock %}
 {% block content %}
     <div class="col-md-9">
         <div class="myObject-right">
@@ -8,24 +13,30 @@
                 <div class="col-md-12">
                     <div class="row">
                         <script>
-                            $(".datepicker").datepicker({
-    onSelect: function() {
-        var dateObject = $(this).datepicker('getDate');
-    }
-});
+                            $(function (event) {
+                                $('.datepicker').val(event.currentTarget.val());
+                            });
+
                         </script>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ formset.management_form }}
-
-                            {% for form in formset %}
-                                <div class="card-body-right hidden-periud flex alignCenter">
-                                    {{ form }}
-                                </div>
-                            {% endfor %}
-
-
-
+                            <div class="hidden-periuds">
+                                {% for form in formset %}
+                                    <div class="card-body-right hidden-periud flex alignCenter {% if form.start.value %}{% else %}d-none{% endif %}">
+                                        {{ form }}
+                                     <button class="delete-card">удалить</button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a href="" class="addPeriud">
+                                <button class="newObject">
+                     <span class="plusCont">
+                       <i class="fa fa-plus" aria-hidden="true"></i>
+                     </span>
+                                    добавить период
+                                </button>
+                            </a>
 
 
                             <!-- <div class="hidden-periuds">

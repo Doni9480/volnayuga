@@ -263,7 +263,7 @@ class HotelPricePeriod(CreateView):
 
 class HotelPricePeriodUpdate(UpdateView):
 	"""Редактирование ценового периода гостиницы"""
-	model = PricePeriod
+	model = Hotel
 	template_name = "accounts/lk_hotel_priceperiod.html"
 	form_class = HotelPricePeriodForm
 
@@ -282,10 +282,9 @@ class HotelPricePeriodUpdate(UpdateView):
 		for instance in instances:
 			instance.hotel = Hotel.objects.get(id=self.kwargs['pk'])
 			instance.save()
-		return HttpResponseRedirect('/')
+		return redirect(reverse('accounts:user_hotel_detail', kwargs={'pk': self.kwargs['pk']}))
 
 	def form_invalid(self, formset):
-		print('dfdf')
 		return self.render_to_response(self.get_context_data(formset=formset))
 
 	def get_success_url(self):

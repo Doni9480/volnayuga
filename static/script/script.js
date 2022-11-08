@@ -260,7 +260,7 @@ $(document).ready(function () {
     let count = 0
     let arr = []
     $(".newObject").click(function () {
-        if (count == 12) {
+        if (count == 30) {
             return false
         } else {
             count++
