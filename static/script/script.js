@@ -283,18 +283,21 @@ $(document).ready(function () {
     $(".hidden-periuds").find(".delete-card").on("click", function () {
         $(this).closest(".hidden-periud").remove()
         count--
-        var id = $(".delete-card").attr("data-id");
-        var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+        let id = $(this).attr("data-id");
+        let csrftoken = $("[name=csrfmiddlewaretoken]").val();
         $.ajax({
-            type: "POST",
+            type: 'POST',
             url: id,
-            data: csrftoken ,
-            headers: {
-                "X-CSRFToken": csrftoken
+            data: {
+                'csrfmiddlewaretoken': csrftoken,
             },
             success: function (data) {
-                alert('период удален!')
-            }
+                alert('Период удален!')
+            },
+            error: function (data) {
+                alert('Ошибка')
+            },
+
         });
     })
 

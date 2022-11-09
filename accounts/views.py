@@ -294,10 +294,11 @@ class HotelPricePeriodUpdate(UpdateView):
 
 def price_period_delete(request, pk):
 	"""Удаление периода цен"""
-	price_period = PricePeriod.objects.get(id=request.POST.get('pk'))
-	price_period.delete()
-	return JsonResponse({'post': 'true'})
-
+	if request.is_ajax() or request.method == 'POST':
+		price_period = PricePeriod.objects.get(id=pk)
+		price_period.delete()
+		return JsonResponse({'post': 'true'})
+	return JsonResponse({'post':'false'})
 
 
 def hotel_image_upload(request, pk):

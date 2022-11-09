@@ -22,8 +22,10 @@
 </script>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
+                        <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
                             {{ formset.management_form }}
                             <div class="hidden-periuds">
+
                                 {% for form in formset %}
                                     <div class="card-body-right hidden-periud flex alignCenter
                                             {% if form.start.value %}{% else %}d-none{% endif %}">
