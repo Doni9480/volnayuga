@@ -1,5 +1,5 @@
 {% extends 'lk_base.html' %}
-{% load thumbnail static crispy_forms_tags %}
+{% load thumbnail static crispy_forms_tags custom_tags %}
 {% block content %}
     <div class="col-md-9">
         <div class="myObject-right active" id="myObjects">
@@ -216,7 +216,7 @@
                 </div>
                 <div class="tabContent" id="priceTab">
                     <div class="toggleCont">
-                        {% if not hotel.number_set.all %}
+                        {% if not hotel.numbers.all %}
                             <div class="no-number mb-20 mr-40">
 
                                 <p>Для размещения цен, пожалуйста, добавьте хотя бы один номер.</p>
@@ -242,33 +242,47 @@
 
                     <div class="ready-number mb-20">
                         <form action="">
-                            {% for number in object.number_set.all %}
+                            <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/>
+                            {% for number in object.numbers.all %}
                                 <div class="ready-number-cont mt-20">
                                     <h5>{{ number.title }}</h5>
                                     <table>
                                         <tr>
-                                            {% for period in object.priceperiod_set.all %}
+                                            {% for period in object.periods.all %}
                                                 <td class="ready-number-cont-date">
                                                     <span>{{ period.start|date:"d.m.y" }} - {{ period.end|date:"d.m.y" }}</span>
                                                 </td>
                                             {% endfor %}
                                         </tr>
                                         <tr>
-                                            {% for price in number.price_set.all %}
+                                            {% for period in object.periods.all %}
+                                                {% for price in number.prices.all %}
+                                                    {% if price.period == period %}
                                                 <td>
-                                                    <input type="text" value="{{ price.price }}" placeholder="За номер (руб)">
+                                                    <input type="text" class="price-update"
+                                                           number-id={{ number.id }} period-id="{{ period.id }}"
+                                                           value="{{ price.price }}" price-id="{{ price.id }}"
+                                                           placeholder="За номер (руб)">
                                                 </td>
+                                                    {% endif %}
+                                                    {% endfor %}
                                             {% endfor %}
-
                                         </tr>
-                                        <tr>
-                                            {% for price in number.price_set.all %}
-                                                <td>
-
-                                                    <input type="text" value="{% if price.extra_bed %}{{ price.extra_bed }}{% else %}
+                                        <tr>{% for period in object.periods.all %}
+                                            {% if number.price_set.all %}
+                                                {% for price in number.price_set.all %}
+                                                    <td>
+                                                        <input type="text" value="
+                                                            {% if price.extra_bed %}{{ price.extra_bed }}{% else %}
                                                             0 {% endif %}" placeholder="За доп (руб)">
+                                                    </td>
+                                                {% endfor %}
+                                            {% else %}
+                                                <td>
+                                                    <input type="text" value="" placeholder="За доп (руб)">
                                                 </td>
-                                            {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
                                         </tr>
                                     </table>
                                 </div>

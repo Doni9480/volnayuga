@@ -471,6 +471,34 @@ $(".photo-delete").submit(function (e) {
 
 });
 
+$('.price-update').keydown(function (e) {
+    let period = $(this).attr('period-id')
+    let number = $(this).attr('number-id')
+    let price = $(this).val()
+    let csrftoken = $("[name=csrfmiddlewaretoken]").val()
+    let actionUrl = '/accounts/lk/priceupdate/'
+    let data = {
+        'period': period,
+        'number': number,
+        'price': price,
+        'csrfmiddlewaretoken': csrftoken,
+    }
+    if ($(this).attr('price-id')) {
+        let id = $(this).attr('price-id')
+        data['price-id'] = id
+    }
+    if (e.keyCode == 13) {
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: data,
 
+            success: function (data) {
+                alert('Цена установлена!');
+            }
+        });
+
+    }
+})
 
 

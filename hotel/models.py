@@ -1,12 +1,9 @@
 import datetime
 from datetime import date
-
 from django.db import models
 from django.db.models import Avg, Sum, Min
-
 from accounts.models import MyUser
 from ckeditor.fields import RichTextField
-
 from region.models import Region
 
 
@@ -201,7 +198,7 @@ class Number(models.Model):
 
     order_choice = models.CharField(max_length=10, choices=ORDERCHOICE, default='за номер',
                                     verbose_name='Цена в объявлении')
-    hotel = models.ForeignKey(Hotel, default=1, on_delete=models.CASCADE, verbose_name='Отель')
+    hotel = models.ForeignKey(Hotel, default=1, on_delete=models.CASCADE, related_name='numbers', verbose_name='Отель')
     title = models.CharField(max_length=100, verbose_name='Название')
     room_number = models.IntegerField(null=True, blank=True, verbose_name='Количество комнат')
     sleep_place = models.IntegerField(null=True, blank=True, verbose_name='Количество спальных мест')
@@ -243,7 +240,7 @@ class PricePeriod(models.Model):
     """Периоды цен"""
     start = models.DateField(verbose_name='Начало периода')
     end = models.DateField(verbose_name='Конец периода')
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Гостиница')
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='periods', verbose_name='Гостиница')
     objects = models.Manager()
     today = PricePeriodToday()
 
@@ -261,13 +258,14 @@ class Price(models.Model):
 
     price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
     extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
-    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Номер')
-    period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, verbose_name='Период')
+    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, related_name='prices', verbose_name='Номер')
+    period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, related_name='prices', verbose_name='Период')
 
     class Meta:
         verbose_name = 'Цены'
         verbose_name_plural = 'Цены гостиницы'
         ordering = ['period__start']
+
 
     def __str__(self):
         return f'Цены'

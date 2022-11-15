@@ -17,12 +17,12 @@
                                 $('.datepicker').val(event.currentTarget.val());
                             });
                         </script>
-                    <script type="text/javascript">
+                        <script type="text/javascript">
 
-</script>
+                        </script>
                         <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                        <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}' />
+                            <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/>
                             {{ formset.management_form }}
                             <div class="hidden-periuds">
 
