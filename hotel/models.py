@@ -140,7 +140,7 @@ class Hotel(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.number_set.all().aggregate(min_price=Min('price__price'))['min_price']
+        return self.numbers.all().aggregate(min_price=Min('prices__price'))['min_price']
 
 
 class HotelPhoto(models.Model):
