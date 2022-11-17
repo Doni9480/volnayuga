@@ -28,7 +28,7 @@ class Region(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.hotel_set.all().aggregate(min_price=Min('periods__price__price'))['min_price']
+        return self.hotel_set.all().aggregate(min_price=Min('periods__prices__price'))['min_price']
 
     def get_average_price(self):
         from hotel.models import Hotel
