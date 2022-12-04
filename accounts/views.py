@@ -319,7 +319,12 @@ def price_update(request):
         period = PricePeriod.objects.get(id=request.POST['period'])
         number = Number.objects.get(id=request.POST['number'])
         price = request.POST['price']
-        if 'price-id' in request.POST:
+        if 'is_extra' in request.POST and 'price-id' in request.POST:
+            print('extra')
+            price_object = Price.objects.get(id=request.POST['price-id'])
+            price_object.extra_bed = price
+            price_object.save()
+        elif 'price-id' in request.POST:
             print('update')
             price_object = Price.objects.get(id=request.POST['price-id'])
             price_object.price = price

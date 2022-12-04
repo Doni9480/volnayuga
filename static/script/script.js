@@ -487,6 +487,10 @@ $('.price-update').keydown(function (e) {
         let id = $(this).attr('price-id')
         data['price-id'] = id
     }
+    if ($(this).attr('is-extra')) {
+        let extra = $(this).attr('is-extra')
+        data['is_extra'] = extra
+    }
     if (e.keyCode == 13) {
         $.ajax({
             type: "POST",
