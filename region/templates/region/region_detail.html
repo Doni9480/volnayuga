@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static thumbnail crispy_forms_tags custom_tags %}
+{% load static thumbnail crispy_forms_tags hotel_tags %}
 {% block meta %}
     <meta name="description" content="{{ seo.meta_description }}">
     <title>{{ seo.meta_title }}</title>
@@ -278,6 +278,28 @@
                                     {% crispy filter %}
                                 </form>
                             </div>
+                            <div class="curort-filter-map">
+                                <h2 class="mt-20 mb-20">Курорты рядом</h2>
+                                <div>
+                                    {% for region in region_parent_list %}
+                                        <ul class="">
+                                            <li class="td-title custom-control">
+                                                <p>{{ region }} 33 км</p>
+                                                <ul>
+                                                    {% get_type_of_object region as type_object_list %}
+                                                    {% for type_object, count in type_object_list.items %}
+                                                        <li class="custom-control"><a class="color-blue"
+                                                                                              href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                            <span>{{ type_object }}</span></a> <span
+                                                                class="light">{{ count }}</span>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-9">
                             <div class="filter-select-cont">
@@ -330,8 +352,8 @@
                                                     <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
                                                     <p class="card-distance">Море - {{ hotel.remoteness }} м •
                                                         {% if hotel.centr %}Центр -
-                                                        {{ hotel.centr }}
-                                                        км</p>
+                                                            {{ hotel.centr }}
+                                                            км</p>
                                                         {% endif %}
                                                 </div>
                                                 <div class="black-sea-icon flex">
@@ -344,7 +366,8 @@
                                                 <div class="curort-price">
                                                     <div class="curort-price-cont">
                                                         <div class="curort-price1 cur1">
-                                                            {% if hotel.get_min_price %}от {{ hotel.get_min_price }} руб.{% else %}Не задано{% endif %}
+                                                            {% if hotel.get_min_price %}от {{ hotel.get_min_price }}
+                                                                руб.{% else %}Не задано{% endif %}
                                                         </div>
                                                         <div class="curort-price2">за 1 сутки</div>
                                                     </div>
@@ -412,11 +435,11 @@
                             <a href="{% url 'region:hotel_service_filter' slug=object.slug service_slug=item.slug %}">
                                 <div class="item-img">
                                     {% if item.image %}
-                                    <img class="lazyOwl" data-src="{{ item.image.url }}"
-                                         alt="Lazy Owl Image">
+                                        <img class="lazyOwl" data-src="{{ item.image.url }}"
+                                             alt="Lazy Owl Image">
                                     {% else %}
-                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
-                                         alt="Lazy Owl Image">
+                                        <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                             alt="Lazy Owl Image">
                                     {% endif %}
                                 </div>
                             </a>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static thumbnail crispy_forms_tags %}
+{% load static thumbnail crispy_forms_tags hotel_tags %}
 {% block meta %}
     {% if seo %}
         <meta name="description" content="{{ seo.meta_description }}">
@@ -136,7 +136,7 @@
             <div class="headerTitle">
                 {% if seo %}
                     <h1>{{ seo.h1 }}</h1>
-                    {% else %}
+                {% else %}
                     <h1>{{ title_for_meta }} {{ object }}</h1>
                 {% endif %}
                 <p class="search-result">{{ region_list }} Найдено объектов {{ hotel_list.count }}</p>
@@ -205,6 +205,27 @@
                             <form action="{% url 'region:hotel_filter_left'  slug=object.slug %}" method="get">
                                 {% crispy filter %}
                             </form>
+                        </div>
+                        <div class="curort-filter-map">
+                            <h2 class="mt-20 mb-20">Курорты рядом</h2>
+                            <div>
+                                {% for region in region_parent_list %}
+                                    <ul class="">
+                                        <li class="td-title custom-control">
+                                            <p>{{ region }} 33 км</p>
+                                            <ul>
+                                                {% get_type_of_object region as type_object_list %}
+                                                {% for type_object, count in type_object_list.items %}
+                                                    <li class="popular custom-control"><a class="advance-link"
+                                                                                  href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                       <span>{{ type_object }}</span></a> <span class="light">{{ count }}</span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-9">

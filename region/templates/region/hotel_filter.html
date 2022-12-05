@@ -279,6 +279,27 @@
                             <button class="open-more">Открыть ещё 20 объектов</button>
                         </div>
                     </div>
+                    <div class="curort-filter-map">
+                        <h2 class="mt-20">Курорты рядом</h2>
+                        <div>
+                            {% for region in region_parent_list %}
+                                <ul class="">
+                                    <li class="td-title custom-control">
+                                        <p>{{ region }} 33 км</p>
+                                        <ul>
+                                            {% get_type_of_object region as type_object_list %}
+                                            {% for type_object, count in type_object_list.items %}
+                                                <li class="custom-control"><a class="advance-link"
+                                                                              href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                    {{ type_object }}</a> <span class="light">{{ count }}</span>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
