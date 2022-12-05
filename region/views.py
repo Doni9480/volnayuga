@@ -26,7 +26,11 @@ class RegionDetail(DetailView):
                 'content_1': self.object,
             }
         context['region_list'] = Region.objects.filter(parent__parent=self.object, is_city=True)
-        context['region_parent_list'] = Region.objects.filter(parent__parent=self.object.parent.parent).exclude(id=self.object.id)
+        try:
+            context['region_parent_list'] = Region.objects.filter(parent__parent=self.object.parent.parent).exclude(
+                id=self.object.id)
+        except Exception:
+            pass
         context['hotel_list'] = Hotel.objects.filter(
             Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
             (city=self.object)).order_by('id')
