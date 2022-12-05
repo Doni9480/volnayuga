@@ -282,14 +282,15 @@
                                 <h2 class="mt-20 mb-20">Курорты рядом</h2>
                                 <div>
                                     {% for region in region_parent_list %}
+                                        {% get_type_of_object region as type_object_list %}
+                                        {% if type_object_list %}
                                         <ul class="">
                                             <li class="td-title custom-control">
                                                 <p>{{ region }} 33 км</p>
                                                 <ul>
-                                                    {% get_type_of_object region as type_object_list %}
                                                     {% for type_object, count in type_object_list.items %}
                                                         <li class="custom-control"><a class="color-blue"
-                                                                                              href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                                                      href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
                                                             <span>{{ type_object }}</span></a> <span
                                                                 class="light">{{ count }}</span>
                                                         </li>
@@ -297,6 +298,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
