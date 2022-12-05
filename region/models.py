@@ -44,10 +44,10 @@ class Region(models.Model):
 
         elif self.parent:
             hotel_list = Hotel.objects.filter(city__parent=self)
-            return hotel_list.aggregate(average=Avg('priceperiod__prices__price'))['average']
+            return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
         else:
             hotel_list = Hotel.objects.filter(city__parent__parent__parent=self)
-            return hotel_list.aggregate(average=Avg('priceperiod__price__price'))['average']
+            return hotel_list.aggregate(average=Avg('periods__price__price'))['average']
 
     def get_average_review(self):
         from hotel.models import Hotel
