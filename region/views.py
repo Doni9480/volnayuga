@@ -27,7 +27,7 @@ class RegionDetail(DetailView):
             }
         context['region_list'] = Region.objects.filter(parent__parent=self.object, is_city=True)
         try:
-            context['region_parent_list'] = Region.objects.filter(parent__parent=self.object.parent.parent).exclude(
+            context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
                 id=self.object.id)
         except Exception:
             pass
@@ -90,7 +90,7 @@ class HotelFilterByType(DetailView):
                                                      Q(object_type__slug=self.kwargs['type_slug'],
                                                        city__parent__parent=self.object))
         context['service_object'] = ServiceFilterofObject.objects.all()
-        context['region_parent_list'] = Region.objects.filter(parent__parent=self.object.parent.parent).exclude(
+        context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
             id=self.object.id)
         context['filter'] = HotelFilterForm()
         context['service_object'] = ServiceFilterofObject.objects.all()
