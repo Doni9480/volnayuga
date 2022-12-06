@@ -260,10 +260,8 @@
                                                     {% if price.period == period %}
                                                         <td>
                                                             <input type="text" class="price-update"
-                                                                   number-id={{ number.id }} period-id="{{ period.id }}"
-                                                                   value="
-
-                                                                           {% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
+                                                                   number-id="{{ number.id }}" period-id="{{ period.id }}"
+                                                                   value="{% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
                                                                    price-id="{{ price.id }}"
                                                                    placeholder="За номер (руб)">
                                                         </td>
@@ -272,20 +270,16 @@
                                             {% endfor %}
                                         </tr>
                                         <tr>{% for period in object.periods.all %}
-
                                             {% for price in number.prices.all %}
                                                 {% if price.period == period %}
                                                     <td>
-                                                        <input type="text" class="price-update" value="
-
-                                                                {% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
-                                                               number-id={{ number.id }} period-id="{{ period.id }}"
+                                                        <input type="text" class="price-update" value="{% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
+                                                               number-id="{{ number.id }}" period-id="{{ period.id }}"
                                                                price-id="{{ price.id }}" is-extra="true"
                                                                placeholder="За доп (руб)">
                                                     </td>
                                                 {% endif %}
                                             {% endfor %}
-
                                         {% endfor %}
                                         </tr>
                                     </table>
