@@ -172,7 +172,7 @@
                             добавить номер
                         </button>
                     </a>
-                    {% for number in hotel.number_set.all %}
+                    {% for number in hotel.numbers.all %}
                         <div class="my-object-card flex mt-30 mb-50">
                             <div class="card-image">
                                 <div class="owl-admin" class="owl-carousel">
@@ -261,7 +261,10 @@
                                                         <td>
                                                             <input type="text" class="price-update"
                                                                    number-id={{ number.id }} period-id="{{ period.id }}"
-                                                                   value="{% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}" price-id="{{ price.id }}"
+                                                                   value="
+
+                                                                           {% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
+                                                                   price-id="{{ price.id }}"
                                                                    placeholder="За номер (руб)">
                                                         </td>
                                                     {% endif %}
@@ -270,14 +273,18 @@
                                         </tr>
                                         <tr>{% for period in object.periods.all %}
 
-                                                {% for price in number.prices.all %}
-                                                    {% if price.period == period %}
-                                                        <td>
-                                                            <input type="text" class="price-update" value="{% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
-                                                                   number-id={{ number.id }} period-id="{{ period.id }}" price-id="{{ price.id }}" is-extra="true" placeholder="За доп (руб)">
-                                                        </td>
-                                                    {% endif %}
-                                                {% endfor %}
+                                            {% for price in number.prices.all %}
+                                                {% if price.period == period %}
+                                                    <td>
+                                                        <input type="text" class="price-update" value="
+
+                                                                {% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
+                                                               number-id={{ number.id }} period-id="{{ period.id }}"
+                                                               price-id="{{ price.id }}" is-extra="true"
+                                                               placeholder="За доп (руб)">
+                                                    </td>
+                                                {% endif %}
+                                            {% endfor %}
 
                                         {% endfor %}
                                         </tr>
