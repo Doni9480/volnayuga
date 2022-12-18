@@ -279,9 +279,9 @@
                     <div class="object-table mb-100">
                         <h2 class="price-rooms">Цены на 2022 год</h2>
                         <div class="object-table-cont">
-                            {% if object.number_set.all %}
+                            {% if object.numbers.all %}
                                 <table>
-                                    {% for number in object.number_set.all %}
+                                    {% for number in object.numbers.all %}
                                         {% if forloop.first %}
                                             <tr>
                                                 <td class="sticky">
@@ -290,7 +290,7 @@
                                                 <td class="sticky">
 
                                                 </td>
-                                                {% for period in object.priceperiod_set.all %}
+                                                {% for period in object.periods.all %}
                                                     <td>
                                                         <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
                                                     </td>
@@ -304,7 +304,7 @@
                                             <td>
                                                 <div class="td-title">{{ number.get_order_choice_display }}</div>
                                             </td>
-                                            {% for price in number.price_set.all %}
+                                            {% for price in number.prices.all %}
                                                 <td>
                                                     <div class="td-text">{{ price.price }}</div>
                                                 </td>
@@ -314,7 +314,7 @@
                                             <td>
                                                 <div class="td-title">за доп</div>
                                             </td>
-                                            {% for period in number.price_set.all %}
+                                            {% for period in number.prices.all %}
                                                 <td>
                                                     <div class="td-text">
                                                         {% if period.extra_bed %}{{ period.extra_bed }}{% else %}
@@ -336,7 +336,7 @@
                                         <td>
 
                                         </td>
-                                        {% for period in object.priceperiod_set.all %}
+                                        {% for period in object.periods.all %}
                                             <td>
                                                 <div class="td-text">{{ period.start|date:"d.m" }}-{{ period.end|date:"d.m" }}</div>
                                             </td>
@@ -350,8 +350,8 @@
                                         <td>
                                             <div class="td-title">за весь дом</div>
                                         </td>
-                                        {% for period in object.priceperiod_set.all %}
-                                            {% for price in period.price_set.all %}
+                                        {% for period in object.prices.all %}
+                                            {% for price in period.prices.all %}
                                                 <td>
                                                     <div class="td-text">{{ price.price }}</div>
                                                 </td>
@@ -362,7 +362,7 @@
                                         <td>
                                             <div class="td-title">за доп</div>
                                         </td>
-                                        {% for period in number.price_set.all %}
+                                        {% for period in number.prices.all %}
                                             <td>
                                                 <div class="td-text">
                                                     {% if period.extra_bed %}{{ period.extra_bed }}{% else %}
@@ -425,11 +425,11 @@
                             {% if object.prepayments_term %}
                                 <li>Без предоплаты</li>
                             {% endif %}
-                            <li>Минимальный срок проживания (день): {{ object.minimum }} </li>
+                            <li>Минимальный срок проживания (день): {{ object.minimum|default_if_none:"" }} </li>
                         </ul>
                         <h2 class="rule-rooms">Правила проживания</h2>
                         <ul class="listNone">
-                            <li>Заезд после: {{ object.chek_in }}. Выезд до: {{ object.chek_out }}</li>
+                            <li>Заезд после: {{ object.chek_in|default_if_none:"--" }}. Выезд до: {{ object.chek_out|default_if_none:"--" }}</li>
                             <li>С питомцами: {% if object.pets %}Можно{% else %}Нельзя{% endif %}</li>
                             <li>Размещение детей: {% if object.child %}Можно{% else %}Нельзя{% endif %}</li>
                             {% if object.another_rules %}
