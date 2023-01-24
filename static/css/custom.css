@@ -330,7 +330,7 @@ h2.not-margin {
 	}
 }
 
-footer-menu li {
+li.footer-menu  {
     list-style: none;
     margin: 0 10px 0;
     color: #fff;
