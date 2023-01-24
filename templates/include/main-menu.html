@@ -46,11 +46,11 @@
             <span></span>
             <span></span>
         </button>
-        <nav>
-            <ul class="flex">
-                <li><a href="/">Главная</a></li>
-                <li><a href="{% url 'about' %}">О компании</a></li>
-                <li><a href="{% url 'contact' %}">Контакты</a></li>
+        <nav itemscope="" itemtype="https://schema.org/SiteNavigationElement">
+            <ul class="flex" itemprop="about" itemscope="" itemtype="https://schema.org/ItemList">
+                <li temprop="itemListElement" itemscope="" itemtype="https://schema.org/ItemList"><a itemprop="url" href="/">Главная</a></li>
+                <li temprop="itemListElement" itemscope="" itemtype="https://schema.org/ItemList"><a itemprop="url" href="{% url 'about' %}">О компании</a></li>
+                <li temprop="itemListElement" itemscope="" itemtype="https://schema.org/ItemList"><a itemprop="url" href="{% url 'contact' %}">Контакты</a></li>
                 <li class="mobile-show">
                     <div class="login flex alignCenter">
                         <img src="{% static 'img/login1.png' %}" alt="">
