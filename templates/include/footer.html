@@ -11,7 +11,7 @@
                             <a href="{% url 'accounts:login' %}"><button>Добавить объявление</button></a>
                         {% endif %}
                     </div>
-                <div style="color: #fff" itemscope="" itemtype="https://schema.org/SiteNavigationElement">
+                <div style="color: #fff; list-style: none;" itemscope="" itemtype="https://schema.org/SiteNavigationElement">
                 <ul>
                     {% for page in page_list %}
                         <li itemprop="about" itemscope="" itemtype="https://schema.org/ItemList"><a itemprop="url" href="{% url 'page:page_detail' slug=page.url %}">{{ page }}</a></li>
