@@ -118,15 +118,19 @@
     <header id="curorts">
         <div class="container">
             {% include 'include/main-menu.html' %}
-            <ul class="breadcrumb">
-                <li><a href="/">Главная</a></li>
+            <ul class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope
+      itemtype="https://schema.org/ListItem"><a itemprop="item" href="/">Главная</a></li>
                 {% if object.parent.parent %}
-                    <li>
-                        <a href="{% url 'region:region_detail' slug=object.parent.parent.slug %}">{{ object.parent.parent }}</a>
+                    <li itemprop="itemListElement" itemscope
+      itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="{% url 'region:region_detail' slug=object.parent.parent.slug %}">{{ object.parent.parent }}</a>
                     </li>
-                    <li>{{ object }}</li>
+                    <li itemprop="itemListElement" itemscope
+                        itemtype="https://schema.org/ListItem"><a itemprop="item">{{ object }}</a></li>
                 {% else %}
-                    <li>{{ object }}</li>
+                    <li itemprop="itemListElement" itemscope
+      itemtype="https://schema.org/ListItem"><a itemprop="item">{{ object }}</a></li>
                 {% endif %}
             </ul>
             <div class="headerTitle">
