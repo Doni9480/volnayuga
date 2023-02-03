@@ -8,7 +8,7 @@
                 <!--<form enctype='multipart/form-data' action="{% url 'accounts:hotel_image_upload' pk=object.id %}"
                       method="POST" class="dropzone dz" id="my-dropzone">
                     {% csrf_token %}
-                    {{ form.media }}
+
                     <div class="row">
                         {% for image in object.hotelphoto_set.all %}
                             <div class="mr-10 mb-10">   {% thumbnail image.image "170x100" crop="center" as im %}
@@ -31,5 +31,5 @@
             </div>
         </div>
     </div>
-
+    {{ form.media }}
 {% endblock %}

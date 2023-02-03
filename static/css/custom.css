@@ -335,3 +335,8 @@ h2.not-margin {
     margin: 0 10px 0;
     color: #fff;
 }
+.list-group span {
+    margin-left: 10px;
+    float: right;
+    color: #f2c700;
+}

@@ -33,7 +33,8 @@ urlpatterns = [
     path('lk/<int:hotel_pk>/<int:pk>/', ContactUpdate.as_view(), name='contact_update'),
     path('lk/<int:hotel_pk>/<int:pk>/delete', ContactDelete.as_view(), name='contact_delete'),
     path('lk/<int:hotel_pk>/options_update/', HotelOptionUpdate.as_view(), name='hotel_options_update'),
-    path('lk/<int:hotel_pk>/distance_add/', DistanceUpdate.as_view(), name='hotel_distance_add'),
+    path('lk/<int:hotel_pk>/distance_add/', DistanceAdd.as_view(), name='hotel_distance_add'),
+    path('lk/<int:hotel_pk>/<pk>/distance_delete/', DistanceDelete.as_view(), name='hotel_distance_delete'),
     path('lk/reviewlist/', HotelReviewList.as_view(), name='hotel_review_list'),
     path('lk/help/', HotelHelp.as_view(), name='hotel_help'),
 

@@ -9,7 +9,7 @@
                     {% csrf_token %}
                     <h4>Вы хотите удалить "{{ object }}"?</h4>
                     <button class="submit">Удалить</button>
-                    <a href="{% url 'accounts:user_hotel_list' %}">Отмена</a>
+                    <a href="javascript:history.back()">Отмена</a>
                 </form>
             </div>
         </div>

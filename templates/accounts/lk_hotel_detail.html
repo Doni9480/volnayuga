@@ -261,8 +261,13 @@
                                                     {% if price.period == period %}
                                                         <td>
                                                             <input type="text" class="price-update"
-                                                                   number-id="{{ number.id }}" period-id="{{ period.id }}"
-                                                                   value="{% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
+                                                                   number-id="{{ number.id }}"
+                                                                   period-id="{{ period.id }}"
+                                                                   value="
+
+
+
+                                                                           {% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
                                                                    price-id="{{ price.id }}"
                                                                    placeholder="За номер (руб)">
                                                         </td>
@@ -274,7 +279,11 @@
                                             {% for price in number.prices.all %}
                                                 {% if price.period == period %}
                                                     <td>
-                                                        <input type="text" class="price-update" value="{% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
+                                                        <input type="text" class="price-update" value="
+
+
+
+                                                                {% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
                                                                number-id="{{ number.id }}" period-id="{{ period.id }}"
                                                                price-id="{{ price.id }}" is-extra="true"
                                                                placeholder="За доп (руб)">
@@ -296,14 +305,27 @@
                     <div class="descriptionTabOptions mb-50">
                         <div class="descriptionTabDistance flex juatifyBetween alignCenter">
                             <div>
-                                <h4>Расстояние</h4>
-                                <p>Пожалуйста, отметьте важные места рядом с вашим объектом.</p>
+                                <h4>Расстояния до важных объектов</h4>
+
+                                {% if object.distance %}
+                                    <ul class="list-group">
+                                        {% for distance in object.distancetime_set.all %}
+                                            <li class="list-group-item">{{ distance.distance }} - {{ distance.time }} минут
+                                                ({{ distance.get_method_display }})   <a
+                                                        href="{% url 'accounts:hotel_distance_delete' hotel_pk=distance.hotel.id pk=distance.id %}"><span>Удалить</span></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>Пожалуйста, отметьте важные места рядом с вашим объектом.</p>
+                                {% endif %}
+                                <br>
+                                <a href="{% url 'accounts:hotel_distance_add' hotel_pk=object.id %}">
+                                    <button class="newObject">
+                                        Добавить
+                                    </button>
+                                </a>
                             </div>
-                            <a href="{% url 'accounts:hotel_distance_add' hotel_pk=object.id %}">
-                                <button class="newObject">
-                                    редактировать
-                                </button>
-                            </a>
                         </div>
                     </div>
                 </div>

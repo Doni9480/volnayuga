@@ -124,7 +124,7 @@ class HotelDetail(FormMixin, DetailView):
         period_list = PricePeriod.objects.filter(hotel=self.object)
         number_list = Number.objects.filter(hotel=self.object)
         price_list = Price.objects.filter(number__in=number_list)
-        data = {"price":[],"period":[],"number":[]}
+        data = {"price": [], "period": [], "number": []}
         for price in price_list:
             data['price'].append(price.price)
             data['period'].append(price.period)
@@ -497,8 +497,43 @@ class ContactDelete(DeleteView):
         return reverse('accounts:user_hotel_detail', kwargs={'pk': self.object.hotel.id})
 
 
+class DistanceAdd(CreateView):
+    """"Create Distance"""
+    model = Distance
+    form_class = DistanceForm
+    template_name = 'accounts/lk_hotel_distance_add.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(DistanceAdd, self).get_form_kwargs()
+        hotel = Hotel.objects.get(id=self.kwargs['hotel_pk'])
+        kwargs['hotel'] = hotel
+        return kwargs
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        hotel = Hotel.objects.get(id=self.kwargs['hotel_pk'])
+        self.object.hotel = hotel
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('accounts:user_hotel_detail', kwargs={'pk': self.object.hotel.id})
+
+
+class DistanceDelete(DeleteView):
+    """Distance delete"""
+    model = DistanceTime
+    template_name = "accounts/lk_hotel_confirm_delete.html"
+
+    def get_object(self, queryset=None):
+        return self.get_queryset().filter(id=self.kwargs['pk']).get()
+
+    def get_success_url(self):
+        return reverse('accounts:user_hotel_detail', kwargs={'pk': self.kwargs['hotel_pk']})
+
+
 class DistanceUpdate(FormMixin, DetailView):
-    """"""
+    """Distance update"""
     model = Hotel
     form_class = DistanceForm
     second_form_class = DistanceTimeForm
@@ -527,8 +562,7 @@ class DistanceUpdate(FormMixin, DetailView):
 
     def form_valid(self, form):
         form.save(commit=False)
-        hotel = Hotel.objects.get(id=self.kwargs['pk'])
-        self.object.hotel.add(hotel)
+        form.hotel.id = self.kwargs['hotel_pk']
         form.save()
         return super().form_valid(form)
 

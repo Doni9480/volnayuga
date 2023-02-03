@@ -41,7 +41,7 @@ class HotelUpdateForm(forms.ModelForm):
         exclude = ['user', 'meta_title', 'meta_description', 'object_type', 'chek_in', 'chek_out', 'prepayment',
                    'prepayments_term',
                    'requisites', 'early_booking_discount', 'minimum', 'child',
-                   'pets', 'free_cancel', 'another_rules', 'options']
+                   'pets', 'free_cancel', 'another_rules', 'options', 'distance']
 
 
 class HotelRulesForm(forms.ModelForm):
@@ -110,7 +110,13 @@ class DistanceForm(forms.ModelForm):
 
     class Meta:
         model = DistanceTime
-        fields = '__all__'
+        fields = ['distance', 'method', 'time']
+
+    def __init__(self, *args, **kwargs):
+        hotel = kwargs.pop('hotel')
+        distance_id_exclude = Distance.objects.filter(hotel=hotel)
+        super(DistanceForm, self).__init__(*args, **kwargs)
+        self.fields['distance'].queryset = Distance.objects.all().exclude(hotel=hotel)
 
 
 class DistanceTimeForm(forms.ModelForm):

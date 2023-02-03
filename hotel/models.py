@@ -77,13 +77,16 @@ WALKMETHODCHOICE = (
 class DistanceTime(models.Model):
     """Расстояние до объектов"""
     distance = models.ForeignKey(Distance, on_delete=models.CASCADE, verbose_name='Объект расстояния')
-    time = models.IntegerField(verbose_name='Время', blank=True, null=True)
+    time = models.IntegerField(verbose_name='Время в минутах', blank=True, null=True)
     method = models.CharField(max_length=10, choices=WALKMETHODCHOICE, blank=True, null=True, verbose_name='Метод')
     hotel = models.ForeignKey('Hotel', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Гостиница')
 
     class Meta:
-        verbose_name = 'Время до обьекта'
+        verbose_name = 'Время до объекта'
         verbose_name_plural = 'Время до объектов'
+
+    def __str__(self):
+        return self.distance.title
 
 
 BEACHCHOICE = (
@@ -99,6 +102,7 @@ BEACHREMOTENESS = [
     ('1000', '1000'),
     ('1500', '1500'),
 ]
+
 
 class Hotel(models.Model):
     """Отель"""
@@ -118,7 +122,7 @@ class Hotel(models.Model):
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
     description = RichTextField(blank=True, verbose_name='Описание')
     video = models.URLField(blank=True, verbose_name='Ссылка на видео объекта')
-    distance = models.ManyToManyField(Distance, through='DistanceTime')
+    distance = models.ManyToManyField(Distance, through='DistanceTime', verbose_name='Объекты рядом')
     prepayment = models.CharField(max_length=10, blank=True,
                                   verbose_name='Размер предоплаты в % или в сутках проживания')
     free_cancel = models.CharField(max_length=100, blank=True, verbose_name='Условия бесплатной отмены брони')
