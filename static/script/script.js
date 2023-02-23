@@ -443,7 +443,7 @@ function showHiddenContent() {
 function swiperInit() {
     const swiper = new Swiper('.swiper', {
         direction: 'horizontal',
-        loop: true,
+        loop: false,
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',

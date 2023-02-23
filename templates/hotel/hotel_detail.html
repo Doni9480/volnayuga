@@ -119,12 +119,13 @@
         <div class="container">
             <ul class="breadcrumb" class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
                 <li itemprop="itemListElement" itemscope
-      itemtype="https://schema.org/ListItem"><a itemprop="item" href="/">Главная</a></li>
+                    itemtype="https://schema.org/ListItem"><a itemprop="item" href="/">Главная</a></li>
                 <li itemprop="itemListElement" itemscope
-      itemtype="https://schema.org/ListItem"><a itemprop="item" href="{% url 'region:region_detail' slug=object.city.parent.slug %}">{{ object.city.parent }}</a>
+                    itemtype="https://schema.org/ListItem"><a itemprop="item"
+                                                              href="{% url 'region:region_detail' slug=object.city.parent.slug %}">{{ object.city.parent }}</a>
                 </li>
                 <li itemprop="itemListElement" itemscope
-      itemtype="https://schema.org/ListItem"><a itemprop="item">{{ object.city }}</a></li>
+                    itemtype="https://schema.org/ListItem"><a itemprop="item">{{ object.city }}</a></li>
             </ul>
             <h1>{{ object }}</h1>
             <div class="addressP">
@@ -224,6 +225,8 @@
                             {% endfor %}
                         </div>
                     </div>
+
+                    <!-- Номера и цены -->
                     {% if object.numbers.all %}
                         <div class="object-prices mb-100 object-card-wrapper">
                             <h2 class="photo-rooms">Номера и цены</h2>
@@ -232,12 +235,14 @@
                                     <div class="object-card">
                                         <div class="object-images swiper">
                                             <div class="swiper-wrapper">
-                                                {% for item in number.numberphoto_set.all %}
+                                                {% for item in number.photos.all %}
                                                     <div class="swiper-slide">
                                                         {% thumbnail item.image '262x180' crop='center' as img %}
-                                                            <img class="lightboxed" rel="number{{ forloop.counter }}" data-link="{{ item.image.url }}"
-                                                                 src="{{ img.url }}" alt=""></div>
+                                                            <img class="lightboxed" rel="{{ number.id }}"
+                                                                 data-link="{{ item.image.url }}"
+                                                                 src="{{ img.url }}" alt="number-{{ number.id }}">
                                                         {% endthumbnail %}
+                                                    </div>
                                                 {% endfor %}
                                             </div>
                                             <div class="swiper-button-prev"><img src="{% static 'img/prev.png' %}"
@@ -264,8 +269,9 @@
                                                 </div>
                                             </div>
                                             <div class="action">
-                                                    <div class="curort-price2">{% if number.get_price_today %}{{ number.get_price_today }}
-                                                            руб.{% else %}Не задано{% endif %}</div>
+                                                <div class="curort-price2">
+                                                    {% if number.get_price_today %}{{ number.get_price_today }}
+                                                        руб.{% else %}Не задано{% endif %}</div>
                                                 <div class="label">за 1 сутки</div>
                                                 <div class="btn-groups">
                                                     <div class="btn btn-accent">Оставить заявку</div>
@@ -279,6 +285,8 @@
                             </div>
                         </div>
                     {% endif %}
+                    <!-- Конец Номера и цены -->
+
                     <div class="object-table mb-100">
                         <h2 class="price-rooms">Цены на 2023 год</h2>
                         <div class="object-table-cont">
@@ -432,7 +440,8 @@
                         </ul>
                         <h2 class="rule-rooms">Правила проживания</h2>
                         <ul class="listNone">
-                            <li>Заезд после: {{ object.chek_in|default_if_none:"--" }}. Выезд до: {{ object.chek_out|default_if_none:"--" }}</li>
+                            <li>Заезд после: {{ object.chek_in|default_if_none:"--" }}. Выезд
+                                до: {{ object.chek_out|default_if_none:"--" }}</li>
                             <li>С питомцами: {% if object.pets %}Можно{% else %}Нельзя{% endif %}</li>
                             <li>Размещение детей: {% if object.child %}Можно{% else %}Нельзя{% endif %}</li>
                             {% if object.another_rules %}

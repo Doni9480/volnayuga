@@ -277,7 +277,7 @@ class Price(models.Model):
 
 class NumberPhoto(models.Model):
     """Фотографии номера"""
-    number = models.ForeignKey(Number, on_delete=models.CASCADE)
+    number = models.ForeignKey(Number, on_delete=models.CASCADE, related_name='photos')
     image = models.ImageField(upload_to='hotel/numbers', verbose_name='Изображение')
 
     class Meta:

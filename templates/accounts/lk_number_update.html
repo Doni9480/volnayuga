@@ -7,7 +7,7 @@
             <div class="add-object-card-cont mb-100">
                 <div class="col-md-12">
                     <div class="row">
-                        {% for image in object.numberphoto_set.all %}
+                        {% for image in object.photos.all %}
                             <div class="mr-10 mb-10">
                                 {% thumbnail image.image "193x115" crop="center" as im %}
                                     <img src="{{ im.url }}" width="{{ im.width }}"

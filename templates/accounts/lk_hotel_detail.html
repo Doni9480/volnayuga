@@ -177,7 +177,7 @@
                         <div class="my-object-card flex mt-30 mb-50">
                             <div class="card-image">
                                 <div class="owl-admin" class="owl-carousel">
-                                    {% for image in number.numberphoto_set.all|slice:":1" %}
+                                    {% for image in number.photos.all|slice:":1" %}
                                         <div class="item">
                                             <div class="item-img">
                                                 {% thumbnail image.image "262x180" crop="center" as im %}
