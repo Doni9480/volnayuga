@@ -365,7 +365,6 @@ class NumberCreate(CreateView):
 
     def form_valid(self, form):
         form.save(commit=False)
-        self.object = form.save()
         hotel = Hotel.objects.get(id=self.kwargs['hotel_pk'])
         form.instance.hotel = hotel
         period_list = PricePeriod.objects.filter(hotel=hotel)
