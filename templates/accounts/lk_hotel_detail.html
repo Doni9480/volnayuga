@@ -242,6 +242,7 @@
                     </div>
 
                     <div class="ready-number mb-20">
+                    <p>Нажмите Enter для сохранения цены</p>
                         <form action="">
                             <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/>
                             {% for number in object.numbers.all %}
@@ -263,11 +264,7 @@
                                                             <input type="text" class="price-update"
                                                                    number-id="{{ number.id }}"
                                                                    period-id="{{ period.id }}"
-                                                                   value="
-
-
-
-                                                                           {% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
+                                                                   value="{% if price.price == 0 %}{% else %}{{ price.price }}{% endif %}"
                                                                    price-id="{{ price.id }}"
                                                                    placeholder="За номер (руб)">
                                                         </td>
@@ -279,11 +276,7 @@
                                             {% for price in number.prices.all %}
                                                 {% if price.period == period %}
                                                     <td>
-                                                        <input type="text" class="price-update" value="
-
-
-
-                                                                {% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
+                                                        <input type="text" class="price-update" value="{% if price.extra_bed %}{{ price.extra_bed }}{% else %}{% endif %}"
                                                                number-id="{{ number.id }}" period-id="{{ period.id }}"
                                                                price-id="{{ price.id }}" is-extra="true"
                                                                placeholder="За доп (руб)">
@@ -300,8 +293,6 @@
 
                 </div>
                 <div class="tabContent" id="descriptionTab">
-
-
                     <div class="descriptionTabOptions mb-50">
                         <div class="descriptionTabDistance flex juatifyBetween alignCenter">
                             <div>
@@ -310,8 +301,9 @@
                                 {% if object.distance %}
                                     <ul class="list-group">
                                         {% for distance in object.distancetime_set.all %}
-                                            <li class="list-group-item">{{ distance.distance }} - {{ distance.time }} минут
-                                                ({{ distance.get_method_display }})   <a
+                                            <li class="list-group-item">{{ distance.distance }} - {{ distance.time }}
+                                                минут
+                                                ({{ distance.get_method_display }}) <a
                                                         href="{% url 'accounts:hotel_distance_delete' hotel_pk=distance.hotel.id pk=distance.id %}"><span>Удалить</span></a>
                                             </li>
                                         {% endfor %}
