@@ -513,6 +513,7 @@ class DistanceAdd(CreateView):
     def get_context_data(self, **kwargs):
         context = super(DistanceAdd, self).get_context_data(**kwargs)
         context['distance_list'] = Distance.objects.filter(hotel=self.kwargs['hotel_pk'])
+        context['hotel'] = Hotel.objects.get(id=self.kwargs['hotel_pk'])
         return context
 
     def get_form_kwargs(self):
