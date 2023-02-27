@@ -204,7 +204,9 @@ class HotelUpdate(UpdateView):
         return self.get_queryset().filter(id=self.kwargs['pk']).get()
 
     def form_valid(self, form):
+        form.save(commit=False)
         self.object.save()
+        form.save_m2m()
         for key in form.files:
             img_files = form.files.getlist(key)
             for file in img_files:
