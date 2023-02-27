@@ -363,9 +363,13 @@ class NumberCreate(CreateView):
 
     def form_valid(self, form):
         form.save(commit=False)
+        self.object = form.save()
         hotel = Hotel.objects.get(id=self.kwargs['hotel_pk'])
         form.instance.hotel = hotel
-
+        period_list = PricePeriod.objects.filter(hotel=hotel)
+        for period in period_list:
+            print(self.object)
+            Price.objects.create(period=period, number=self.object, price='0', extra_bed='0')
         for key in form.files:
             img_files = form.files.getlist(key)
             for file in img_files:
@@ -503,6 +507,12 @@ class DistanceAdd(CreateView):
     form_class = DistanceForm
     template_name = 'accounts/lk_hotel_distance_add.html'
 
+
+    def get_context_data(self, **kwargs):
+        context = super(DistanceAdd, self).get_context_data(**kwargs)
+        context['distance_list'] = Distance.objects.filter(hotel=self.kwargs['hotel_pk'])
+        return context
+
     def get_form_kwargs(self):
         kwargs = super(DistanceAdd, self).get_form_kwargs()
         hotel = Hotel.objects.get(id=self.kwargs['hotel_pk'])
@@ -517,7 +527,7 @@ class DistanceAdd(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('accounts:user_hotel_detail', kwargs={'pk': self.object.hotel.id})
+        return reverse('accounts:hotel_distance_add', kwargs={'hotel_pk': self.object.hotel.id})
 
 
 class DistanceDelete(DeleteView):

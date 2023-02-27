@@ -6,15 +6,25 @@
 {% endblock %}
 {% block content %}
     <div class="col-md-9">
+        <div>
+        <a class="dropbtn" href="/accounts/lk/1/info/#tab-descriptionTab">Назад</a>
+            <h2 class="text-align-center">Список объектов</h2>
+        <ol class="ml-20">
+            {% for item in distance_list %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ol>
+        </div>
         <div class="myObject-right">
-            <h1>Расстояния</h1>
+            <h2 class="text-align-center">Добавить объект</h2>
             <div class=" mb-100">
                 <form enctype="multipart/form-data" method="post">
                     {% csrf_token %}
                     {{ form|crispy }}
-                     <button class="submit">добавить</button>
+                    <button class="submit">добавить</button>
                 </form>
             </div>
         </div>
     </div>
+
 {% endblock %}
