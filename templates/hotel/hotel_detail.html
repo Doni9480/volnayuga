@@ -420,12 +420,12 @@
                         <h2>Расстояния</h2>
                         <ul class="listNone">
                             {% for item in object.distancetime_set.all %}
-                                <li>{{ item.distance }} - {{ item.time }} минуты ({{ item.get_method_display }})</li>
+                                <li>{{ item.distance }} - {{ item.time }} мин. ({{ item.get_method_display }})</li>
                             {% endfor %}
                         </ul>
                         <h2 class="rule-rooms">Бронирование</h2>
                         <ul class="listNone">
-                            <li>Размер предоплаты: {{ object.prepayment }}%</li>
+                            <li>Размер предоплаты: {{ object.prepayment }}</li>
                             <li>Условия бесплатной отмены брони: {{ object.free_cancel }}</li>
                             {% if object.early_booking_discount %}
                                 <li>Скидка на раннее бронирование: {{ object.early_booking_discount }}%</li>
