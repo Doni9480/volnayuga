@@ -181,7 +181,6 @@ h2.not-margin {
 	display: flex;
 	margin-bottom: 30px;
 	padding-bottom: 30px;
-	border-bottom: 2px solid #4581DA;
 }
 .object-card.full-height {
 	height: auto;
