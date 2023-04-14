@@ -147,6 +147,20 @@ class Hotel(models.Model):
         return self.numbers.all().aggregate(min_price=Min('prices__price'))['min_price']
 
 
+class HotelReview(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    date = models.DateField(default=date.today, verbose_name='Дата')
+    text = RichTextField(verbose_name='Текст')
+    hotel = models.ForeignKey(Hotel, verbose_name='Гостиница', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = ' Отзыв'
+        verbose_name_plural = ' Отзывы'
+
+    def __str__(self):
+        return 'f{self.name + self.hotel}'
+
+
 class HotelPhoto(models.Model):
     """Фотографии на странице фильтрации"""
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True)

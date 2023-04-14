@@ -200,6 +200,7 @@ admin.site.register(ServiceFilterofObject)
 admin.site.register(NumberOption)
 admin.site.register(Distance)
 admin.site.register(DistanceTime)
+admin.site.register(HotelReview)
 
 
 

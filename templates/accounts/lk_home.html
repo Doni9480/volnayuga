@@ -1,5 +1,9 @@
 {% extends 'lk_base.html' %}
 {% load static thumbnail %}
+{% block meta %}
+    <meta name="description" content="Страница личного кабинета {{ request.user }}">
+    <title>Личный кабинет</title>
+{% endblock %}
 {% block breadcrumbs %}
     <ul class="breadcrumb">
         <li><a href="{% url 'accounts:user_hotel_list' %}">Главная</a></li>
