@@ -290,7 +290,7 @@
                                         {% if type_object_list %}
                                             <ul class="">
                                                 <li class="td-title custom-control">
-                                                    <p>{{ region }} 33 км</p>
+                                                    <p><a href="{% url 'region:region_detail' region.slug%}">{{ region }}</a></p>
                                                     <ul>
                                                         {% for type_object, count in type_object_list.items %}
                                                             <li class="custom-control"><a style="color: #4580da"
