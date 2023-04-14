@@ -339,3 +339,11 @@ h2.not-margin {
     float: right;
     color: #f2c700;
 }
+.kurort-light {
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    font-family: Nunito;
+    font-size: 14px;
+    color: #4580da54;
+}
