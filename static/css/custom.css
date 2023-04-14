@@ -344,6 +344,10 @@ h2.not-margin {
     border-radius: 6px;
     border: none;
     font-family: Nunito;
-    font-size: 14px;
+    font-size: 12px;
     color: #4580da54;
+}
+.kurort-title-dictance {
+    color: #4580da;
+    font-size: 12px;
 }
