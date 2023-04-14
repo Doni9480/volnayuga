@@ -207,27 +207,29 @@
                             </form>
                         </div>
                         <div class="curort-filter-map">
-                            <h2 class="mt-20 mb-20">Курорты рядом</h2>
+                            <h3 class="mt-20 mb-20">Курорты рядом</h3>
                             <div>
                                 {% for region in region_parent_list %}
-                                        {% get_type_of_object region as type_object_list %}
-                                        {% if type_object_list %}
-                                            <ul class="">
-                                                <li class="td-title custom-control">
-                                                    <p>{{ region }} 33 км</p>
-                                                    <ul>
-                                                        {% for type_object, count in type_object_list.items %}
-                                                            <li class="custom-control"><a style="color: #4580da"
-                                                                                          href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
-                                                                {{ type_object }}</a> <span
-                                                                    class="light">{{ count }}</span>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {% get_type_of_object region as type_object_list %}
+                                    {% if type_object_list %}
+                                        <ul class="">
+                                            <li class="td-title custom-control">
+                                                <p><a href="{% url 'region:region_detail' region.slug %}">{{ region }}</a></p>
+                                                <ul>
+                                                    {% for type_object, count in type_object_list.items %}
+                                                        <li class="custom-control">
+                                                            <a class="kurort-title-dictance"
+                                                               href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                                {{ type_object }}
+                                                            </a>
+                                                            <span class="kurort-light">{{ count }}</span>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -551,7 +553,7 @@
         <div class="container">
             <div class="closert-curorts">
                 {% if curort_near_list %}
-                    <h2>Курорты <span>рядом</span></h2>
+                    <h3>Курорты <span>рядом</span></h3>
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="closest-cont">
