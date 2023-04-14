@@ -78,6 +78,7 @@ class HotelPriceInline(admin.TabularInline):
 class HotelAdmin(admin.ModelAdmin):
     form = HotelAdminForm
     inlines = [HotelImageAdmin, HotelDistanceAdmin, HotelPriceInline]
+    list_filter = ('city',)
     list_display = ['title', 'city']
     fieldsets = (
         ('Мета описание', {
