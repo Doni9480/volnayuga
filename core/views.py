@@ -6,6 +6,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import TemplateView, DetailView
 
+from review.models import Review
 from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
@@ -24,6 +25,7 @@ class HomePage(TemplateView):
         context['hotel_list_low_price'] = Hotel.objects.all()
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
+        context['review_list'] = Review.objects.all()
         try:
             context['object'] = SeoPage.objects.get(slug='home')
         except Exception:
