@@ -13,5 +13,6 @@ class PageDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PageDetail, self).get_context_data(**kwargs)
-        context['seo'] = SeoPage.objects.get(page=self.object)
+        current_url = self.request.path
+        context['seo'] = SeoPage.objects.get(slug=current_url)
         return context

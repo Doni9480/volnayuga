@@ -15,7 +15,6 @@ class SeoPage(models.Model):
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
     content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
-    page = models.ForeignKey(Page, default=1, on_delete=models.CASCADE, verbose_name='Страница к которой привязываем СЕО')
 
     class Meta:
         verbose_name = 'SEO для страницы'
