@@ -1,19 +1,21 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from hotel.models import TypeofObject, ServiceFilterofObject
+from page.models import Page
 from region.models import Region
 
 
 class SeoPage(models.Model):
     """SEO static page model."""
     title = models.CharField(max_length=50, verbose_name='Название страницы')
-    slug = models.SlugField(verbose_name='URL страницы, к которой привязываем')
+    slug = models.CharField(max_length=50, verbose_name='URL страницы, к которой привязываем')
     h1 = models.CharField(max_length=50, blank=True, verbose_name='Заголовок H1')
     header_text = models.TextField(blank=True, verbose_name='Текст под заголовком')
     meta_title = models.TextField(blank=True, verbose_name='Мета заголовок')
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
     content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
+    page = models.ForeignKey(Page, default=1, on_delete=models.CASCADE, verbose_name='Страница к которой привязываем СЕО')
 
     class Meta:
         verbose_name = 'SEO для страницы'

@@ -95,3 +95,4 @@ class  RentPage(TemplateView):
             }
         return context
 
+

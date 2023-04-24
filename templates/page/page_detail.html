@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static thumbnail %}
+{% block meta %}
+    <meta name="description" content="{{ seo.meta_description }}">
+    <title>{{ seo.meta_title }}</title>
+{% endblock %}
 {% block header %}
     <header class="main-header about-header">
         <div class="container">
