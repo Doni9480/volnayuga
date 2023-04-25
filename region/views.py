@@ -123,10 +123,11 @@ class HotelFilterByTypeAndService(DetailView):
         context = super().get_context_data(**kwargs)
         hotel_type = self.kwargs['type_slug']
         context['hotel_list'] = Hotel.objects.filter(
-            Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
-            Q(object_service__slug=self.kwargs['service_slug'],
+            Q(object_service__slug=self.kwargs['service_slug'], object_type__slug=self.kwargs['type_slug'],
+              city=self.object) |
+            Q(object_service__slug=self.kwargs['service_slug'], object_type__slug=self.kwargs['type_slug'],
               city__parent=self.object) |
-            Q(object_service__slug=self.kwargs['service_slug'],
+            Q(object_service__slug=self.kwargs['service_slug'], object_type__slug=self.kwargs['type_slug'],
               city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
         context['type_service_filter'] = True
