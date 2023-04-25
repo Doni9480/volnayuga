@@ -589,7 +589,7 @@ class HotelReviewList(ListView):
     context_object_name = 'review_list'
 
     def get_queryset(self):
-        return Review.objects.all()
+        return Review.objects.filter(hotel__user=self.request.user)
 
 
 class HotelHelp(TemplateView):
