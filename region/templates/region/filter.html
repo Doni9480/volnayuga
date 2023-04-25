@@ -214,7 +214,9 @@
                                     {% if type_object_list %}
                                         <ul class="">
                                             <li class="td-title custom-control">
-                                                <p><a href="{% url 'region:region_detail' region.slug %}">{{ region }}</a></p>
+                                                <p>
+                                                    <a href="{% url 'region:region_detail' region.slug %}">{{ region }}</a>
+                                                </p>
                                                 <ul>
                                                     {% for type_object, count in type_object_list.items %}
                                                         <li class="custom-control">
@@ -330,11 +332,17 @@
                 <div class="owl-demo-object owl-carousel">
                     {% for item in service_object %}
                         <div class="item">
-                            <a href="{% url 'region:hotel_type_service_filter' slug=object.slug type_slug=title_for_meta.slug service_slug=item.slug %}">
-                                <div class="item-img">
-                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
-                                         alt="Lazy Owl Image">
-                                </div>
+                            {% if service_filter %}
+                                service<a href="{% url 'region:hotel_service_filter' slug=object.slug service_slug=item.slug %}">
+                            {% elif type_service_filter %}
+                                <a href="{% url 'region:hotel_type_service_filter' slug=object.slug type_slug=hotel_type service_slug=item.slug %}">
+                            {% elif type_filter %}
+                                type<a href="{% url 'region:hotel_type_service_filter' slug=object.slug type_slug=title_for_meta.slug service_slug=item.slug %}">
+                            {% endif %}
+                            <div class="item-img">
+                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                     alt="Lazy Owl Image">
+                            </div>
                             </a>
                             <p>{{ item }}</p>
                         </div>

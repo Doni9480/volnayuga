@@ -10,7 +10,7 @@ urlpatterns = [
     path('filter/', hotel_list, name='hotel_filter_left'),
     path('<int:pk>/', HotelDetail.as_view(), name='hotel_detail'),
     path('<slug:type_slug>/', HotelFilterByType.as_view(), name='hotel_type_filter'),
-    path('s/<slug:service_slug>/', HotelFilterByService.as_view(), name='hotel_service_filter'),
+    path('service/<slug:service_slug>/', HotelFilterByService.as_view(), name='hotel_service_filter'),
     path('<slug:type_slug>/<slug:service_slug>/', HotelFilterByTypeAndService.as_view(),
          name='hotel_type_service_filter'),
 

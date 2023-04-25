@@ -20,7 +20,7 @@ class RegionDetail(DetailView):
             context['seo'] = SeoForRegion.objects.get(city=self.object)
         except Exception:
             context['seo'] = {
-                'meta_title': f'Отдых в { self.object } – недорогие цены, фото, лучшие отзывы | Вашеморе.ру',
+                'meta_title': f'Отдых в {self.object} – недорогие цены, фото, лучшие отзывы | Вашеморе.ру',
                 'meta_description': f'Отдых в {self.object} – недорогие цены, отзывы, фото номеров. Забронировать жилье без посредников: отели и гостиницы, гостевые дома, квартиры. Большое количество предложений с максимальными удобствами.',
                 'h1': self.object,
                 'content_1': self.object,
@@ -50,7 +50,7 @@ class RegionDetail(DetailView):
             Q(city__parent=self.object, premium=True) | Q(city__parent__parent=self.object, premium=True))
         context['today'] = date.today()
         context['review_list'] = Review.objects.filter(hotel__city=self.object)
-        #ids_typeofobject = Hotel.objects.filter(
+        # ids_typeofobject = Hotel.objects.filter(
         #    Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
         #    'object_type', flat=True).distinct()
         context['type_object'] = TypeofObject.objects.all()
@@ -93,6 +93,7 @@ class HotelFilterByType(DetailView):
         context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
             id=self.object.id)
         context['filter'] = HotelFilterForm()
+        context['type_filter'] = True
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         try:
@@ -120,12 +121,17 @@ class HotelFilterByTypeAndService(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.filter(Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
-                                                     Q(object_service__slug=self.kwargs['service_slug'],
-                                                       city__parent=self.object) |
-                                                     Q(object_service__slug=self.kwargs['service_slug'],
-                                                       city__parent__parent=self.object))
+        hotel_type = self.kwargs['type_slug']
+        context['hotel_list'] = Hotel.objects.filter(
+            Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
+            Q(object_service__slug=self.kwargs['service_slug'],
+              city__parent=self.object) |
+            Q(object_service__slug=self.kwargs['service_slug'],
+              city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
+        context['type_service_filter'] = True
+        context[
+            'hotel_type'] = hotel_type  # Параметр в шаблон для определения фильтра, в зависимости от фильтра меняются ссылка критерия
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
         context['type_object'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
@@ -156,14 +162,15 @@ class HotelFilterByService(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.filter(Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
-                                                     Q(object_service__slug=self.kwargs['service_slug'],
-                                                       city__parent=self.object) |
-                                                     Q(object_service__slug=self.kwargs['service_slug'],
-                                                       city__parent__parent=self.object))
+        context['hotel_list'] = Hotel.objects.filter(
+            Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
+            Q(object_service__slug=self.kwargs['service_slug'],
+              city__parent=self.object) |
+            Q(object_service__slug=self.kwargs['service_slug'],
+              city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
         context['service_object'] = ServiceFilterofObject.objects.all()
-
+        context['service_filter'] = True
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
