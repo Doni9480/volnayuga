@@ -18,12 +18,11 @@
                             <img src="{% static 'img/ratefill.png' %}" alt="">
                             <img src="{% static 'img/rateempty.png' %}" alt="">
                         </p>
-                        <p class="feedback-text ul-fixed-height2">{{ review.text }}</p>
+                        <p class="feedback-text ul-fixed-height2">{{ review.body }}</p>
                         <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
                     </div>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
     </div>
