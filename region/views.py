@@ -131,6 +131,8 @@ class HotelFilterByTypeAndService(DetailView):
               city__parent__parent=self.object))
         context['filter'] = HotelFilterForm()
         context['type_service_filter'] = True
+        context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
+            id=self.object.id)
         context[
             'hotel_type'] = hotel_type  # Параметр в шаблон для определения фильтра, в зависимости от фильтра меняются ссылка критерия
         context['service_object'] = ServiceFilterofObject.objects.all()
