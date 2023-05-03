@@ -174,6 +174,8 @@ class HotelFilterByService(DetailView):
         context['filter'] = HotelFilterForm()
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['service_filter'] = True
+        context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
+            id=self.object.id)
         context['title_for_meta'] = ServiceFilterofObject.objects.get(slug=self.kwargs['service_slug'])
         try:
             context['seo'] = SeoForService.objects.get(city=self.get_object(),
