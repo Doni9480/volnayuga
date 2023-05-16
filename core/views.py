@@ -25,7 +25,7 @@ class HomePage(TemplateView):
         context['hotel_list_low_price'] = Hotel.objects.all()
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
-        context['review_list'] = Review.objects.all()
+        context['review_list'] = Review.objects.filter(verificated=True)
         try:
             context['object'] = SeoPage.objects.get(slug='home')
         except Exception:

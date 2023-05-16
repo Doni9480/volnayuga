@@ -458,7 +458,7 @@ class NumberDelete(DeleteView):
 
 
 class ContactCreate(CreateView):
-    """Добавялем контакты к гостинице"""
+    """Добавляем контакты к гостинице"""
     model = Hotel
     template_name = 'accounts/lk_contact_create.html'
     form_class = ContactForm
@@ -475,7 +475,7 @@ class ContactCreate(CreateView):
 
 
 class ContactUpdate(UpdateView):
-    """"""
+    """Обновить контакт"""
     model = HotelContact
     template_name = 'accounts/lk_contact_create.html'
     form_class = ContactForm

@@ -7,14 +7,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.forms import inlineformset_factory, CheckboxSelectMultiple, modelformset_factory, widgets
 from django.urls import reverse
-
-
-
-
 from hotel.models import *
 
-
-# Create your forms here.
 
 class NewUserForm(UserCreationForm):
     """Регистрация пользователя"""
@@ -41,7 +35,7 @@ class HotelUpdateForm(forms.ModelForm):
         exclude = ['user', 'meta_title', 'meta_description', 'object_type', 'chek_in', 'chek_out', 'prepayment',
                    'prepayments_term',
                    'requisites', 'early_booking_discount', 'minimum', 'child',
-                   'pets', 'free_cancel', 'another_rules', 'options', 'distance']
+                   'pets', 'free_cancel', 'another_rules', 'options', 'distance','premium']
 
 
 class HotelRulesForm(forms.ModelForm):
