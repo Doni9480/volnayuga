@@ -1,0 +1,19 @@
+{% block content %}
+    <form method="POST" class="object-form" action="{% url 'review:review_add' %}">
+        {% csrf_token %}
+        {% if form.errors.non_field_errors %}
+            {{ form.errors.non_field_errors }}
+        {% endif %}
+        {{ form.non_field_errors }}
+        {{ form.source.errors }}
+        {{ form.source }}
+        <!--Form content-->
+        {{ form.as_p }}
+        <!--Form button-->
+        <input name="hotel" value="{{ object.id }}" hidden>
+        <input name="region" value="{{ object.city.slug }}" hidden>
+        <input name="email" value="{{ request.user.email }}" hidden>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Отправить
+        </button>
+    </form>
+{% endblock %}

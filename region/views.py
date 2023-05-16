@@ -2,6 +2,7 @@ from datetime import date
 from django.shortcuts import render, get_object_or_404
 from hotel.forms import HotelFilterForm
 from attraction.models import Attraction, AttractionCategory
+from review.forms import ReviewForm
 from review.models import Review
 from seo.models import SeoForType, SeoForRegion, SeoForService
 from .models import *
@@ -71,6 +72,7 @@ class HotelDetail(DetailView):
         context = super(HotelDetail, self).get_context_data(**kwargs)
         context['options_category'] = HotelOption.objects.filter(hotel=self.get_object())
         context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
+        context['review_form'] = ReviewForm
         return context
 
 

@@ -52,8 +52,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_confirm.html"), name='password_reset_confirm'),
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
     path('<region_slug>/attraction/', include('attraction.urls', namespace='attraction')),
+    path('review/', include('review.urls', namespace='review')),
     path('<slug>/', include('region.urls', namespace='region')),
-
     path('', HomePage.as_view(), name='home'),
 ]
 if settings.DEBUG:
