@@ -691,13 +691,11 @@
                                         <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
                                         <p class="feedback-name">{{ item.name }}</p>
                                         <p class="feedback-rate">
-                                            <img src="{% static 'img/ratefill.png' %}" alt="">
-                                            <img src="{% static 'img/ratefill.png' %}" alt="">
-                                            <img src="{% static 'img/ratefill.png' %}" alt="">
-                                            <img src="{% static 'img/ratefill.png' %}" alt="">
-                                            <img src="{% static 'img/rateempty.png' %}" alt="">
+                                            {% for _ in ''|center:item.rating %}
+                                                <img src="{% static 'img/ratefill.png' %}" alt="">
+                                            {% endfor %}
                                         </p>
-                                        <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
+                                        <p class="feedback-text ul-fixed-height2"> {{ item.body }} </p>
                                         <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
                                     </div>
                                 </div>
