@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.functional import lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -291,6 +291,7 @@ class HotelPricePeriodUpdate(UpdateView):
         formset = PricePeriodFormset(request.POST)
         if formset.is_valid():
             return self.form_valid(formset)
+        return redirect(reverse('accounts:user_hotel_price_period_update', kwargs={'pk': self.kwargs['pk']}))
 
     def form_valid(self, formset):
         instances = formset.save(commit=False)
