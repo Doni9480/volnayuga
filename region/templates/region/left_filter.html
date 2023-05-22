@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
-{% load static thumbnail crispy_forms_tags %}
+{% load static thumbnail crispy_forms_tags hotel_tags %}
 {% block meta %}
-    <meta name="description" content="{{ title_for_meta }} {{ object.meta_title }}">
-    <title>{{ title_for_meta }} {{ object }}</title>
+    {% if seo %}
+        <meta name="description" content="{{ seo.meta_description }}">
+        <title>{{ seo.meta_title }}</title>
+    {% else %}
+        <meta name="description" content="{{ title_for_meta }} {{ object.meta_title }}">
+        <title>{{ title_for_meta }} {{ object }}</title>
+    {% endif %}
 {% endblock %}
 {% block modal-search %}
     <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -129,7 +134,11 @@
                 {% endif %}
             </ul>
             <div class="headerTitle">
-                <h1>{{ title_for_meta }} {{ object }}</h1>
+                {% if seo %}
+                    <h1>{{ seo.h1 }}</h1>
+                {% else %}
+                    <h1>{{ title_for_meta }} {{ object }}</h1>
+                {% endif %}
                 <p class="search-result">{{ region_list }} Найдено объектов {{ hotel_list.count }}</p>
                 <p>{{ title_for_meta }} {{ object }}</p>
             </div>
@@ -182,7 +191,7 @@
     <!--SECTION FILTER-->
     <section class="curortSection2">
         <div class="container">
-            <div class="curort-filter">
+            <div class="curort-filter mb-30">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="curort-filter-map">
@@ -193,7 +202,9 @@
                                     </button>
                                 </div>
                             </div>
-                            {% crispy filter %}
+                            <form action="{% url 'region:hotel_filter_left'  slug=object.slug %}" method="get">
+                                {% crispy filter %}
+                            </form>
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -245,9 +256,12 @@
                                                 <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}"
                                                    title="{{ item }}"><p>{{ hotel }}</p></a>
                                                 <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
-                                                <p class="card-distance">Море - {{ hotel.remoteness }} м • Центр -
-                                                    3,9
-                                                    км</p>
+                                                <p class="card-distance">Море - {{ hotel.remoteness }} м •
+                                                    {% if hotel.centr %}Центр -
+                                                        {{ hotel.centr }}
+                                                        км</p>
+                                                    {% endif %}
+                                                </p>
                                             </div>
                                             <div class="black-sea-icon flex">
                                                 {% for option in hotel.options.all|slice:":3" %}
@@ -276,28 +290,7 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                            <button class="open-more">Открыть ещё 20 объектов</button>
-                        </div>
-                    </div>
-                    <div class="curort-filter-map">
-                        <h3 class="mt-20">Курорты рядом</h3>
-                        <div>
-                            {% for region in region_parent_list %}
-                                <ul class="">
-                                    <li class="td-title custom-control">
-                                        <p>{{ region }} 33 км</p>
-                                        <ul>
-                                            {% get_type_of_object region as type_object_list %}
-                                            {% for type_object, count in type_object_list.items %}
-                                                <li class="custom-control"><a class="advance-link"
-                                                                              href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
-                                                    {{ type_object }}</a> <span class="light">{{ count }}</span>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            {% endfor %}
+                            <button class="open-more">Открыть ещё объекты</button>
                         </div>
                     </div>
                 </div>
@@ -306,160 +299,5 @@
     </section>
     <!--END SECTION FILTER-->
 
-    <!--SECTION FACILITIES-->
-    <section>
-        <div class="container">
-            <div class="travel curort-travel mt-100">
-                <h2>Объекты <span>по критериям удобства</span></h2>
-                <div class="owl-demo-object owl-carousel">
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>Недорого</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>У моря</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-3.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>В центре</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-4.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С детьми</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-5.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С бассейном</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-6.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>С питанием</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>Недорого</p>
-                    </div>
-                    <div class="item">
-                        <a href="">
-                            <div class="item-img">
-                                <img class="lazyOwl" data-src="{% static 'img/object-2.png' %}" alt="Lazy Owl Image">
-                            </div>
-                        </a>
-                        <p>У моря</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END SECTION FACILITIES-->
-
-    <!--SECTION REVIEWS-->
-    <section>
-        <div class="container">
-            <div class="curort-feedback">
-                {% if review_list %}
-                    <h2>Последние <span>отзывы</span></h2>
-                    <div class="owl-carousel curort-feedback-cont">
-                        {% for item in review_list %}
-                            <div class="item">
-                                <div class="curort-feedback-item">
-                                    <p class="feedback-title">{{ item }}</p>
-                                    <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
-                                    <p class="feedback-name">{{ item.name }}</p>
-                                    <p class="feedback-rate">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/ratefill.png' %}" alt="">
-                                        <img src="{% static 'img/rateempty.png' %}" alt="">
-                                    </p>
-                                    <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
-                                    <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </section>
-    <!--END SECTION REVIEWS-->
-
-    <!--SECTION OBJECTS NEAR-->
-    <section>
-        <div class="container">
-            <div class="closert-curorts">
-                {% if curort_near_list %}
-                    <h2>Курорты <span>рядом</span></h2>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
-                                                                 alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
-                                                                 alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="closest-cont">
-                                <img src="{% static 'img/closest-img.png' %}" alt="">
-                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
-                                                                 alt="">
-                                    <span>350 км</span>
-                                </p>
-                                <p class="closets-name">Красная поляна</p>
-                                <p class="closest-text">от 800 руб. за человека всутки</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-
-    </section>
-    <!--END SECTION OBJECTS NEAR-->
 
 {% endblock %}

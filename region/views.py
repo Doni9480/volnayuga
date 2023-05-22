@@ -252,39 +252,18 @@ def hotel_list(request, slug):
                     remoteness_ids.append(i)
                 filters['{}__in'.format(param)] = remoteness_ids
 
-            # # elif param == 'beach':
-            # #     filters['{}'.format(param)] = value
-            # # elif param == 'object_type':
-            # #     filters['{}'.format(param)] = value
-            #
-            # else:
         hotel_list = hotel_list.filter(city=region, **filters)
+        service_filter = True
+        region_parent_list = Region.objects.filter(
+            parent=region.parent).exclude(
+            id=region.id)
+        service_object = ServiceFilterofObject.objects.all()
 
-        # option_list = []
-        # options = request.GET
-        # if 'options_service' or 'options_food' or 'options_booking' in options:
-        #     options_service = request.GET.getlist('options_service')
-        #     for item in options_service:
-        #         option_list.append(item)
-        #     options_food = request.GET.getlist('options_food')
-        #     for item in options_food:
-        #         option_list.append(item)
-        #     options_booking = request.GET.getlist('options_booking')
-        #     for item in options_booking:
-        #         option_list.append(item)
-        #
-        #     hotel_list = Hotel.objects.filter(options__in=option_list).distinct()
-        #
-        # if 'range_1' and 'range_2' in options:
-        #     price_min = int(request.GET.get('range_1')) * 100
-        #     price_max = int(request.GET.get('range_2')) * 100
-        #
-        #     hotel_list = Hotel.objects.filter(number__price__price__gte=price_min, number__price__price__lte=price_max).distinct()
-        #
-        #
-
-    return render(request, 'region/filter.html', {'filter': form,
+    return render(request, 'region/left_filter.html', {'filter': form,
                                                   'hotel_list': hotel_list,
                                                   'object': region,
                                                   'data_filter': filters,
+                                                  'region_parent_list' : region_parent_list,
+                                                  'service_object' : service_object,
+                                                  'service_filter': service_filter,
                                                   })
