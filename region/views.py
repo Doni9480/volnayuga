@@ -221,8 +221,8 @@ def hotel_list(request, slug):
             if param == 'range_1' or param == 'range_2':
                 price_min = int(request.GET.get('range_1')) * 100
                 price_max = int(request.GET.get('range_2')) * 100
-                hotel_list = Hotel.objects.filter(city=region, numbers__prices__gte=price_min,
-                                                  numbers__prices__lte=price_max).distinct()
+                hotel_list = Hotel.objects.filter(city=region, numbers__prices__price__gte=price_min,
+                                                  numbers__prices__price__lte=price_max).distinct()
             elif param == 'object_type':
                 list_id = []
                 for i in request.GET.getlist('object_type'):
