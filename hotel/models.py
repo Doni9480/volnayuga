@@ -115,7 +115,7 @@ class Hotel(models.Model):
     object_type = models.ManyToManyField(TypeofObject, blank=True, verbose_name='Тип жилья')
     object_service = models.ManyToManyField(ServiceFilterofObject, blank=True, verbose_name='Фильтр по критериям жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
-    city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, verbose_name='Город')
+    city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, related_name='hotels', verbose_name='Город')
     remoteness = models.CharField(max_length=10, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
     beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default='1000', verbose_name='Пляж')
     centr = models.CharField(max_length=20, blank=True, verbose_name='Расстояние до центра')

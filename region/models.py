@@ -28,21 +28,22 @@ class Region(models.Model):
         return self.title
 
     def get_min_price(self):
-        return self.hotel_set.all().aggregate(min_price=Min('periods__prices__price'))['min_price']
+        return self.hotels.aggregate(min_price=Min('numbers__prices__price'))
 
     def get_average_price(self):
+        """Средня цена по региону"""
         from hotel.models import Hotel
-        if self.is_most_interesting:
+        if self.is_most_interesting:    #Если объект популярный
             hotel_list = Hotel.objects.filter(
                 Q(city__parent__parent__parent=self) | Q(city__parent=self) | Q(city=self) | Q(
                     city__parent__parent=self))
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
 
-        elif self.is_city:
+        elif self.is_city:  #Если объект это город
             hotel_list = Hotel.objects.filter(city=self)
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
 
-        elif self.parent:
+        elif self.parent:   #Если объект имеет родителя
             hotel_list = Hotel.objects.filter(city__parent=self)
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
         else:
