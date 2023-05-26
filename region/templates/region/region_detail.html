@@ -206,7 +206,7 @@
                                                          height="{{ im.height }}" alt="{{ item.title }}">
                                                 {% endthumbnail %}
                                                 <div class="popular-bottom flex alignCenter juatifyBetween">
-                                                    <span>объектов f{{ item.hotel_set.count }}</span>
+                                                    <span>объектов {{ item.hotels.count }}</span>
                                                     <span>от {% if item.get_min_price.min_price %}
                                                         {{ item.get_min_price.min_price }}{% else %}0{% endif %}
                                                         руб.</span>
@@ -224,7 +224,7 @@
                                                      height="{{ im.height }}" alt="{{ item2.title }}">
                                             {% endthumbnail %}
                                             <div class="popular-bottom flex alignCenter juatifyBetween">
-                                                <span>объектов {{ item2.hotel_set.count }}</span>
+                                                <span>объектов {{ item2.hotels.count }}</span>
                                                 <span>от {% if item2.get_min_price.min_price %}
                                                     {{ item2.get_min_price.min_price }}{% else %}0{% endif %}
                                                     руб.</span>
