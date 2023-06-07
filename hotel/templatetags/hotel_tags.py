@@ -1,12 +1,20 @@
 from django import template
 from collections import Counter
+
+from hotel.forms import SearchHotelForm
 from hotel.models import TypeofObject, Hotel
 
 register = template.Library()
 
+
 @register.filter()
 def sort_by(queryset, order):
     return queryset.order_by(order)
+
+
+@register.filter()
+def hotel_search_form():
+    return SearchHotelForm()
 
 
 @register.simple_tag()

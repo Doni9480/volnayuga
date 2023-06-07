@@ -3,7 +3,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 # Create your models here.
 from django.db.models import Min, Avg, Q
-
+from dal import autocomplete
 
 
 class Region(models.Model):
@@ -33,17 +33,17 @@ class Region(models.Model):
     def get_average_price(self):
         """Средня цена по региону"""
         from hotel.models import Hotel
-        if self.is_most_interesting:    #Если объект популярный
+        if self.is_most_interesting:  # Если объект популярный
             hotel_list = Hotel.objects.filter(
                 Q(city__parent__parent__parent=self) | Q(city__parent=self) | Q(city=self) | Q(
                     city__parent__parent=self))
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
 
-        elif self.is_city:  #Если объект это город
+        elif self.is_city:  # Если объект это город
             hotel_list = Hotel.objects.filter(city=self)
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
 
-        elif self.parent:   #Если объект имеет родителя
+        elif self.parent:  # Если объект имеет родителя
             hotel_list = Hotel.objects.filter(city__parent=self)
             return hotel_list.aggregate(average=Avg('periods__prices__price'))['average']
         else:

@@ -1,6 +1,6 @@
 from datetime import date
 from django.shortcuts import render, get_object_or_404
-from hotel.forms import HotelFilterForm
+from hotel.forms import HotelFilterForm, SearchHotelForm
 from attraction.models import Attraction, AttractionCategory
 from review.forms import ReviewForm
 from review.models import Review
@@ -9,6 +9,14 @@ from .models import *
 from hotel.models import Hotel, TypeofObject, HotelOption, ServiceFilterofObject
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
+
+
+class RegionAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Region.objects.all()
+        if self.q:
+            qs = qs.filter(title__istartswith=self.q)
+        return qs
 
 
 class RegionDetail(DetailView):
@@ -196,6 +204,27 @@ class HotelFilterByService(DetailView):
         return context
 
 
+class HotelSearchBlock(ListView):
+    """Search hotel date block"""
+    model = Hotel
+    template_name = 'region/filter.html'
+    form_class = HotelFilterForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(HotelSearchBlock, self).get_context_data(**kwargs)
+        self.object = Region.objects.get(id=self.request.GET['city'])
+        context['object'] = self.object
+        context['hotel_list'] = Hotel.objects.filter(
+            Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
+            (city=self.object)).order_by('id')
+        context['filter'] = HotelFilterForm()
+        context['service_object'] = ServiceFilterofObject.objects.all()
+        context['service_filter'] = True
+        context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
+            id=self.object.id)
+        return context
+
+
 class HotelFilterLeftBlock(ListView):
     """Ajax filter in left block"""
     model = Hotel
@@ -260,10 +289,10 @@ def hotel_list(request, slug):
         service_object = ServiceFilterofObject.objects.all()
 
     return render(request, 'region/left_filter.html', {'filter': form,
-                                                  'hotel_list': hotel_list,
-                                                  'object': region,
-                                                  'data_filter': filters,
-                                                  'region_parent_list' : region_parent_list,
-                                                  'service_object' : service_object,
-                                                  'service_filter': service_filter,
-                                                  })
+                                                       'hotel_list': hotel_list,
+                                                       'object': region,
+                                                       'data_filter': filters,
+                                                       'region_parent_list': region_parent_list,
+                                                       'service_object': service_object,
+                                                       'service_filter': service_filter,
+                                                       })

@@ -6,6 +6,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import TemplateView, DetailView
 
+from hotel.forms import SearchHotelForm
 from review.models import Review
 from seo.models import SeoPage
 from hotel.models import Hotel
@@ -26,14 +27,15 @@ class HomePage(TemplateView):
         context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
         context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
         context['review_list'] = Review.objects.filter(verificated=True)
+        context['form'] = SearchHotelForm
         try:
             context['object'] = SeoPage.objects.get(slug='home')
         except Exception:
             context['object'] = {
                 'meta_title': 'meta_title',
-                'meta_description':'meta_description',
-                'h1':'h1',
-                'content_1':'Создай страницу в админке',
+                'meta_description': 'meta_description',
+                'h1': 'h1',
+                'content_1': 'Создай страницу в админке',
                 'content_2': 'Создай страницу в админке',
             }
         return context
@@ -50,9 +52,9 @@ class ContactPage(TemplateView):
         except Exception:
             context['object'] = {
                 'meta_title': 'meta_title',
-                'meta_description':'meta_description',
-                'h1':'h1',
-                'content_1':'Создай страницу в админке',
+                'meta_description': 'meta_description',
+                'h1': 'h1',
+                'content_1': 'Создай страницу в админке',
                 'content_2': 'Создай страницу в админке',
             }
         return context
@@ -77,7 +79,8 @@ class AboutPage(TemplateView):
         context['region_most_interesting_list'] = Region.objects.filter(is_most_interesting=True)
         return context
 
-class  RentPage(TemplateView):
+
+class RentPage(TemplateView):
     """Rent room`s page"""
     template_name = 'core/rent.html'
 
@@ -94,5 +97,3 @@ class  RentPage(TemplateView):
                 'content_2': 'Создай страницу в админке',
             }
         return context
-
-

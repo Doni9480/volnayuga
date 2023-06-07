@@ -4,11 +4,18 @@ from django import forms
 from django.core.validators import validate_image_file_extension
 from django.forms import HiddenInput
 from django.urls import reverse
-
 from hotel.models import HotelOption, Hotel, BEACHCHOICE, BEACHREMOTENESS, TypeofObject, HotelPhoto, Number, NumberPhoto
-
 import django_filters
+from dal import autocomplete
 
+
+class SearchHotelForm(forms.ModelForm):
+    class Meta:
+        model = Hotel
+        fields = ('city',)
+        widgets = {
+            'city': autocomplete.ModelSelect2(url='city-autocomplete')
+        }
 
 
 class HotelFilterForm(forms.ModelForm):
@@ -22,19 +29,19 @@ class HotelFilterForm(forms.ModelForm):
                                                      queryset=HotelOption.objects.filter(category='booking'),
                                                      required=False)
     object_type = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,
-                                            queryset=TypeofObject.objects.all(),
-                                            required=False)
+                                                 queryset=TypeofObject.objects.all(),
+                                                 required=False)
     beach = forms.MultipleChoiceField(choices=BEACHCHOICE, widget=forms.CheckboxSelectMultiple(), required=False)
-    remoteness = forms.MultipleChoiceField(choices=BEACHREMOTENESS, widget=forms.CheckboxSelectMultiple(), required=False)
+    remoteness = forms.MultipleChoiceField(choices=BEACHREMOTENESS, widget=forms.CheckboxSelectMultiple(),
+                                           required=False)
 
     price_min = forms.DecimalField(required=False)
     price_max = forms.DecimalField(required=False)
 
-
-
     class Meta:
         model = Hotel
-        fields = ['city','object_type','options_food', 'options_service', 'options_booking', 'object_type', 'beach', 'remoteness']
+        fields = ['city', 'object_type', 'options_food', 'options_service', 'options_booking', 'object_type', 'beach',
+                  'remoteness']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,51 +61,50 @@ class HotelFilterForm(forms.ModelForm):
                     ),
                     HTML("""<input class="min" name="range_1" type="range" min="1" max="100" value="0">
                     <input class="max" name="range_2" type="range" min="1" max="100" value="100">"""
-                    ),
+                         ),
                     css_class='rangeSlider',
                 ),
                 css_class='left-filter1',
             ),
-        Div(
-            HTML("""<p>Тип жилья</p>"""),
-            'object_type',
-            css_class='left-filter2'
-        ),
-        Div(
-            HTML("""<p>Питание</p>"""),
-            'options_food',
-            css_class='left-filter2'
+            Div(
+                HTML("""<p>Тип жилья</p>"""),
+                'object_type',
+                css_class='left-filter2'
+            ),
+            Div(
+                HTML("""<p>Питание</p>"""),
+                'options_food',
+                css_class='left-filter2'
 
-        ),
-        Div(
-            HTML("""<p>Удобства</p>"""),
-            'options_service',
-            css_class='left-filter2'
+            ),
+            Div(
+                HTML("""<p>Удобства</p>"""),
+                'options_service',
+                css_class='left-filter2'
 
-        ),
-        Div(
-            HTML("""<p>Бронирование</p>"""),
-            'options_booking',
-            css_class='left-filter2'
-        ),
-        Div(
-            HTML("""<p>Пляж</p>"""),
-            'beach',
-            css_class='left-filter2',
-        ),
-        Div(
-            HTML("""<p>Расстояние до моря</p>"""),
-            'remoteness',
-            css_class='left-filter2',
-        ),
-        ButtonHolder(
-            Submit('submit', 'Показать', css_class='button')
+            ),
+            Div(
+                HTML("""<p>Бронирование</p>"""),
+                'options_booking',
+                css_class='left-filter2'
+            ),
+            Div(
+                HTML("""<p>Пляж</p>"""),
+                'beach',
+                css_class='left-filter2',
+            ),
+            Div(
+                HTML("""<p>Расстояние до моря</p>"""),
+                'remoteness',
+                css_class='left-filter2',
+            ),
+            ButtonHolder(
+                Submit('submit', 'Показать', css_class='button')
+            )
         )
-        )
+
 
 class HotelFilter(django_filters.FilterSet):
-
-
     class Meta:
         model = Hotel
         form = HotelFilterForm
@@ -112,7 +118,7 @@ class HotelAdminForm(forms.ModelForm):
 
     images = forms.FileField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
-        label= 'Добавить фото',
+        label='Добавить фото',
         required=False,
     )
 
@@ -128,8 +134,6 @@ class HotelAdminForm(forms.ModelForm):
             images.save()
 
 
-
-
 class NumberAdminForm(forms.ModelForm):
     class Meta:
         model = Number
@@ -137,7 +141,7 @@ class NumberAdminForm(forms.ModelForm):
 
     images = forms.FileField(
         widget=forms.ClearableFileInput(attrs={"multiple": True}),
-        label= 'Добавить фото',
+        label='Добавить фото',
         required=False,
     )
 
@@ -151,6 +155,3 @@ class NumberAdminForm(forms.ModelForm):
         for upload in self.files.getlist("images"):
             images = NumberPhoto(number=number, image=upload)
             images.save()
-
-
-

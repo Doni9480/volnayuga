@@ -1,5 +1,37 @@
 {% extends 'base.html' %}
 {% load static thumbnail %}
+{% block form-search %}
+    {{ form.media }}
+    <form action="{% url 'hotel_search_block' %}">
+        <div class="form-cont flex">
+            <div class="location">
+                <label>
+                    Место отдыха?<br>
+                    {{ form.city }}
+                </label>
+            </div>
+            <div class="enter">
+                <label>
+                    Заезд<br>
+                    <input type="text" placeholder="Дата" class="datepicker">
+                </label>
+            </div>
+            <div class="exit">
+                <label>
+                    Выезд<br>
+                    <input type="text" placeholder="Дата" class="datepicker">
+                </label>
+            </div>
+            <div class="guest-count">
+                <label>
+                    Количество гостей<br>
+                    <input type="text" placeholder="Кто поедет?">
+                </label>
+            </div>
+            <button class="submit">найти</button>
+        </div>
+    </form>
+{% endblock %}
 {% block content %}
     <section>
         <div class="container">

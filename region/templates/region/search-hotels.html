@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+{% load static thumbnail crispy_forms_tags hotel_tags %}
+{% block meta %}
+    {% if seo %}
+        <meta name="description" content="{{ seo.meta_description }}">
+        <title>{{ seo.meta_title }}</title>
+    {% else %}
+        <meta name="description" content="{{ title_for_meta }} {{ object.meta_title }}">
+        <title>{{ title_for_meta }} {{ object }}</title>
+    {% endif %}
+{% endblock %}
+{% block modal-search %}
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="header-form modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-cont flex">
+                            <div class="location">
+                                <label>
+                                    Место отдыха?<br>
+                                    <input type="text" placeholder="Курорт или отель">
+                                </label>
+                            </div>
+                            <div class="enter">
+                                <label>
+                                    Заезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="exit">
+                                <label>
+                                    Выезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="guest-count">
+                                <label>
+                                    Количество гостей<br>
+                                    <input type="text" placeholder="Кто поедет?">
+                                </label>
+                            </div>
+                            <button class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-filter">
+        <div class="closeModalFilter">X</div>
+    </div>
+    <div class="modal-map">
+        <div class="closeModalMap">X</div>
+    </div>
+    <div class="modal fade" id="searchModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="header-form modal-dialog" role="document">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-cont flex">
+                            <div class="location">
+                                <label>
+                                    Место отдыха?<br>
+                                    <input type="text" placeholder="Курорт или отель">
+                                </label>
+                            </div>
+                            <div class="enter">
+                                <label>
+                                    Заезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="exit">
+                                <label>
+                                    Выезд<br>
+                                    <input type="text" placeholder="Дата" class="datepicker">
+                                </label>
+                            </div>
+                            <div class="guest-count">
+                                <label>
+                                    Количество гостей<br>
+                                    <input type="text" placeholder="Кто поедет?">
+                                </label>
+                            </div>
+                            <button class="submit">найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mapModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <img aria-hidden="true" src="{% static 'img/closeButton.png' %}" alt="">
+                </button>
+                <div class="modal-left"></div>
+                <div class="modal-right">
+                    <p>Найдено вариантов: {{ object.hotel_set.all.count }}</p>
+                    <div class="modal-right-map">
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac23bdef087fe608794a36ef27292433bc7fe9c307163ffc170fb8fd2f6937c7f&amp;source=constructor"
+                                width=" 848
+                        " height="400" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block header %}
+    <header id="curorts">
+        <div class="container">
+            {% include 'include/main-menu.html' %}
+            <ul class="breadcrumb">
+                <li><a href="/">Главная</a></li>
+                {% if object.parent.parent %}
+                    <li>
+                        <a href="{% url 'region:region_detail' slug=object.parent.parent.slug %}">{{ object.parent.parent }}</a>
+                    </li>
+                    <li>{{ title_for_meta }}</li>
+                {% else %}
+                    <li>{{ object }}</li>
+                {% endif %}
+            </ul>
+            <div class="headerTitle">
+                {% if seo %}
+                    <h1>{{ seo.h1 }}</h1>
+                {% else %}
+                    <h1>{{ title_for_meta }} {{ object }}</h1>
+                {% endif %}
+                <p class="search-result">{{ region_list }} Найдено объектов {{ hotel_list.count }}</p>
+                <p>{{ title_for_meta }} {{ object }}</p>
+            </div>
+            <button class="hidden-find" data-toggle="modal" data-target="#searchModal1">найти курорт</button>
+            <div class="header-form">
+                {% include 'include/form_search.html' %}
+            </div>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+    <!--SECTION AVERAGE VALUE-->
+    <section class="curortSection1">
+        <div class="container relative">
+            <div class="curortSection1-cont">
+                <div class="flex">
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/wallet.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Средняя цена</p>
+                            <p>{{ object.get_average_price|floatformat:"0" }} руб. / {{ today|date:"F" }}</p>
+                        </div>
+                    </div>
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/calendar.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Сезон</p>
+                            <p>{{ object.season }}</p>
+                        </div>
+                    </div>
+                    <div class="curort-icons flex mr-50">
+                        <div class="curort-price-left">
+                            <img src="{% static 'img/middle.svg' %}" alt="">
+                        </div>
+                        <div class="curort-price-right">
+                            <p>Среняя оценка</p>
+                            <p>{{ object.get_average_review|floatformat:"0" }} на основе отзывов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--END SECTION AVERAGE VALUE-->
+
+    <!--SECTION FILTER-->
+    <section class="curortSection2">
+        <div class="container">
+            <div class="curort-filter">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="curort-filter-map">
+                            <div class="little-map">
+                                <div class="little-map-div flex alignCenter juatifyCenter">
+                                    <button class="show-map" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                        Показать на карте
+                                    </button>
+                                </div>
+                            </div>
+                            <form action="{% url 'region:hotel_filter_left'  slug=object.slug %}" method="get">
+                                {% crispy filter %}
+                            </form>
+                        </div>
+                        <div class="curort-filter-map">
+                            <h3 class="mt-20 mb-20">Курорты рядом</h3>
+                            <div>
+                                {% for region in region_parent_list %}
+                                    {% get_type_of_object region as type_object_list %}
+                                    {% if type_object_list %}
+                                        <ul class="">
+                                            <li class="td-title custom-control">
+                                                <p>
+                                                    <a href="{% url 'region:region_detail' region.slug %}">{{ region }}</a>
+                                                </p>
+                                                <ul>
+                                                    {% for type_object, count in type_object_list.items %}
+                                                        <li class="custom-control">
+                                                            <a class="kurort-title-dictance"
+                                                               href="{% url 'region:hotel_type_filter' slug=region.slug type_slug=type_object.slug %}">
+                                                                {{ type_object }}
+                                                            </a>
+                                                            <span class="kurort-light">{{ count }}</span>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="filter-select-cont">
+                            <div class="show-map-responciv">
+                                <button class="show-filter">Фильтры</button>
+                                <button class="show-little-map">Показать на карте</button>
+                            </div>
+                        </div>
+                        <div class="my-object-card-cont curort-card-cont">
+                            {% for hotel in hotel_list %}
+                                <div class="my-object-card flex mt-30">
+                                    <div class="card-image">
+                                        <div class="owl-admin" class="owl-carousel">
+                                            {% for image in hotel.hotelphoto_set.all %}
+                                                <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}"
+                                                   title="{{ item }}">
+                                                    <div class="item">
+                                                        <div class="item-img">
+                                                            {% thumbnail image.image "262x180" crop='center' as im %}
+                                                                <img class="lazyOwl"
+                                                                     data-src="{{ im.url }}" width="{{ im.width }}"
+                                                                     height="{{ im.height }}"
+                                                                     alt="{{ hotel }}">
+                                                            {% endthumbnail %}
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="card-body curort-card flex  juatifyBetween">
+                                        <div class="card-body-left flex directionColumn juatifyBetween">
+                                            <div class="card-body-cont">
+                                                <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}"
+                                                   title="{{ item }}"><p>{{ hotel }}</p></a>
+                                                <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
+                                                <p class="card-distance">Море - {{ hotel.remoteness }} м •
+                                                    {% if hotel.centr %}Центр -
+                                                        {{ hotel.centr }}
+                                                        км</p>
+                                                    {% endif %}
+                                                </p>
+                                            </div>
+                                            <div class="black-sea-icon flex">
+                                                {% for option in hotel.options.all|slice:":3" %}
+                                                    <span>{{ option }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="card-body-right-button flex directionColumn juatifyBetween">
+                                            <div class="curort-price">
+                                                <div class="curort-price-cont">
+                                                    <div class="curort-price1 cur1">
+                                                        от {{ hotel.get_min_price }} руб.
+                                                    </div>
+                                                    <div class="curort-price2">за 1 сутки</div>
+                                                </div>
+                                                <div class="curort-price3">
+                                                    <img src="{% static 'img/curort-icon1.png' %}" alt="">
+                                                    <span>отзывов {{ hotel.hotelreview_set.all.count }} </span>
+                                                </div>
+
+                                            </div>
+                                            <a href="{% url 'region:hotel_detail' slug=object.slug pk=hotel.id %}">
+                                                <button class="show-price">Показать цены</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <button class="open-more">Открыть ещё объекты</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--END SECTION FILTER-->
+
+    <!--SECTION FACILITIES-->
+    <section>
+        <div class="container">
+            <div class="travel curort-travel mt-100">
+                <h2>Объекты <span>по критериям удобства</span></h2>
+                <div class="owl-demo-object owl-carousel">
+                    {% for item in service_object %}
+                        <div class="item">
+                            {% if service_filter %}
+                                <a href="{% url 'region:hotel_service_filter' slug=object.slug service_slug=item.slug %}">
+                            {% elif type_service_filter %}
+                                <a href="{% url 'region:hotel_type_service_filter' slug=object.slug type_slug=hotel_type service_slug=item.slug %}">
+                            {% elif type_filter %}
+                                <a href="{% url 'region:hotel_type_service_filter' slug=object.slug type_slug=title_for_meta.slug service_slug=item.slug %}">
+                            {% endif %}
+                            <div class="item-img">
+                                {% if item.image %}
+                                    <img class="lazyOwl" data-src="{{ item.image.url }}"
+                                         alt="Lazy Owl Image">
+                                {% else %}
+                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                         alt="Lazy Owl Image">
+                                {% endif %}
+                            </div>
+                            </a>
+                            <p>{{ item }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END SECTION FACILITIES-->
+
+    <!--SECTION INTERESTING PLACES-->
+    <section class="mt-100 interesting">
+        <div class="container ">
+            <div class="row">
+                <div class="col-md-3">
+                    {% if object.is_city %}
+                        {% if attraction_category_list %}
+                            <div class="adler-left mb-50">
+                                <p>Интересные места</p>
+                                <img src="{% static 'img/adler-left-image.png' %}" alt="">
+                                <div class="adler-left-cont">
+                                    <div class="adler-left-cont-up">
+                                        {% for item in attraction_category_list %}
+                                            <a href="{% url 'attraction:attraction_list' region_slug=object.slug category_slug=item.slug %}">
+                                                <p>{{ item }}</p></a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="hotel-left mb-50">
+                            {% for hotel in hotel_premium_list %}
+                                <div class="card-image">
+                                    <a href="{% url 'region:hotel_detail' pk=hotel.pk slug=object.slug %}">
+                                        <img src="{% static 'img/adler-left-image.png' %}" alt="">
+                                    </a>
+                                </div>
+                                <div class="curort-card mt-10">
+                                    <div class="card-body-cont">
+                                        <p>
+                                            <a href="{% url 'region:hotel_detail' pk=hotel.pk slug=object.slug %}">{{ hotel }}</a>
+                                        </p>
+                                        <p class="card-location">{{ hotel.city }}, {{ hotel.address }}</p>
+                                        <p class="card-distance">Море - {{ hotel.remoteness }} м</p>
+                                    </div>
+                                    <div class="curort-price-cont">
+                                        <div class="curort-price1 cur1">от {{ hotel.get_min_price }} руб.</div>
+                                        <div class="curort-price2">за 1 ночь</div>
+                                    </div>
+                                    <div class="black-sea-icon flex">
+                                        <div class="black-sea-check">
+                                            <img src="{% static 'img/check.png' %}" alt="check">
+                                        </div>
+                                        {% for option in hotel.options.all|slice:":2" %}
+                                            <span>{{ option }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-9">
+                    <div class="adler-right">
+                        {{ seo.content_1|safe }}
+
+                        <!--       <div class="curort-diagram mt-100">
+                                   <h2>График <span>цен, температуры воздуха и воды по месяцам в Адлере</span></h2>
+                                   <ul class="flex direction-ul curort-ul">
+                       <li data-show="curort1" class="">
+                         <span>Цены за номер в сутки</span>
+                       </li>
+                       <li data-show="curort2" class="">
+                         <span>Средняя температура воздуха</span>
+                       </li>
+                       <li data-show="curort3" class="active">
+                         <span>Средняя температура воды</span>
+                       </li>
+                     </ul>
+                                   <div class="diagram-cont relative">
+                                       <div class="first-diagram flex">
+                                           <div>2 820 руб.</div>
+                                           <div class="diagram-dashed"></div>
+                                       </div>
+                                       <div class="first-diagram first-diagram1 flex">
+                                           <div>2 820 руб.</div>
+                                           <div class="diagram-dashed"></div>
+                                       </div>
+                                       <div class="diagram-body">
+                                           <div class=" flex juatifyEnd">
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill feb"></div>
+                                                   </div>
+                                                   <span>Фев</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill mart"></div>
+                                                   </div>
+                                                   <span>Мар</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill april"></div>
+                                                   </div>
+                                                   <span>Апр</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill may"></div>
+                                                   </div>
+                                                   <span>Май</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jun"></div>
+                                                   </div>
+                                                   <span>Июн</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jul"></div>
+                                                   </div>
+                                                   <span>Июл</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill avg"></div>
+                                                   </div>
+                                                   <span>Агв</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill sep"></div>
+                                                   </div>
+                                                   <span>Сен</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill okt"></div>
+                                                   </div>
+                                                   <span>Окт</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill nov"></div>
+                                                   </div>
+                                                   <span>Ноя</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill dec"></div>
+                                                   </div>
+                                                   <span>Дек</span>
+                                               </div>
+                                               <div class="diagram-month">
+                                                   <div class="diagram-month-body">
+                                                       <div class="diagram-month-body-fill jan"></div>
+                                                   </div>
+                                                   <span>Янв</span>
+                                               </div>
+                                           </div>
+                                           <div class="flex juatifyBetween">
+                                               <div class="year1">2022</div>
+                                               <div class="year2">2023</div>
+                                           </div>
+
+                                       </div>
+                                   </div>
+                               </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--SECTION INTERESTING PLACES-->
+
+    <!--SECTION REVIEWS-->
+    <section>
+        <div class="container">
+            <div class="curort-feedback">
+                {% if review_list %}
+                    <h2>Последние <span>отзывы</span></h2>
+                    <div class="owl-carousel curort-feedback-cont">
+                        {% for item in review_list %}
+                            <div class="item">
+                                <div class="curort-feedback-item">
+                                    <p class="feedback-title">{{ item }}</p>
+                                    <p class="feedback-periud">Период отдыха: {{ item.period }}</p>
+                                    <p class="feedback-name">{{ item.name }}</p>
+                                    <p class="feedback-rate">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/ratefill.png' %}" alt="">
+                                        <img src="{% static 'img/rateempty.png' %}" alt="">
+                                    </p>
+                                    <p class="feedback-text ul-fixed-height2"> {{ item.text }} </p>
+                                    <p class="showmore2">Показать полностью <i class="fa fa-angle-down"></i></p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <!--END SECTION REVIEWS-->
+
+    <!--SECTION OBJECTS NEAR-->
+    <section>
+        <div class="container">
+            <div class="closert-curorts">
+                {% if curort_near_list %}
+                    <h3>Курорты <span>рядом</span></h3>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                 alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                 alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="closest-cont">
+                                <img src="{% static 'img/closest-img.png' %}" alt="">
+                                <p class="closest-distance"><img src="{% static 'img/closest-location.png' %}"
+                                                                 alt="">
+                                    <span>350 км</span>
+                                </p>
+                                <p class="closets-name">Красная поляна</p>
+                                <p class="closest-text">от 800 руб. за человека всутки</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </section>
+    <!--END SECTION OBJECTS NEAR-->
+
+{% endblock %}

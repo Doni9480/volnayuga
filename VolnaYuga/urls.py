@@ -20,24 +20,30 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 
-from accounts.views import register_request, login_request,  logout_request, password_reset_request
+from accounts.views import register_request, login_request, logout_request, password_reset_request
 from core.sitemaps import HotelSitemap, RegionSitemap
 from core.views import AboutPage, ContactPage, RentPage, HomePage
 from django.conf import settings
 from django.conf.urls.static import static
 
 from hotel.models import Hotel
+from region.views import RegionAutocomplete, HotelSearchBlock
 
 sitemaps = {
-    'hotel':HotelSitemap,
-    'region':RegionSitemap,
+    'hotel': HotelSitemap,
+    'region': RegionSitemap,
 }
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+        'city-autocomplete/',
+        RegionAutocomplete.as_view(),
+        name='city-autocomplete',
+    ),
+    path('search/', HotelSearchBlock.as_view(), name='hotel_search_block'),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),),
+    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), ),
     path('about/', AboutPage.as_view(), name='about'),
     path('contact/', ContactPage.as_view(), name='contact'),
     path('rent/', RentPage.as_view(), name='rent'),
@@ -46,15 +52,22 @@ urlpatterns = [
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('register/', register_request, name="register"),
     path('login/', login_request, name="login_s"),
-    path('logout/', logout_request, name= "logout_s"),
+    path('logout/', logout_request, name="logout_s"),
     path("password_reset/", password_reset_request, name="password_reset"),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_confirm.html"), name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'), name='password_reset_complete'),
+    path('password_reset/done/',
+         auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'),
+         name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name="accounts/password_reset_confirm.html"),
+         name='password_reset_confirm'),
+    path('reset/done/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='accounts/password_reset_complete.html'),
+         name='password_reset_complete'),
     path('<region_slug>/attraction/', include('attraction.urls', namespace='attraction')),
     path('review/', include('review.urls', namespace='review')),
     path('<slug>/', include('region.urls', namespace='region')),
     path('', HomePage.as_view(), name='home'),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

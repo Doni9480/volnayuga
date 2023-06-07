@@ -1,9 +1,11 @@
+{% load hotel_tags %}
 <form action="">
+    {{ form }}
     <div class="form-cont flex">
         <div class="location">
             <label>
                 Место отдыха?<br>
-                <input type="text" placeholder="Курорт или отель">
+                <input type="text" placeholder="Курорт или отель" value="">
             </label>
         </div>
         <div class="enter">
