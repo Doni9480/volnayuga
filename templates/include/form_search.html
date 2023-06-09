@@ -1,11 +1,11 @@
 {% load hotel_tags %}
-<form action="">
-    {{ form }}
+{{ form.media }}
+<form action="{% url 'hotel_search_block' %}">
     <div class="form-cont flex">
         <div class="location">
             <label>
                 Место отдыха?<br>
-                <input type="text" placeholder="Курорт или отель" value="">
+                {{ form.city }}
             </label>
         </div>
         <div class="enter">

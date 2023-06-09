@@ -222,6 +222,7 @@ class HotelSearchBlock(ListView):
         context['service_filter'] = True
         context['region_parent_list'] = Region.objects.filter(parent=self.object.parent).exclude(
             id=self.object.id)
+        context['form'] = SearchHotelForm
         return context
 
 

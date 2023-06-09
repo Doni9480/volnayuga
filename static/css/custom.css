@@ -351,3 +351,11 @@ h2.not-margin {
     color: #4580da;
     font-size: 12px;
 }
+
+.select2-selection {
+    min-width: 15em !important;
+	border: none !important;
+}
+.select2-selection__arrow{
+	display: none;
+}
