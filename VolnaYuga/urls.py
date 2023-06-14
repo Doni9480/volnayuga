@@ -65,6 +65,7 @@ urlpatterns = [
          name='password_reset_complete'),
     path('<region_slug>/attraction/', include('attraction.urls', namespace='attraction')),
     path('review/', include('review.urls', namespace='review')),
+    path('booking/', include('booking.urls', namespace='booking')),
     path('<slug>/', include('region.urls', namespace='region')),
     path('', HomePage.as_view(), name='home'),
 

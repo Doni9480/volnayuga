@@ -1,5 +1,7 @@
 from datetime import date
 from django.shortcuts import render, get_object_or_404
+
+from booking.forms import BookingCreate
 from hotel.forms import HotelFilterForm, SearchHotelForm
 from attraction.models import Attraction, AttractionCategory
 from review.forms import ReviewForm
@@ -9,6 +11,7 @@ from .models import *
 from hotel.models import Hotel, TypeofObject, HotelOption, ServiceFilterofObject
 from django.views.generic import DetailView, ListView
 from django.db.models import Q, F
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 class RegionAutocomplete(autocomplete.Select2QuerySetView):
@@ -82,6 +85,7 @@ class HotelDetail(DetailView):
         context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         context['review_form'] = ReviewForm
         context['review_list'] = Review.objects.filter(verificated=True, hotel=self.get_object())
+        context['form'] = BookingCreate()
         return context
 
 
@@ -105,7 +109,7 @@ class HotelFilterByType(DetailView):
             id=self.object.id)
         context['filter'] = HotelFilterForm()
         context['type_filter'] = True
-        context['service_object'] = ServiceFilterofObject.objects.all()
+        context['service_object'] = ServiceFilterofObject.objects.filter(typeofobject__slug=self.kwargs['type_slug'])
         context['title_for_meta'] = TypeofObject.objects.get(slug=self.kwargs['type_slug'])
         try:
             context['seo'] = SeoForType.objects.get(city=self.get_object(),

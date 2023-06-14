@@ -12,6 +12,8 @@ class TypeofObject(models.Model):
     title = models.CharField(max_length=100, verbose_name='Название')
     slug = models.SlugField(unique=True, verbose_name='URL')
     image = models.ImageField(upload_to='hotel/hoteltype', null=True, blank=True, verbose_name='Изображение')
+    services = models.ManyToManyField('ServiceFilterofObject', blank=True,
+                                      verbose_name='Какие критерии жилья отображать на странице')
 
     class Meta:
         verbose_name = 'Тип'
@@ -19,6 +21,7 @@ class TypeofObject(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class ServiceFilterofObject(models.Model):
     """Фильтр критериев удобств объектов сдачи"""
@@ -115,8 +118,10 @@ class Hotel(models.Model):
     object_type = models.ManyToManyField(TypeofObject, blank=True, verbose_name='Тип жилья')
     object_service = models.ManyToManyField(ServiceFilterofObject, blank=True, verbose_name='Фильтр по критериям жилья')
     address = models.CharField(max_length=100, verbose_name='Адрес (без указания города)')
-    city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True}, related_name='hotels', verbose_name='Город')
-    remoteness = models.CharField(max_length=10, blank=True, choices=BEACHREMOTENESS, default=1, verbose_name='Расстояние до моря')
+    city = models.ForeignKey(Region, on_delete=models.CASCADE, limit_choices_to={'is_city': True},
+                             related_name='hotels', verbose_name='Город')
+    remoteness = models.CharField(max_length=10, blank=True, choices=BEACHREMOTENESS, default=1,
+                                  verbose_name='Расстояние до моря')
     beach = models.CharField(max_length=50, blank=True, choices=BEACHCHOICE, default='1000', verbose_name='Пляж')
     centr = models.CharField(max_length=20, blank=True, verbose_name='Расстояние до центра')
     options = models.ManyToManyField(HotelOption, blank=True, verbose_name='Опции')
@@ -262,14 +267,14 @@ class Price(models.Model):
 
     price = models.IntegerField(null=True, blank=True, verbose_name='Цена')
     extra_bed = models.IntegerField(null=True, blank=True, verbose_name='Цена за дополнительное место')
-    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, related_name='prices', verbose_name='Номер')
+    number = models.ForeignKey(Number, on_delete=models.CASCADE, blank=True, null=True, related_name='prices',
+                               verbose_name='Номер')
     period = models.ForeignKey(PricePeriod, on_delete=models.CASCADE, related_name='prices', verbose_name='Период')
 
     class Meta:
         verbose_name = 'Цены'
         verbose_name_plural = 'Цены гостиницы'
         ordering = ['period__start']
-
 
     def __str__(self):
         return f'Цены'

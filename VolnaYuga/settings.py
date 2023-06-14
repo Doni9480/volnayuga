@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'core',
     'seo',
     'page',
+    'booking',
 
     'phonenumber_field',
     'django_registration',

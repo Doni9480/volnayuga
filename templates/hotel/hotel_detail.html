@@ -444,25 +444,30 @@
                         </button>
                         <button class="whatsapp-question">Задать вопрос в WhatsApp</button>
                     </div>
-                    <form action="">
+
+                    <form action="{% url 'booking:create-booking' hotel_id=object.id %}" method="post">
+                        {% csrf_token %}
+
                         <div class="input-cont flex juatifyBetween alignCenter">
-                            <input type="text" placeholder="Заезд" class="object-input light left datepicker">
+                            <input type="text" name="start_date" placeholder="Заезд" class="object-input light left datepicker">
                             <div> -</div>
-                            <input type="text" placeholder="Выезд" class="object-input light right datepicker">
+                            <input type="text" name="end_date" placeholder="Выезд" class="object-input light right datepicker">
                         </div>
                         <div class="responsive-flex">
                             <div class="dropdown object-dropdown">
-                                <div class="dropbtn object-drop"><span>2 гостя</span> <img
-                                        src="img/deopdown-img.png" alt=""></div>
-                                <div class="dropdown-content">
-                                    <a href="">2 гостей</a>
-                                    <a href="">3 гостей</a>
-                                    <a href="">4 гостей</a>
-                                    <a href="">5 гостей</a>
-                                </div>
+                                <select name="count" id="">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+
                             </div>
                             <button class="send-request">Отправить заявку</button>
                         </div>
+                        <button class="send-request">Отправить заявку</button>
                     </form>
                 </div>
             </div>
