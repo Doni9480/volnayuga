@@ -445,17 +445,30 @@
                         <button class="whatsapp-question">Задать вопрос в WhatsApp</button>
                     </div>
 
-                    <form action="{% url 'booking:create-booking' hotel_id=object.id %}" method="post">
+                    <form action="" method="post">
                         {% csrf_token %}
-
                         <div class="input-cont flex juatifyBetween alignCenter">
-                            <input type="text" name="start_date" placeholder="Заезд" class="object-input light left datepicker">
+                            <input type="text" name="start_date" placeholder="Заезд"
+                                   class="object-input light left datepicker" required>
                             <div> -</div>
-                            <input type="text" name="end_date" placeholder="Выезд" class="object-input light right datepicker">
+                            <input type="text" name="end_date" placeholder="Выезд"
+                                   class="object-input light right datepicker" required>
                         </div>
                         <div class="responsive-flex">
-                            <div class="dropdown object-dropdown">
-                                <select name="count" id="">
+                            <!--<div class="dropdown object-dropdown">
+                                <div class="dropbtn object-drop" name="people_count"><span></span> <img src="img/deopdown-img.png"
+                                                                                            alt=""></div>
+                                <div class="dropdown-content" style="display: none;" name="people_count">
+                                    <a href="">2 гостей</a>
+                                    <a href="">3 гостей</a>
+                                    <a href="">4 гостей</a>
+                                    <a href="">5 гостей</a>
+                                </div>
+                            </div> -->
+                            <div class="responsive-flex">
+                                <div><p>Количество гостей</p></div>
+                                <div class="dropdown object-dropdown">
+                                    <select name="people_count" class="object-input input-cont" id="">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -463,12 +476,20 @@
                                     <option value="5">5</option>
                                     <option value="6">6</option>
                                 </select>
+                                </div>
 
                             </div>
+
                             <button class="send-request">Отправить заявку</button>
                         </div>
-                        <button class="send-request">Отправить заявку</button>
                     </form>
+                    {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li  {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>

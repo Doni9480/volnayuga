@@ -1,7 +1,12 @@
 from datetime import date
-from django.shortcuts import render, get_object_or_404
 
-from booking.forms import BookingCreate
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.edit import FormMixin
+
+from booking.forms import BookingCreateForm
 from hotel.forms import HotelFilterForm, SearchHotelForm
 from attraction.models import Attraction, AttractionCategory
 from review.forms import ReviewForm
@@ -71,9 +76,14 @@ class RegionDetail(DetailView):
         return context
 
 
-class HotelDetail(DetailView):
+class HotelDetail(FormMixin, DetailView):
     model = Hotel
     template_name = 'hotel/hotel_detail.html'
+    form_class = BookingCreateForm
+
+    def get_success_url(self):
+        return reverse_lazy('region:hotel_detail', kwargs={'slug': self.kwargs['slug'], 'pk': self.kwargs['pk']})
+
 
     def get_object(self, queryset=None):
         pk = self.kwargs['pk']
@@ -85,8 +95,26 @@ class HotelDetail(DetailView):
         context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         context['review_form'] = ReviewForm
         context['review_list'] = Review.objects.filter(verificated=True, hotel=self.get_object())
-        context['form'] = BookingCreate()
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            messages.success(self.request, 'Что то пошло не так проверьте все ли заполнено!')
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.hotel = Hotel.objects.get(id=self.kwargs['pk'])
+        self.object.start_date = form.cleaned_data['start_date']
+        self.object.end_date = form.cleaned_data['end_date']
+        self.object.people_count = form.cleaned_data['people_count']
+        self.object.save()
+        messages.success(self.request, 'Вы успешно забронировали отель!')
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class HotelFilterByType(DetailView):
