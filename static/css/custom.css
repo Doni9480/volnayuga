@@ -397,8 +397,7 @@ h2.not-margin {
     left: 0;
     width: auto;
     height: auto;
-    padding: 10px;
-    margin: 10px;
+    margin-bottom: 15px;
     line-height: 1.8;
     border-radius: 5px;
     cursor: hand;

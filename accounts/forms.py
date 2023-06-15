@@ -8,22 +8,8 @@ from django.contrib.auth.models import User
 from django.forms import inlineformset_factory, CheckboxSelectMultiple, modelformset_factory, widgets
 from django.urls import reverse
 from hotel.models import *
+from accounts.models import ApplicationForRegistration
 
-
-class NewUserForm(UserCreationForm):
-    """Регистрация пользователя"""
-    email = forms.EmailField(required=True)
-
-    class Meta:
-        model = MyUser
-        fields = ("email", "password1", "password2")
-
-    def save(self, commit=True):
-        user = super(NewUserForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-        return user
 
 
 class HotelUpdateForm(forms.ModelForm):
@@ -46,7 +32,6 @@ class HotelRulesForm(forms.ModelForm):
         fields = ['chek_in', 'chek_out', 'prepayment', 'prepayments_term',
                   'requisites', 'early_booking_discount', 'minimum', 'child',
                   'pets', 'free_cancel', 'another_rules']
-
 
 
 class HotelOptionForm(forms.ModelForm):
@@ -74,7 +59,6 @@ class HotelPricePeriodForm(forms.ModelForm):
     class Meta:
         model = PricePeriod
         fields = ('start', 'end')
-
 
 
 PricePeriodFormset = modelformset_factory(PricePeriod, form=HotelPricePeriodForm, fields=('start','end' ), extra=12)
@@ -121,3 +105,20 @@ class DistanceTimeForm(forms.ModelForm):
         model = DistanceTime
         fields = '__all__'
         exclude = ['hotel']
+
+
+class ApplicationForRegistrationForm(forms.ModelForm):
+    """Форма заявки для регистрации пользователей"""
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = ApplicationForRegistration
+        fields = ['email', 'phone']
+
+    def save(self, commit=True):
+        application = super(ApplicationForRegistrationForm, self).save(commit=False)
+        application.email = self.cleaned_data['email']
+        application.phone = self.cleaned_data['phone']
+        if commit:
+            application.save()
+        return True

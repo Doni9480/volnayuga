@@ -57,7 +57,7 @@
                         {% if user.is_authenticated %}
                             <a href="{% url 'accounts:user_hotel_list' %}">{{ username }}</a>
                         {% else %}
-                            <a href="{% url 'accounts:login' %}">войти</a>
+                            <div class="open-login-modal">войти</div>
                         {% endif %}
                     </div>
                 </li>
@@ -82,7 +82,7 @@
         {% else %}
             <div class="login">
                 <img src="{% static 'img/login.svg' %}" alt="login">
-                <a href="{% url 'accounts:login' %}">Войти</a>
+                <div class="open-login-modal">Войти</div>
             </div>
             <a href="{% url 'rent' %}">
                 <button>Сдать жилье</button>

@@ -20,7 +20,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 
-from accounts.views import register_request, login_request, logout_request, password_reset_request
+from accounts.views import login_request, logout_request, password_reset_request
 from core.sitemaps import HotelSitemap, RegionSitemap
 from core.views import AboutPage, ContactPage, RentPage, HomePage
 from django.conf import settings
@@ -50,7 +50,7 @@ urlpatterns = [
     path('page/', include('page.urls', namespace='page')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
-    path('register/', register_request, name="register"),
+    # path('register/', register_request, name="register"),
     path('login/', login_request, name="login_s"),
     path('logout/', logout_request, name="logout_s"),
     path("password_reset/", password_reset_request, name="password_reset"),
