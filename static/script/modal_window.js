@@ -77,7 +77,7 @@ $(document).ready(() => {
       console.log(formData);
       $.ajax({
          type: "POST",
-         url: `/accounts/application_registration/`,
+         url: `/user_queries/application_registration/`,
          data: formData,
          dataType: "json",
          encode: true,

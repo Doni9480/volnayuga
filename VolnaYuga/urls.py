@@ -50,6 +50,7 @@ urlpatterns = [
     path('page/', include('page.urls', namespace='page')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
+    path('user_queries/', include('userQueries.urls', namespace='userQueries')),
     # path('register/', register_request, name="register"),
     path('login/', login_request, name="login_s"),
     path('logout/', logout_request, name="logout_s"),

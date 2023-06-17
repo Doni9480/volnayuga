@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import MyUser, ApplicationForRegistration
+from .models import MyUser
 
 class CustomUserAdmin(UserAdmin):
     model = MyUser
@@ -20,11 +20,4 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-class ApplicationForRegistrationAdmin(admin.ModelAdmin):
-    model = ApplicationForRegistration
-    list_display = ('phone', 'email', 'create_time',)
-    search_fields = ('email', 'phone',)
-    ordering = ('create_time', 'email',)
-
 admin.site.register(MyUser, CustomUserAdmin)
-admin.site.register(ApplicationForRegistration, ApplicationForRegistrationAdmin)
