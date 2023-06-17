@@ -9,12 +9,11 @@ from django.views.generic.edit import FormMixin
 from review.models import Review
 from .forms import *
 from hotel.models import *
-from .forms import NewUserForm
 from django.contrib.auth import login, authenticate, logout  # add this
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm  # add this
 from django.core.mail import send_mail, BadHeaderError
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404, HttpResponseBadRequest
 from django.contrib.auth.forms import PasswordResetForm
 from .models import MyUser
 from django.template.loader import render_to_string
@@ -25,21 +24,18 @@ from django.utils.encoding import force_bytes
 from django.forms import formset_factory
 
 
-def register_request(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Регистрация завершена.")
-            return redirect('/accounts/lk', )
-        messages.error(request, "Регистрация не прошла.")
-    form = NewUserForm()
-    return render(request=request, template_name="accounts/register.html", context={"register_form": form})
+# def application_for_registration(request):
+#     if request.method == "POST" and request.is_ajax():
+#         form = ApplicationForRegistrationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return JsonResponse({'success': True, "reload": False, "message": "Заявка успешно отправлено!"})
+#         else:
+#             return JsonResponse({"error": True, "message": "Данные уже существуют!"})
 
 
 def login_request(request):
-    if request.method == "POST":
+    if request.method == "POST" and request.is_ajax():
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('username')
@@ -47,20 +43,17 @@ def login_request(request):
             user = authenticate(email=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Вы вошли как {email}.")
-                return redirect('/accounts/lk', )
+                return JsonResponse({'success': True, "reload": True, "message": "Готово!"})
             else:
-                messages.error(request, "Неверный логин или пароль.")
+                return JsonResponse({"error": True, "message": "Неверный логин или пароль."})
         else:
-            messages.error(request, "Неверный логин или пароль.")
-    form = AuthenticationForm()
-    return render(request=request, template_name="accounts/login.html", context={"login_form": form})
+            return JsonResponse({"error": True, "message": "Неверный логин или пароль."})
+    return HttpResponseBadRequest()
 
 
 def logout_request(request):
     logout(request)
-    messages.info(request, "Вы успешно вышли.")
-    return redirect('/accounts/lk', )
+    return redirect('/', )
 
 
 def password_reset_request(request):
@@ -83,12 +76,14 @@ def password_reset_request(request):
                     }
                     email = render_to_string(email_template_name, c)
                     try:
-                        send_mail(subject, email, 'justscoundrel@yandex.ru', [user.email], fail_silently=False)
+                        send_mail(subject, email, 'justscoundrel@yandex.ru',
+                                  [user.email], fail_silently=False)
                     except BadHeaderError:
 
                         return HttpResponse('Invalid header found.')
 
-                    messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+                    messages.success(
+                        request, 'A message with reset password instructions has been sent to your inbox.')
                     return redirect("/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="accounts/password_reset.html",
@@ -169,7 +164,8 @@ class HotelRules(UpdateView):
 
     def form_valid(self, form):
         form.save(commit=False)
-        form.instance.hotel = self.get_queryset().filter(id=self.kwargs['pk']).get()
+        form.instance.hotel = self.get_queryset().filter(
+            id=self.kwargs['pk']).get()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -283,8 +279,10 @@ class HotelPricePeriodUpdate(UpdateView):
     form_class = HotelPricePeriodForm
 
     def get_context_data(self, **kwargs):
-        context = super(HotelPricePeriodUpdate, self).get_context_data(**kwargs)
-        context['formset'] = PricePeriodFormset(queryset=PricePeriod.objects.filter(hotel__id=self.kwargs['pk']))
+        context = super(HotelPricePeriodUpdate,
+                        self).get_context_data(**kwargs)
+        context['formset'] = PricePeriodFormset(
+            queryset=PricePeriod.objects.filter(hotel__id=self.kwargs['pk']))
         return context
 
     def post(self, request, *args, **kwargs):
@@ -371,7 +369,8 @@ class NumberCreate(CreateView):
         period_list = PricePeriod.objects.filter(hotel=hotel)
         for period in period_list:
             print(self.object)
-            Price.objects.create(period=period, number=self.object, price='0', extra_bed='0')
+            Price.objects.create(
+                period=period, number=self.object, price='0', extra_bed='0')
         for key in form.files:
             img_files = form.files.getlist(key)
             for file in img_files:
@@ -509,10 +508,10 @@ class DistanceAdd(CreateView):
     form_class = DistanceForm
     template_name = 'accounts/lk_hotel_distance_add.html'
 
-
     def get_context_data(self, **kwargs):
         context = super(DistanceAdd, self).get_context_data(**kwargs)
-        context['distance_list'] = Distance.objects.filter(hotel=self.kwargs['hotel_pk'])
+        context['distance_list'] = Distance.objects.filter(
+            hotel=self.kwargs['hotel_pk'])
         context['hotel'] = Hotel.objects.get(id=self.kwargs['hotel_pk'])
         return context
 
