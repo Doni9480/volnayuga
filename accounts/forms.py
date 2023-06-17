@@ -10,6 +10,7 @@ from django.urls import reverse
 from hotel.models import *
 
 
+
 class HotelUpdateForm(forms.ModelForm):
     """Обновление информации о гостинице"""
 

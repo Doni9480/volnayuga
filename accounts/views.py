@@ -24,15 +24,6 @@ from django.utils.encoding import force_bytes
 from django.forms import formset_factory
 
 
-# def application_for_registration(request):
-#     if request.method == "POST" and request.is_ajax():
-#         form = ApplicationForRegistrationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return JsonResponse({'success': True, "reload": False, "message": "Заявка успешно отправлено!"})
-#         else:
-#             return JsonResponse({"error": True, "message": "Данные уже существуют!"})
-
 
 def login_request(request):
     if request.method == "POST" and request.is_ajax():
