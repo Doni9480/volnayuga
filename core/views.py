@@ -1,16 +1,20 @@
 from itertools import chain
+from typing import Any
+from django import http
 
 from django.db.models import F
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import TemplateView, DetailView, FormView
 
 from hotel.forms import SearchHotelForm
 from review.models import Review
 from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
+from userQueries.forms import FeedbackForm
 
 
 class HomePage(TemplateView):
@@ -41,9 +45,11 @@ class HomePage(TemplateView):
         return context
 
 
-class ContactPage(TemplateView):
+class ContactPage(FormView):
     """Contact page"""
     template_name = 'core/contact.html'
+    form_class = FeedbackForm
+    success_url = '/'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,9 +62,22 @@ class ContactPage(TemplateView):
                 'h1': 'h1',
                 'content_1': 'Создай страницу в админке',
                 'content_2': 'Создай страницу в админке',
+                'phone_1': 'Можно добавить в админке',
+                'phone_2': 'Можно добавить в админке',
+                'email_1': 'Можно добавить в админке',
+                'email_2': 'Можно добавить в админке',
+                'address': 'Можно добавить в админке',
+                'requisite_1': 'Можно добавить в админке',
+                'requisite_2': 'Можно добавить в админке',
             }
         return context
 
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 class AboutPage(TemplateView):
     """About company"""
