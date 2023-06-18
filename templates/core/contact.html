@@ -1,119 +1,86 @@
 {% extends 'base.html' %}
 {% load static thumbnail %}
 {% block header %}
-    <header class="main-header about-header">
-        <div class="container">
-            {% include 'include/main-menu.html' %}
-            <div class="headerTitle">
-                <h1>{{ object.h1 }}</h1>
-            </div>
-            <p class="headerText">
-                {{ object.header_text }}
-            </p>
+<header class="main-header about-header">
+    <div class="container">
+        {% include 'include/main-menu.html' %}
+        <div class="headerTitle">
+            <h1>{{ object.h1 }}</h1>
         </div>
-    </header>
+        <p class="headerText">
+            {{ object.header_text }}
+        </p>
+    </div>
+</header>
 {% endblock %}
 {% block content %}
-    <section>
-        <div class="container">
-            <div class="room-rent">
-                <div class="room-rent-head flex alignCenter juatifyBetween">
-                    <ul class="flex direction-ul">
-                        <li class="active " data-class="addObjectli">
-                            <span>Разместить объект</span>
-                        </li>
-                        <li class="" data-class="orderCallli">
-                            <span>Обратный звонок</span>
-                        </li>
-                    </ul>
-                    <p>Заполните все необходимые поля*</p>
+{% if object.content_1 %}
+<section>
+    <div class="container">
+        <div class="direction">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ object.content_1|safe }}
                 </div>
-                <form action="" class="addObject">
-                    <div class="flex juatifyBetween mb-30">
-                        <input type="text" placeholder="Ваше имя">
-                        <input type="email" placeholder="Ваш E-mail">
-                        <input type="tel" placeholder="Ваш телефон">
-
-                        <div class="room-flex">
-                            <div class="dropdown rent-dropdown">
-                                <div class="dropbtn rent-drop"><span>Стандарт “Номера” - 7 900 руб.</span> <img
-                                        src="{% static 'img/deopdown-img.png' %}" alt=""></div>
-                                <div class="dropdown-content">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="room-flex">
-                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
-                                <input type="checkbox" name="" value="" id="checkboxRoom">
-                                <label for="checkboxRoom"><p>Принимаю условия <span> пользовательского соглашения</span>
-                                </p></label>
-                            </div>
-                        </div>
-                        <div class="room-flex">
-                            <button>Отправить заявку</button>
-                        </div>
-                    </div>
-                </form>
-                <form action="" class="orderCall">
-                    <div class="flex juatifyBetween mb-30">
-                        <input type="tel" placeholder="Телефон">
-                        <div class="room-flex">
-                            <div class="checkbox flex alignCenter juatifyBetween roomCheckbox">
-                                <input type="checkbox" name="" value="" id="checkboxTel">
-                                <label for="checkboxTel"><p>Принимаю условия <span> пользовательского соглашения</span>
-                                </p></label>
-                            </div>
-                        </div>
-                        <div class="room-flex">
-                            <button>Отправить заявку</button>
-                        </div>
-                    </div>
-
-                </form>
             </div>
         </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="direction">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ object.content_1|safe }}
+    </div>
+</section>
+{% endif %}
+<section>
+    <div class="container">
+        <div class="direction">
+            <div class="row flex">
+                <div class="col-md-6 flex directionColumn mb-20">
+                    <h2 style="margin-top: 0px;">Контактные<span> данные</span></h2>
+                    <div class="contact-data" style="flex: 1 1 auto;">
+                        <div class="block-phone-numbers">
+                            <div class="contact-data__title">Телефон:</div>
+                            <ul class="contact-data__list">
+                                <li class="contact-data__item">{{ object.phone_1 }}</li>
+                                <li class="contact-data__item">{{ object.phone_2 }}</li>
+                            </ul>
+                        </div>
+                        <div class="block-email">
+                            <div class="contact-data__title">Email:</div>
+                            <ul class="contact-data__list">
+                                <li class="contact-data__item">{{ object.email_1 }}</li>
+                                <li class="contact-data__item">{{ object.email_2 }}</li>
+                            </ul>
+                        </div>
+                        <div class="block-address">
+                            <div class="contact-data__title">Адрес:</div>
+                            <ul class="contact-data__list">
+                                <li class="contact-data__item">{{ object.address }}</li>
+                            </ul>
+                        </div>
+                        <div class="block-requisites">
+                            <div class="contact-data__title">Реквизиты:</div>
+                            <ul class="contact-data__list">
+                                <li class="contact-data__item">{{ object.requisite_1 }}</li>
+                                <li class="contact-data__item">{{ object.requisite_2 }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 flex directionColumn" >
+                    <h2 style="margin-top: 0px;">Обратная<span> связ</span></h2>
+                    <div class="room-rent" style="flex: 1 1 auto;">
+                        <form action="" method="post" class="addObject flex feedback-form"> {% csrf_token %}
+                            {% for f in form %}
+                            <div>
+                                {{ f }}
+                                {{ f.errors }}
+                            </div>
+                            {% endfor %}
+                            <button>Отправить</button>
+                            <p class="bold">Нажимая кнопку “Отправить” вы соглашаетесь с <a style="color:blue"
+                                    href="/page/konfiden/">политикой конфиденциальности.</a></p>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <section>
-        <div class="container">
-            <div class="travel aboutH2">
-
-                <h2>Наша компания<span> в цифрах</span></h2>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="company-count flex directionColumn juatifyCenter">
-                            <h3>1000</h3>
-                            <p>просмотров объекта</p>
-                            <p>Размещение на Сервис.Тур - это сотни благодарных вам гостей.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="company-count flex directionColumn juatifyCenter">
-                            <h3>10</h3>
-                            <p>лет работы</p>
-                            <p>Многолетний опыт заселения гостиниц и организации отдыха туристов.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="company-count flex directionColumn juatifyCenter">
-                            <h3>8000</h3>
-                            <p>объектов на сайте</p>
-                            <p>Их владельцы уже выбрали нас и принимают заявки.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
