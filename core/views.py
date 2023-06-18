@@ -15,6 +15,8 @@ from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
 from userQueries.forms import FeedbackForm
+from django.core.mail import send_mail, BadHeaderError
+import os
 
 
 class HomePage(TemplateView):
@@ -72,12 +74,19 @@ class ContactPage(FormView):
             }
         return context
 
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
-        return super().post(request, *args, **kwargs)
-    
     def form_valid(self, form):
+        try:
+            send_mail(subject=f"Запрос на обратную связ - {form.cleaned_data['name']}",
+            message=f"Имя: {form.cleaned_data['name']}\nНомер телефона: {form.cleaned_data['phone']}\n\n{form.cleaned_data['message']}",
+            from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
+            recipient_list=[f"{os.environ.get('ADMIN_EMAIL')}"],
+            fail_silently=False,
+            )
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
         form.save()
         return super().form_valid(form)
+
 
 class AboutPage(TemplateView):
     """About company"""
