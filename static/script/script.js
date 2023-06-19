@@ -160,8 +160,8 @@ $(document).ready(function () {
     $(".object-button-cont").find('li').click(function () {
         let dataScroll = $(this).attr("data-scroll")
         $('html,body').animate({
-                scrollTop: $("." + dataScroll).offset().top
-            },
+            scrollTop: $("." + dataScroll).offset().top
+        },
             'slow');
     });
     $(".collaps-button").click(function () {
@@ -323,6 +323,24 @@ $(document).ready(function () {
     })
 
 })
+// скрипт кнопки "На верх"
+$(document).on('click', '#button-up', () => {
+    console.log('click!');
+    $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
+})
+// $('#button-up').click(function () {
+//     console.log('click!');
+//     $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
+// });
+
+$(window).scroll(function() { // Отслеживаем начало прокрутки
+    let scrolled = $(window).scrollTop(); // Вычисляем сколько было прокручено.
+    if(scrolled > 350) { // Если высота прокрутки больше 350 - показываем кнопку
+        $('#button-up').addClass('active');
+    } else {
+        $('#button-up').removeClass('active');
+    }
+});
 
 $(window).on('scroll', function () {
 
@@ -504,5 +522,4 @@ $('.price-update').keydown(function (e) {
 
     }
 })
-
 
