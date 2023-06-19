@@ -48,7 +48,7 @@ class RegionDetail(DetailView):
                 id=self.object.id)
         except Exception:
             pass
-        context['hotel_list'] = Hotel.objects.filter(
+        hotels = Hotel.objects.filter(
             Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
             (city=self.object)).order_by('id')
         context['hotel_type'] = TypeofObject.objects.all()  # Подборка жилья по типу
@@ -73,6 +73,16 @@ class RegionDetail(DetailView):
         context['type_object'] = TypeofObject.objects.all()
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['filter'] = HotelFilterForm()
+
+        paginator = Paginator(hotels, 10)
+
+        # Из URL извлекаем номер запрошенной страницы - это значение параметра page
+        page_number = self.request.GET.get('page')
+
+        # Получаем набор записей для страницы с запрошенным номером
+        page_obj = paginator.get_page(page_number)
+        # Отдаем в словаре контекста
+        context['hotel_list'] = page_obj
         return context
 
 
@@ -83,7 +93,6 @@ class HotelDetail(FormMixin, DetailView):
 
     def get_success_url(self):
         return reverse_lazy('region:hotel_detail', kwargs={'slug': self.kwargs['slug'], 'pk': self.kwargs['pk']})
-
 
     def get_object(self, queryset=None):
         pk = self.kwargs['pk']
