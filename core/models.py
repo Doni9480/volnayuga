@@ -15,3 +15,4 @@ class StaticData(models.Model):
 
     def __str__(self):
         return 'Логотипы и контактная информация'
+

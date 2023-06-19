@@ -674,6 +674,10 @@
         margin-top: 60px;
     }
 
+    .loginForm {
+        width: 100%;
+    }
+
     .loginForm h1 {
         font-size: 24px;
         line-height: 29px;
