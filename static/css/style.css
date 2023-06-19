@@ -4050,3 +4050,28 @@ div.add-options-span p {
     padding: 12px 25px 12px 25px;
     transition: all .5s;
 }
+/* -----------------button up---------------------------------------------- */
+.button-up {
+    position: fixed;
+    right: max(1vw, 10px);
+    bottom: -100px;
+    z-index: 999;
+    background: #F2C700;
+    border-radius: 50%;
+    width: clamp(50px, 3vw, 70px);
+    height: clamp(50px, 3vw, 70px);
+    box-shadow: 0px 0px 4px #000;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.3s all;
+    
+}
+.button-up > svg {
+    transform: translate(0px, -2px) rotate(0deg) scale(1) skew(0deg,0deg);
+
+}
+
+.button-up.active {
+    bottom: 50px;
+    transition: 0.3s all;
+}
