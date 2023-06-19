@@ -15,13 +15,6 @@ class SeoPage(models.Model):
     meta_description = models.TextField(blank=True, verbose_name='Мета описание')
     content_1 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №1')
     content_2 = RichTextUploadingField(blank=True, verbose_name='Текстовый блок №2')
-    phone_1 = models.CharField(max_length=15,blank=True, verbose_name='Телефон 1 (Страница контакты)')
-    phone_2 = models.CharField(max_length=15,blank=True, verbose_name='Телефон 2 (Страница контакты)')
-    email_1 = models.EmailField(blank=True, verbose_name='Электронная почта 1 (Страница контакты)')
-    email_2 = models.EmailField(blank=True, verbose_name='Электронная почта 2 (Страница контакты)')
-    address = models.TextField(blank=True, verbose_name='Адрес (Страница контакты)')
-    requisite_1 = models.CharField(max_length=100,blank=True, verbose_name='Реквизит 1 (Страница контакты)')
-    requisite_2 = models.CharField(max_length=100,blank=True, verbose_name='Реквизит 2 (Страница контакты)')
 
     class Meta:
         verbose_name = 'SEO для страницы'
@@ -86,4 +79,3 @@ class SeoForRegion(models.Model):
 
     def __str__(self):
         return f'SEO для региона "{self.city}"'
-    
