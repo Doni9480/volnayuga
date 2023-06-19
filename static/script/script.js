@@ -1,3 +1,15 @@
+var burgerMenu = function () {
+    $(".header-menu nav").toggleClass("nav-responsive");
+    $(".burger-menu").find('span').toggleClass("backWhite")
+    $(".burger-menu").find('span').eq(0).toggleClass("rotate45");
+    $(".burger-menu").find('span').eq(1).toggle(100);
+    $(".burger-menu").find('span').eq(2).toggleClass("rotate-45");
+    if ($(".logo-cont img").attr("src") === "img/logo.png") {
+        $(".logo-cont img").attr("src", "img/footerLogo.png")
+    } else {
+        $(".logo-cont img").attr("src", "img/logo.png")
+    }
+}
 $(document).ready(function () {
     let li = $(".black-sea-ul").find("li");
     let li1 = $(".direction-ul").find("li");
@@ -13,18 +25,7 @@ $(document).ready(function () {
         $('.filter1-button').removeClass("active");
         $(this).addClass("active")
     })
-    $(".burger-menu").click(function () {
-        $(".header-menu nav").toggleClass("nav-responsive");
-        $(this).find('span').toggleClass("backWhite")
-        $(this).find('span').eq(0).toggleClass("rotate45");
-        $(this).find('span').eq(1).toggle(100);
-        $(this).find('span').eq(2).toggleClass("rotate-45");
-        if ($(".logo-cont img").attr("src") === "img/logo.png") {
-            $(".logo-cont img").attr("src", "img/footerLogo.png")
-        } else {
-            $(".logo-cont img").attr("src", "img/logo.png")
-        }
-    });
+    $(".burger-menu").click(burgerMenu);
     $(".show-price-show").click(function () {
         $(this).closest(".card-body").find(".room-price").toggleClass('room-price-fixed hidden-none')
         $(this).find("i").toggleClass("flip")
@@ -160,8 +161,8 @@ $(document).ready(function () {
     $(".object-button-cont").find('li').click(function () {
         let dataScroll = $(this).attr("data-scroll")
         $('html,body').animate({
-                scrollTop: $("." + dataScroll).offset().top
-            },
+            scrollTop: $("." + dataScroll).offset().top
+        },
             'slow');
     });
     $(".collaps-button").click(function () {
@@ -323,6 +324,24 @@ $(document).ready(function () {
     })
 
 })
+// скрипт кнопки "На верх"
+$(document).on('click', '#button-up', () => {
+    console.log('click!');
+    $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
+})
+// $('#button-up').click(function () {
+//     console.log('click!');
+//     $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
+// });
+
+$(window).scroll(function() { // Отслеживаем начало прокрутки
+    let scrolled = $(window).scrollTop(); // Вычисляем сколько было прокручено.
+    if(scrolled > 350) { // Если высота прокрутки больше 350 - показываем кнопку
+        $('#button-up').addClass('active');
+    } else {
+        $('#button-up').removeClass('active');
+    }
+});
 
 $(window).on('scroll', function () {
 
@@ -504,5 +523,4 @@ $('.price-update').keydown(function (e) {
 
     }
 })
-
 

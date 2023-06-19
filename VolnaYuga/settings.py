@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'seo',
     'page',
     'booking',
+    'userQueries',
 
     'phonenumber_field',
     'django_registration',
@@ -118,6 +119,7 @@ DATABASES = {
         'USER': env('USER'),
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
+        'PORT': env('PORT'),
     }
 }
 

@@ -1,0 +1,38 @@
+{% extends 'include/base_modal_window.html' %}
+
+{% block modal_window_id %}login-window{% endblock  %}
+{% block modal_window %}
+<div class="loginForm">
+  <h1>Авторизация</h1>
+  <form method="post">
+    {% csrf_token %}
+    <input
+      type="email"
+      name="username"
+      id="id_username"
+      placeholder="Ваш E-mail"
+      required
+    />
+    <div class="alert" id="msg" role="alert">
+    </div>
+    <input
+      type="password"
+      name="password"
+      id="id_password"
+      placeholder="Ваш пароль"
+      required
+    />
+    <button>Войти</button>
+    <p>
+      Авторизуясь, вы соглашаетесь с правилами использования сервиса и обработки
+      <a href="">персональных данных.</a>
+    </p>
+  </form>
+  <div class="form-footer">
+    <p>
+      У вас еще нет аккаунта?
+      <span id="open-register-modal">Зарегистрироваться</span>
+    </p>
+  </div>
+</div>
+{% endblock %}
