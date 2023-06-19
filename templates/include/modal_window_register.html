@@ -1,0 +1,21 @@
+{% extends 'include/base_modal_window.html' %}
+
+{% block modal_window_id %}registration-window{% endblock  %}
+{% block modal_window %}
+<div class="loginForm">
+    <h1>Заявка для регистрации</h1>
+    <form method="post"> {% csrf_token %}
+        <input type="email" name="email" id="id_email" placeholder="Ваш E-mail" required>
+        <div class="alert" id="msg" role="alert">
+        </div>
+        <input type="text" name="phone" id="id_phone" placeholder="Ваш телефон" required>
+        <button>Отправить заявку</button>
+        <p class="bold">После отправки заявки наш менеджер свяжется с Вами для выяснения деталей.</p>
+        <p>Авторизуясь, вы соглашаетесь с правилами использования сервиса и обработки <a href="">персональных
+            данных.</a></p>
+    </form>
+    <div class="form-footer">
+        <p>У вас уже есть аккаунт? <span class="open-login-modal">Войдите</ы></p>
+    </div>
+</div>
+{% endblock %}

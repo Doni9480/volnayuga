@@ -480,6 +480,7 @@
         margin-top: 80px;
     }
 
+    .header-menu ul li div,
     .header-menu ul li a {
         font-size: 20px;
         color: white;
@@ -672,10 +673,6 @@
 
     .aboutH2 {
         margin-top: 60px;
-    }
-
-    .loginForm {
-        width: 100%;
     }
 
     .loginForm h1 {

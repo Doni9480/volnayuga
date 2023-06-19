@@ -42,6 +42,8 @@
     </script>
 </head>
 <body>
+{% include 'include/modal_window_login.html' %}
+{% include 'include/modal_window_register.html' %}
 <div class="container-fluid">
     <header id="myObject">
         <div class="container">
@@ -66,9 +68,8 @@
         </div>
     </section>
 
-
+    {% include 'include/footer.html' %}
 </div>
-{% include 'include/footer.html' %}
 {% include 'include/script.html' %}
 </body>
 </html>
