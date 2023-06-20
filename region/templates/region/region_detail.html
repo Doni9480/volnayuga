@@ -383,46 +383,7 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                                {% if hotel_list.has_other_pages %}
-                                    <nav aria-label="Page navigation" class="my-5">
-                                        <ul class="pagination">
-                                            {% if hotel_list.has_previous %}
-                                                <li class="page-item"><a class="page-link" href="?page=1">Первая</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link"
-                                                       href="?page={{ hotel_list.previous_page_number }}">
-                                                        Предыдущая
-                                                    </a>
-                                                </li>
-                                            {% endif %}
-                                            {% for i in hotel_list.paginator.page_range %}
-                                                {% if hotel_list.number == i %}
-                                                    <li class="page-item active">
-                                                        <span class="page-link">{{ i }}</span>
-                                                    </li>
-                                                {% else %}
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% if hotel_list.has_next %}
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page={{ hotel_list.next_page_number }}">
-                                                        Следующая
-                                                    </a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link"
-                                                       href="?page={{ hotel_list.paginator.num_pages }}">
-                                                        Последняя
-                                                    </a>
-                                                </li>
-                                            {% endif %}
-                                        </ul>
-                                    </nav>
-                                {% endif %}
+                                {% include 'include/paginator.html' %}
                             </div>
                         </div>
                     </div>

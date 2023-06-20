@@ -116,14 +116,18 @@ class HotelDetail(FormMixin, DetailView):
             return self.form_invalid(form)
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.hotel = Hotel.objects.get(id=self.kwargs['pk'])
-        self.object.start_date = form.cleaned_data['start_date']
-        self.object.end_date = form.cleaned_data['end_date']
-        self.object.people_count = form.cleaned_data['people_count']
-        self.object.save()
-        messages.success(self.request, 'Вы успешно забронировали отель!')
-        return HttpResponseRedirect(self.get_success_url())
+        if form.is_valid():
+            self.object = form.save(commit=False)
+            self.object.hotel = Hotel.objects.get(id=self.kwargs['pk'])
+            self.object.start_date = form.cleaned_data['start_date']
+            self.object.end_date = form.cleaned_data['end_date']
+            self.object.people_count = form.cleaned_data['people_count']
+            self.object.save()
+            messages.success(self.request, 'Вы успешно забронировали отель!')
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            messages.error(self.request, 'Что то пошло не так проверьте все ли заполнено!')
+            return self.form_invalid(form)
 
 
 class HotelFilterByType(DetailView):
