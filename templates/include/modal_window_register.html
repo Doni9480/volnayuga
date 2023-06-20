@@ -3,7 +3,7 @@
 {% block modal_window_id %}registration-window{% endblock  %}
 {% block modal_window %}
 <div class="loginForm">
-    <h1>Заявка для регистрации</h1>
+    <h2>Заявка на регистрацию</h2>
     <form method="post"> {% csrf_token %}
         <input type="email" name="email" id="id_email" placeholder="Ваш E-mail" required>
         <div class="alert" id="msg" role="alert">
@@ -11,11 +11,10 @@
         <input type="text" name="phone" id="id_phone" placeholder="Ваш телефон" required>
         <button>Отправить заявку</button>
         <p class="bold">После отправки заявки наш менеджер свяжется с Вами для выяснения деталей.</p>
-        <p>Авторизуясь, вы соглашаетесь с правилами использования сервиса и обработки <a href="">персональных
-            данных.</a></p>
+        <p class="text-align-center">Нажимая кнопку "Отправить", вы соглашаетесь с правилами использования сервиса и обработки персональных данных.</p>
     </form>
     <div class="form-footer">
-        <p>У вас уже есть аккаунт? <span class="open-login-modal">Войдите</ы></p>
+        <p>У вас уже есть аккаунт? <span class="open-login-modal">Войдите</span></p>
     </div>
 </div>
 {% endblock %}

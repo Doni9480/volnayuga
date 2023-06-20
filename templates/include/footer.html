@@ -8,7 +8,7 @@
                         {% if user.is_authenticated %}
                             <a href="{% url 'accounts:user_hotel_list' %}"><button>Добавить объявление</button></a>
                         {% else %}
-                            <a href="{% url 'accounts:login' %}"><button>Добавить объявление</button></a>
+                            <div class="open-login-modal"><button>Добавить объявление</button></div>
                         {% endif %}
                     </div>
                 <div class="footer-menu" itemscope="" itemtype="https://schema.org/SiteNavigationElement">

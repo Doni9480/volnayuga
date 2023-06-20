@@ -61,7 +61,12 @@ $(document).ready(() => {
             $("#msg").empty();
             $("#msg").append(data.message);
             if(data.reload === true){
-               location.reload();
+               var link = $("#rent-buttnon-id").data('link')
+               if(link){
+                  $(location).attr('href',link);
+               }else{
+                  location.reload();
+               }
             }
          }
       });

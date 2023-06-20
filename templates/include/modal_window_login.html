@@ -3,7 +3,7 @@
 {% block modal_window_id %}login-window{% endblock  %}
 {% block modal_window %}
 <div class="loginForm">
-  <h1>Авторизация</h1>
+  <h2>Авторизация</h2>
   <form method="post">
     {% csrf_token %}
     <input
@@ -25,7 +25,7 @@
     <button>Войти</button>
     <p>
       Авторизуясь, вы соглашаетесь с правилами использования сервиса и обработки
-      <a href="">персональных данных.</a>
+      <a href="/page/konfiden/">персональных данных.</a>
     </p>
   </form>
   <div class="form-footer">

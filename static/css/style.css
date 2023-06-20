@@ -430,6 +430,7 @@ a, a:hover {
 .main-header {
     background-size: cover !important;
     background-position: center top;
+    max-height: 540px;
 }
 
 section {
@@ -2216,7 +2217,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     margin-bottom: 100px;
 }
 
-.loginForm h1 {
+.loginForm h2 {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 30px;
@@ -2266,7 +2267,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     font-size: 14px;
     line-height: 17px;
     color: #21293E;
-    text-align: left;
+    text-align: center;
 }
 
 .loginForm p a {
