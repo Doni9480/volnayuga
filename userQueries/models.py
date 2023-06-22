@@ -26,8 +26,8 @@ class Feedback(models.Model):
    create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
    class Meta:
-      verbose_name = 'Запрос на обратную связ'
-      verbose_name_plural = 'Запросы на обратную связ'
+      verbose_name = 'Запрос на обратную связь'
+      verbose_name_plural = 'Запросы на обратную связь'
 
    def __str__(self):
       return self.name

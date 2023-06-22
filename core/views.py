@@ -51,7 +51,7 @@ class ContactPage(FormView):
     """Contact page"""
     template_name = 'core/contact.html'
     form_class = FeedbackForm
-    success_url = '/'
+    success_url = '/contact'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -71,6 +71,7 @@ class ContactPage(FormView):
                 'address': 'Можно добавить в админке',
                 'requisite_1': 'Можно добавить в админке',
                 'requisite_2': 'Можно добавить в админке',
+                'content_contact': 'Можно добавить в админке'
             }
         return context
 

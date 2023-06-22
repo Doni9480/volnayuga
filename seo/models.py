@@ -22,6 +22,8 @@ class SeoPage(models.Model):
     address = models.TextField(blank=True, verbose_name='Адрес (Страница контакты)')
     requisite_1 = models.CharField(max_length=100,blank=True, verbose_name='Реквизит 1 (Страница контакты)')
     requisite_2 = models.CharField(max_length=100,blank=True, verbose_name='Реквизит 2 (Страница контакты)')
+    content_contact = RichTextUploadingField(blank=True, verbose_name='Текстовый блок (Страница контакты)')
+    
 
     class Meta:
         verbose_name = 'SEO для страницы'

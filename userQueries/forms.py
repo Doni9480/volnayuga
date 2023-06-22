@@ -24,8 +24,7 @@ class FeedbackForm(forms.ModelForm):
    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваше имя"}))
    phone = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш телефон"}))
    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш E-mail"}))
-   message = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваше сообщение"}))
-
+   message = forms.CharField(required=True, widget=forms.Textarea(attrs={'placeholder': "Ваше сообщение", 'rows':"1"}))
 
    class Meta:
       model = Feedback
