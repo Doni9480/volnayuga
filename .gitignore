@@ -153,5 +153,6 @@ db.sqlite3
 media/
 staticfiles/
 
-pg_db.session.sql
 .vscode/
+pg_db.session.sql
+settings.json

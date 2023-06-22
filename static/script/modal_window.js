@@ -1,10 +1,12 @@
 $('.open-login-modal').click(() => {
+   $(".msg").empty();
    $('#registration-window').removeClass("modal-window__open");
    $('nav').hasClass("nav-responsive") && burgerMenu();
    $('body').css('overflow', 'hidden');
    $('#login-window').addClass("modal-window__open");
 });
 $('#open-register-modal').click(() => {
+   $(".msg").empty();
    $('#login-window').removeClass("modal-window__open");
    $('body').css('overflow', 'hidden');
    $('#registration-window').addClass("modal-window__open");
@@ -36,6 +38,8 @@ function getCookie(name) {
 }
 
 $(document).ready(() => {
+   $("#registration-window #id_phone").inputmask({"mask": "+7 (999) 999-99-99"});
+
    $('#login-window form').submit((event) => {
       event.preventDefault();
       var formData = {
@@ -43,7 +47,6 @@ $(document).ready(() => {
          password: $('#id_password').val(),
          // csrftoken: getCookie('csrftoken')
       }
-      console.log(formData);
       $.ajax({
          type: "POST",
          url: `/accounts/login/`,
@@ -53,13 +56,17 @@ $(document).ready(() => {
          headers: {'X-CSRFToken': getCookie('csrftoken')}
       }).done(function (data) {
          if (data?.error === true){
-            $("#msg").css({'display': 'block', 'color': 'red'});
-            $("#msg").empty();
-            $("#msg").append(data.message);
+            $("#login-window #msgl_username").css({'display': 'block', 'color': 'red'});
+            $("#login-window #msgl_username").empty();
+            if (data.message?.__all__){
+               $(".msg").append(data.message.__all__);
+            }
          } else if (data?.success === true){
-            $("#msg").css({'display': 'block', 'color': 'green'});
-            $("#msg").empty();
-            $("#msg").append(data.message);
+            $("#login-window #msgl_username").css({'display': 'block', 'color': 'green', 'margin-top': '15px'});
+            $("#login-window #msgl_username").empty();
+            if (data.message){
+               $("#login-window #msgl_username").append(data.message);
+            }
             if(data.reload === true){
                var link = $("#rent-buttnon-id").data('link')
                if(link){
@@ -78,8 +85,8 @@ $(document).ready(() => {
       var formData = {
          email: $('#id_email').val(),
          phone: $('#id_phone').val(),
+         name: $('#id_username_reg').val(),
       }
-      console.log(formData);
       $.ajax({
          type: "POST",
          url: `/user_queries/application_registration/`,
@@ -88,15 +95,24 @@ $(document).ready(() => {
          encode: true,
          headers: {'X-CSRFToken': getCookie('csrftoken')}
       }).done(function (data) {
-         console.log(data);
          if (data?.error === true){
-            $("#registration-window #msg").css({'display': 'block', 'color': 'red'});
-            $("#registration-window #msg").empty();
-            $("#registration-window #msg").append(data.message);
+            $("#registration-window .msg").css({'display': 'block', 'color': 'red'});
+            $("#registration-window .msg").empty();
+            if (data.message?.name?.length){
+               $("#msgr_username").append(data.message.name[0]);
+            }
+            if (data.message?.email?.length){
+               $("#msgr_email").append(data.message.email[0]);
+            }
+            if (data.message?.phone?.length){
+               $("#msgr_phone").append(data.message.phone[0]);
+            }
          } else if (data?.success === true){
-            $("#registration-window #msg").css({'display': 'block', 'color': 'green'});
-            $("#registration-window #msg").empty();
-            $("#registration-window #msg").append(data.message);
+            $("#registration-window .msg").css({'display': 'block', 'color': 'green', 'margin-top': '15px'});
+            $("#registration-window .msg").empty();
+            if (data.message){
+               $("#registration-window #msgr_phone").append(data.message);
+            }
             if(data.reload === true){
                location.reload();
             }

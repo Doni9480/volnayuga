@@ -1,0 +1,9 @@
+{% autoescape off %}
+На сайте vashemore.ru новая заявка на регистрацию.
+
+Имя: {{ name }}
+
+Email: {{ email }}
+
+Телефон: {{ phone }}
+{% endautoescape %}
