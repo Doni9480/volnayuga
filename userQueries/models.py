@@ -4,8 +4,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class ApplicationForRegistration(models.Model):
    """Заявка для регистрации пользователей"""
+   name = models.CharField(max_length=100, verbose_name='Имя')
    email = models.EmailField(verbose_name="Email", unique=True)
-   phone = models.CharField(max_length=12, verbose_name='Телефон')
+   phone = models.CharField(max_length=20, verbose_name='Телефон')
    create_time = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
    class Meta:

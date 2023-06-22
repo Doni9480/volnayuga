@@ -8,10 +8,11 @@ class ApplicationForRegistrationForm(forms.ModelForm):
 
    class Meta:
       model = ApplicationForRegistration
-      fields = ['email', 'phone']
+      fields = ['name', 'email', 'phone']
 
    def save(self, commit=True):
       application = super(ApplicationForRegistrationForm, self).save(commit=False)
+      application.name = self.cleaned_data['name']
       application.email = self.cleaned_data['email']
       application.phone = self.cleaned_data['phone']
       if commit:

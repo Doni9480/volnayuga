@@ -8,10 +8,10 @@
     <div class="container">
         {% include 'include/main-menu.html' %}
         <div class="headerTitle">
-            <h1>{{ object.h1 }}</h1>
+            <h1>{{ object.title }}</h1>
         </div>
         <p class="headerText">
-            {{ object.header_text|safe  }}
+            
         </p>
     </div>
 </header>
@@ -22,7 +22,7 @@
             <div class="direction">
                 <div class="row">
                     <div class="col-md-12 adler-right">
-                        {{ object.content_1|safe }}
+                        {{ object.content|safe }}
                     </div>
                 </div>
             </div>

@@ -79,7 +79,7 @@ class ContactPage(FormView):
             send_mail(subject=f"Запрос на обратную связ - {form.cleaned_data['name']}",
             message=f"Имя: {form.cleaned_data['name']}\nНомер телефона: {form.cleaned_data['phone']}\n\n{form.cleaned_data['message']}",
             from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
-            recipient_list=[f"{os.environ.get('ADMIN_EMAIL')}"],
+            recipient_list=[f"{os.environ.get('ADMIN_EMAIL', default='admin@vashemore.ru')}"],
             fail_silently=False,
             )
         except BadHeaderError:

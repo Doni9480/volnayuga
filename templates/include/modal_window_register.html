@@ -3,15 +3,26 @@
 {% block modal_window_id %}registration-window{% endblock  %}
 {% block modal_window %}
 <div class="loginForm">
-    <h2>Заявка на регистрацию</h2>
+    <h2 class="text-align-center">Заявка на регистрацию</h2>
     <form method="post"> {% csrf_token %}
-        <input type="email" name="email" id="id_email" placeholder="Ваш E-mail" required>
-        <div class="alert" id="msg" role="alert">
+        <div>
+            <input type="text" name="username" id="id_username_reg" placeholder="Ваше имя" required>
+            <div class="msg" id="msgr_username">
+            </div>
         </div>
-        <input type="text" name="phone" id="id_phone" placeholder="Ваш телефон" required>
+        <div>
+            <input type="email" name="email" id="id_email" placeholder="Ваш E-mail" required>
+            <div class="msg" id="msgr_email">
+            </div>
+        </div>
+        <div>
+            <input type="text" name="phone" id="id_phone" placeholder="Ваш телефон" required>
+            <div class="msg" id="msgr_phone">
+            </div>
+        </div>
         <button>Отправить заявку</button>
         <p class="bold">После отправки заявки наш менеджер свяжется с Вами для выяснения деталей.</p>
-        <p class="text-align-center">Нажимая кнопку "Отправить", вы соглашаетесь с правилами использования сервиса и обработки персональных данных.</p>
+        <p>Нажимая кнопку "Отправить", вы соглашаетесь с правилами использования сервиса и обработки <a href="/page/konfiden/">персональных данных.</a></p>
     </form>
     <div class="form-footer">
         <p>У вас уже есть аккаунт? <span class="open-login-modal">Войдите</span></p>

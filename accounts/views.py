@@ -35,9 +35,9 @@ def login_request(request):
                 login(request, user)
                 return JsonResponse({'success': True, "reload": True, "message": "Готово!"})
             else:
-                return JsonResponse({"error": True, "message": "Неверный логин или пароль."})
+                return JsonResponse({"error": True, "message": form.errors})
         else:
-            return JsonResponse({"error": True, "message": "Неверный логин или пароль."})
+            return JsonResponse({"error": True, "message": form.errors})
     return HttpResponseBadRequest()
 
 
