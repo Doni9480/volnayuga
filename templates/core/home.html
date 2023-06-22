@@ -149,7 +149,7 @@
                             {% endfor %}
                         </div>
                         <div class="sow-more-div flex juatifyCenter">
-                            <button>Смотреть {{ hotel_list_low_price.count }} предложения</button>
+                            <a href="{% url 'region:region_detail' slug='krasnodarskii-krai' %}">Смотреть {{ hotel_list_low_price.count }} предложения</a>
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@
 
                         </div>
                         <div class="sow-more-div flex juatifyCenter">
-                            <button>Смотреть {{ hotel_list_with_child.count }} предложения</button>
+                            <a href="{% url 'region:region_detail' slug='krasnodarskii-krai' %}">Смотреть {{ hotel_list_with_child.count }} предложения</a>
                         </div>
                     </div>
                     <div id="tab3" class="tabContent">
@@ -226,7 +226,7 @@
                             {% endfor %}
                         </div>
                         <div class="sow-more-div flex juatifyCenter">
-                            <button>Смотреть {{ hotel_list_sea.count }} предложения</button>
+                            <a href="{% url 'region:region_detail' slug='krasnodarskii-krai' %}">Смотреть {{ hotel_list_sea.count }} предложения</a>
                         </div>
                     </div>
                 </div>
