@@ -10,16 +10,16 @@ class Custom404Middleware:
 
         if response.status_code == 404:
             try:
-               context = {
-                     "object": Page.objects.get(slug='404')
-               }
+                context = {
+                        "object": Page.objects.get(url='404')
+                }
             except Exception:
-               context = {
-                     "object": {
-                        'title': "Страница не найдено!",
-                        'content': "Страница не найдено!\n(Можно изменить в админке)",
-                     }
-               }
+                context = {
+                        "object": {
+                            'title': "Страница не найдено!",
+                            'content': "Страница не найдено!\n(Можно изменить в админке)",
+                        }
+                }
             return render(request, '404.html', context=context, status=404)
 
         return response
