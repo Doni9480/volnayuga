@@ -48,7 +48,7 @@ function getCookie(name) {
 }
 
 $(document).ready(() => {
-   $("input#id_phone").inputmask({"mask": "+7 (999) 999-99-99"});
+   $(".phone-maske").inputmask({"mask": "+7 (999) 999-99-99"});
 
    $('#login-window form').submit((event) => {
       event.preventDefault();
