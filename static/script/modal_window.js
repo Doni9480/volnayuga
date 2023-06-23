@@ -1,22 +1,32 @@
-$('.open-login-modal').click(() => {
+let redirect = false;
+
+let openWLogin = () => {
    $(".msg").empty();
    $('#registration-window').removeClass("modal-window__open");
    $('nav').hasClass("nav-responsive") && burgerMenu();
    $('body').css('overflow', 'hidden');
    $('#login-window').addClass("modal-window__open");
+}
+
+$('.open-login-modal').on('click', () => {
+   openWLogin();
 });
-$('#open-register-modal').click(() => {
+$('#rent-buttnon-id').on('click', () => {
+   redirect =true;
+   openWLogin();
+});
+$('#open-register-modal').on('click', () => {
    $(".msg").empty();
    $('#login-window').removeClass("modal-window__open");
    $('body').css('overflow', 'hidden');
    $('#registration-window').addClass("modal-window__open");
 });
 
-$('.modal-window__close').click(() => {
+$('.modal-window__close').on('click', () => {
    $('body').css('overflow', 'auto');
    $('#login-window').removeClass("modal-window__open");
 });
-$('.modal-window__close').click(() => {
+$('.modal-window__close').on('click', () => {
    $('body').css('overflow', 'auto');
    $('#registration-window').removeClass("modal-window__open");
 });
@@ -38,14 +48,13 @@ function getCookie(name) {
 }
 
 $(document).ready(() => {
-   $("#registration-window #id_phone").inputmask({"mask": "+7 (999) 999-99-99"});
+   $("input#id_phone").inputmask({"mask": "+7 (999) 999-99-99"});
 
    $('#login-window form').submit((event) => {
       event.preventDefault();
       var formData = {
          username: $('#id_username').val(),
          password: $('#id_password').val(),
-         // csrftoken: getCookie('csrftoken')
       }
       $.ajax({
          type: "POST",
@@ -68,8 +77,8 @@ $(document).ready(() => {
                $("#login-window #msgl_username").append(data.message);
             }
             if(data.reload === true){
-               var link = $("#rent-buttnon-id").data('link')
-               if(link){
+               if(redirect){
+                  var link = $("#rent-buttnon-id").data('link');
                   $(location).attr('href',link);
                }else{
                   location.reload();
@@ -83,9 +92,9 @@ $(document).ready(() => {
    $('#registration-window form').submit((event) => {
       event.preventDefault();
       var formData = {
-         email: $('#id_email').val(),
-         phone: $('#id_phone').val(),
-         name: $('#id_username_reg').val(),
+         email: $('#registration-window #id_email').val(),
+         phone: $('#registration-window #id_phone').val(),
+         name: $('#registration-window #id_username_reg').val(),
       }
       $.ajax({
          type: "POST",

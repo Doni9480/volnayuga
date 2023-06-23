@@ -6,6 +6,7 @@ class Page(models.Model):
     title = models.CharField(max_length=255, verbose_name='Страница')
     url = models.SlugField(unique=True)
     content = RichTextUploadingField(verbose_name='Текст')
+    is_view = models.BooleanField(default=True, verbose_name='Отображать в меню')
 
     class Meta:
         verbose_name = 'Страница'
