@@ -363,9 +363,9 @@ if ($(window).width() > 768) {
 
     $(window).on('scroll', function () {
 
-        let distance = document.querySelector(".object-right").getBoundingClientRect();
+        let distance = document.querySelector(".object-right")?.getBoundingClientRect();
 
-        if (distance.top > 90 || distance.top < 0) {
+        if (distance?.top > 90 || distance?.top < 0) {
             $('.object-right').addClass('fixed')
         }
 
