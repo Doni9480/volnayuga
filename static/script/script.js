@@ -363,20 +363,20 @@ if ($(window).width() > 768) {
 
     $(window).on('scroll', function () {
 
-        let distance = document.querySelector(".object-right")?.getBoundingClientRect();
+        let distance = $(".object-right")?.getBoundingClientRect();
 
         if (distance?.top > 90 || distance?.top < 0) {
-            $('.object-right').addClass('fixed')
+            $('.object-right')?.addClass('fixed')
         }
 
         if (($(window).scrollTop() < 240)) {
-            $('.object-right').removeClass('fixed')
+            $('.object-right')?.removeClass('fixed')
         }
 
         if ($(window).scrollTop() > (containerSum - 114)) {
-            $('.object-right').addClass('absolute')
+            $('.object-right')?.addClass('absolute')
         } else {
-            $('.object-right').removeClass('absolute')
+            $('.object-right')?.removeClass('absolute')
         }
 
     });
