@@ -3207,7 +3207,6 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     flex-wrap: wrap;
 }
 
-.addObject textarea, .orderCall textarea,
 .addObject input, .orderCall input {
     width: 31%;
     background: #FFFFFF;
@@ -3218,7 +3217,6 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     margin-bottom: 20px;
 }
 
-.addObject textarea::placeholder
 .addObject input::placeholder {
     font-family: 'Nunito';
     font-weight: 400;
@@ -4086,15 +4084,28 @@ div.add-options-span p {
     gap: 15px;
     text-align: center;
 }
-.feedback-form > div > input,
-.feedback-form > div > textarea,
+.feedback-form textarea,
 .feedback-form input {
     margin-bottom: 0;
     width: 100%;
 }
-.feedback-form > div > textarea{
+.feedback-form textarea{
     min-height: 54px;
+    background: #FFFFFF;
+    border: 1px solid #ECEBED;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 14px 15px;
 }
+
+.feedback-form textarea::placeholder {
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #21293E;
+}
+
 .feedback-form > div{
     flex: 1 1 clamp(200px, 50% - 7.5px, 50% - 7.5px);
 }

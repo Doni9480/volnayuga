@@ -22,8 +22,8 @@ class ApplicationForRegistrationForm(forms.ModelForm):
 
 class FeedbackForm(forms.ModelForm):
    name = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваше имя"}))
-   phone = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш телефон"}))
-   email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш E-mail"}))
+   phone = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш телефон", 'class': "phone-maske", 'id': "phone_id_reg"}))
+   email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': "Ваш E-mail", 'id': "email_id_reg"}))
    message = forms.CharField(required=True, widget=forms.Textarea(attrs={'placeholder': "Ваше сообщение", 'rows':"1"}))
 
    class Meta:
