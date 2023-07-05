@@ -3,7 +3,7 @@ from typing import Any
 from django import http
 
 from django.db.models import F
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -87,9 +87,13 @@ class ContactPage(FormView):
             )
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
+        print('_'*20,'--'*20)
         form.save()
-        return super().form_valid(form)
-
+        return JsonResponse({'success': True,'message': 'Сообщение отправлено! Мы ответим Вам в течении 24 часов.', 'errors': None })
+    
+    def form_invalid(self, form: Any) -> JsonResponse:
+        return JsonResponse({'success': False,'message': None, 'errors': form.errors })
+    
 
 class AboutPage(TemplateView):
     """About company"""

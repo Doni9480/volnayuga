@@ -79,16 +79,26 @@
                 <div class="col-md-6 flex directionColumn mt-10 mb-10" >
                     <h2 style="margin-top: 0px;">Обратная<span> связь</span></h2>
                     <div class="room-rent" style="flex: 1 1 auto;">
-                        <form action="" method="post" class="addObject flex feedback-form"> {% csrf_token %}
-                            {% for f in form %}
-                            <div>
-                                {{ f }}
-                                {{ f.errors }}
-                            </div>
-                            {% endfor %}
-                            <button>Отправить</button>
-                            <p>Нажимая кнопку “Отправить” вы соглашаетесь с <a style="color:blue"
-                                    href="/page/konfiden/">политикой конфиденциальности.</a></p>
+                        <form action="" method="post" class="flex feedback-form" id="feedback-form-id"> {% csrf_token %}
+                                <div>
+                                    <input type="text" name="name" placeholder="Ваше имя" id="id_username_feedback" required="">
+                                    <div class="msg" id="id_username_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <input type="text" name="phone" placeholder="Ваш телефон" class="phone-maske" id="id_phone_feedback" required="" inputmode="text">
+                                    <div class="msg" id="id_phone_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <input type="text" name="email" placeholder="Ваш E-mail" id="id_email_feedback" required="">
+                                    <div class="msg" id="id_email_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <textarea name="message" cols="40" rows="1" placeholder="Ваше сообщение" id="id_message_feedback" required=""></textarea>
+                                    <div class="msg" id="id_message_feedback_msg"></div>
+                                </div>
+                                <button>Отправить</button>
+                                <p>Нажимая кнопку “Отправить” вы соглашаетесь с <a style="color:blue" href="/page/konfiden/">политикой конфиденциальности.</a></p>
+                            </form>
                         </form>
                     </div>
                 </div>

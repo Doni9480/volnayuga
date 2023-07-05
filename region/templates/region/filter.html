@@ -18,7 +18,7 @@
             </button>
             <div class="modal-content">
                 <div class="modal-body">
-                    <form action="">
+                    <form action="#">
                         <div class="form-cont flex">
                             <div class="location">
                                 <label>
@@ -65,7 +65,7 @@
             </button>
             <div class="modal-content">
                 <div class="modal-body">
-                    <form action="">
+                    <form action="#">
                         <div class="form-cont flex">
                             <div class="location">
                                 <label>
@@ -330,10 +330,10 @@
                             {% endif %}
                             <div class="item-img">
                                 {% if item.image %}
-                                    <img class="lazyOwl" data-src="{{ item.image.url }}"
+                                    <img class="lazyOwl" src="{{ item.image.url }}" data-src="{{ item.image.url }}"
                                          alt="Lazy Owl Image">
                                 {% else %}
-                                    <img class="lazyOwl" data-src="{% static 'img/object-1.png' %}"
+                                    <img class="lazyOwl" src="{% static 'img/object-1.png' %}" data-src="{% static 'img/object-1.png' %}"
                                          alt="Lazy Owl Image">
                                 {% endif %}
                             </div>
