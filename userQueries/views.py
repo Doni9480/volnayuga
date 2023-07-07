@@ -1,9 +1,8 @@
 import os
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponse
 from userQueries.forms import ApplicationForRegistrationForm
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import BadHeaderError, mail_admins
 from django.template.loader import render_to_string
-from VolnaYuga.settings import ADMINS
 
 
 
@@ -21,11 +20,12 @@ def application_for_registration(request):
          }
          email = render_to_string(email_template_name, c)
          try:
-            send_mail(
+            mail_admins(
                subject=subject, 
                message=email, 
-               from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
-               recipient_list=[ADMINS[0][1]], fail_silently=False)
+            #    from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
+            #    recipient_list=[ADMINS[0][1]], 
+               fail_silently=False)
          except BadHeaderError:
 
             return HttpResponse('Invalid header found.')

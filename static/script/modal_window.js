@@ -11,6 +11,7 @@ $(document).ready(() => {
    }
 
    $('.open-login-modal').on('click', () => {
+      redirect = true;
       openWLogin();
    });
    $('#rent-buttnon-id').on('click', () => {

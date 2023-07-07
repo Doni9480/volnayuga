@@ -15,8 +15,7 @@ from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
 from userQueries.forms import FeedbackForm
-from django.core.mail import send_mail, BadHeaderError
-from VolnaYuga.settings import ADMINS
+from django.core.mail import BadHeaderError, mail_admins
 import os
 
 
@@ -78,16 +77,15 @@ class ContactPage(FormView):
 
     def form_valid(self, form):
         try:
-            send_mail(
-                subject=f"Запрос на обратную связ - {form.cleaned_data['name']}",
-                message=f"Имя: {form.cleaned_data['name']}\nНомер телефона: {form.cleaned_data['phone']}\n\n{form.cleaned_data['message']}",
-                from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
-                recipient_list=[ADMINS[0][1]],
+            mail_admins(
+                subject=f"На сайте ВашеМоре.Ру заполнена форма обратной связи.",
+                message=f"Заполненные данные в форме.\nИмя: {form.cleaned_data['name']}\nТелефон: {form.cleaned_data['phone']}\nEmail: {form.cleaned_data['email']}\nСообщение: {form.cleaned_data['message']}",
+                # from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
+                # recipient_list=[ADMINS[0][1]],
                 fail_silently=False,
             )
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
-        print('_'*20,'--'*20)
         form.save()
         return JsonResponse({'success': True,'message': 'Сообщение отправлено! Мы ответим Вам в течении 24 часов.', 'errors': None })
     
