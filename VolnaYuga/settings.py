@@ -204,7 +204,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='noreply@vashemore.ru')  # Адрес электронной почты, от которого будут отправляться сообщения
 SERVER_EMAIL = env('SERVER_EMAIL', default='noreply@vashemore.ru')  # Адрес электронной почты для системных уведомлений
 
-ADMINS = [('admin', 'admin@vashemore.ru'), ('dev', 'daniilmirlanuulu@gmail.com'), ('admin2', 'in@simplemedia.ru')]
+ADMINS = [('admin', 'admin@vashemore.ru'), ('admin2', 'in@simplemedia.ru')]
 MANAGERS = ADMINS 
 
 EMAIL_SUBJECT_PREFIX=''
