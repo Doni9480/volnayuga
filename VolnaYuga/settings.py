@@ -204,8 +204,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')  # Адрес электронной почты, от которого будут отправляться сообщения
 SERVER_EMAIL = env('SERVER_EMAIL')  # Адрес электронной почты для системных уведомлений
 
-ADMINS = [('admin', 'daniilmirlanuulu@gmail.com'),]
-# ADMINS = [('admin', 'admin@vashemore.ru'),]
+ADMINS = [('admin', 'admin@vashemore.ru'),]
 MANAGERS = ADMINS 
 
 # django-ckeditor

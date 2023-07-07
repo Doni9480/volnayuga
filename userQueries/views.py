@@ -30,7 +30,7 @@ def application_for_registration(request):
 
             return HttpResponse('Invalid header found.')
          form.save()
-         return JsonResponse({'success': True, "reload": True, "message": "Заявка успешно отправлена!"})
+         return JsonResponse({'success': True, "reload": True, "message": "Ваша заявка принята! Мы свяжемся с Вами в течении 24 часов."})
       else:
          return JsonResponse({"error": True, "message": form.errors})
    return HttpResponseBadRequest()

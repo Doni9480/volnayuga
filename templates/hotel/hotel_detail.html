@@ -30,7 +30,7 @@
                         {% endfor %}
 
                         <p class="modalPromo">Не хотите переплачивать?
-                            Скажите, что звоните с ВолнаТур</p>
+                            Скажите, что звоните с ВашеМоре.Ру</p>
                     </div>
                 </div>
             </div>
@@ -488,7 +488,7 @@
                                 <div class="black-cont">
                                     <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
                                         {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
-                                            <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
+                                            <img class="lazyOwl" src="{{ im.url }}" data-src="{{ im.url }}" alt="{{ im.name }}">
                                         {% endthumbnail %}
                                     </a>
                                     <p class="bold"><a

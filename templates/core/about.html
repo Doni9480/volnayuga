@@ -53,8 +53,8 @@
                                         </ul>
                                     </div>
                                     {% thumbnail item.image '255x292' crop='center' as img %}
-                                        <img class="lazyOwl" data-src="{{ img.url }}" width="{{ im.width }}"
-                                             height="{{ im.height }}" alt="{{ item.title }}">
+                                        <img class="lazyOwl" src="{{ img.url }}" data-src="{{ img.url }}" {% if im.width %}width="{{ im.width }}"{% endif %} 
+                                        {% if im.height %}height="{{ im.height }}"{% endif %} alt="{{ item.title }}">
                                     {% endthumbnail %}
                                 </div>
                             </a>

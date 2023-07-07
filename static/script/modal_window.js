@@ -33,22 +33,6 @@ $(document).ready(() => {
       $('#registration-window').removeClass("modal-window__open");
    });
 
-   function getCookie(name) {
-      let cookieValue = null;
-      if (document.cookie && document.cookie !== '') {
-         const cookies = document.cookie.split(';');
-         for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-               break;
-            }
-         }
-      }
-      return cookieValue;
-   }
-
 
    $(".phone-maske").inputmask({ "mask": "+7 (999) 999-99-99" });
 
@@ -125,7 +109,7 @@ $(document).ready(() => {
                $("#registration-window #msgr_phone").append(data.message);
             }
             if (data.reload === true) {
-               location.reload();
+               setTimeout(() => location.reload(), 3000);
             }
          }
       });

@@ -30,8 +30,8 @@
                                     <div class="item">
                                         <div class="item-img">
                                             {% thumbnail hotel.hotelphoto_set.first.image "262x180" crop="center" as im %}
-                                                <img src="{{ im.url }}" width="{{ im.width }}"
-                                                     height="{{ im.height }}"
+                                                <img src="{{ im.url }}" {% if im.width %}width="{{ im.width }}"{% endif %} 
+                                                         {% if im.height %}height="{{ im.height }}"{% endif %}
                                                      alt="Lazy Owl Image">
                                             {% endthumbnail %}
                                         </div>

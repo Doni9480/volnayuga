@@ -10,6 +10,21 @@ var burgerMenu = function () {
         $(".logo-cont img").attr("src", "img/logo.png")
     }
 }
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+       const cookies = document.cookie.split(';');
+       for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+             break;
+          }
+       }
+    }
+    return cookieValue;
+ }
 $(document).ready(function () {
     let li = $(".black-sea-ul").find("li");
     let li1 = $(".direction-ul").find("li");
@@ -326,13 +341,8 @@ $(document).ready(function () {
 })
 // скрипт кнопки "На верх"
 $(document).on('click', '#button-up', () => {
-    console.log('click!');
     $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
 })
-// $('#button-up').click(function () {
-//     console.log('click!');
-//     $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
-// });
 
 $(window).scroll(function() { // Отслеживаем начало прокрутки
     let scrolled = $(window).scrollTop(); // Вычисляем сколько было прокручено.
@@ -355,33 +365,33 @@ $(window).on('scroll', function () {
 
 });
 
-if ($(window).width() > 768) {
+// if ($(window).width() > 768) {
 
-    let containerHeght = $('.row').height(),
-        containerDistance = $('.row').offset().top,
-        containerSum = containerDistance + containerHeght;
+//     let containerHeght = $('.row').height(),
+//         containerDistance = $('.row').offset().top,
+//         containerSum = containerDistance + containerHeght;
 
-    $(window).on('scroll', function () {
+//     $(window).on('scroll', function () {
 
-        let distance = $(".object-right")?.getBoundingClientRect();
+//         let distance = $(".object-right")?.getBoundingClientRect();
 
-        if (distance?.top > 90 || distance?.top < 0) {
-            $('.object-right')?.addClass('fixed')
-        }
+//         if (distance?.top > 90 || distance?.top < 0) {
+//             $('.object-right')?.addClass('fixed')
+//         }
 
-        if (($(window).scrollTop() < 240)) {
-            $('.object-right')?.removeClass('fixed')
-        }
+//         if (($(window).scrollTop() < 240)) {
+//             $('.object-right')?.removeClass('fixed')
+//         }
 
-        if ($(window).scrollTop() > (containerSum - 114)) {
-            $('.object-right')?.addClass('absolute')
-        } else {
-            $('.object-right')?.removeClass('absolute')
-        }
+//         if ($(window).scrollTop() > (containerSum - 114)) {
+//             $('.object-right')?.addClass('absolute')
+//         } else {
+//             $('.object-right')?.removeClass('absolute')
+//         }
 
-    });
+//     });
 
-}
+// }
 
 //Table
 let arrWidthAttr = [];
@@ -524,3 +534,47 @@ $('.price-update').keydown(function (e) {
     }
 })
 
+$(document).ready(() => {
+    $('#feedback-form-id').submit((event) => {
+        event.preventDefault();
+        var formData = {
+            name: $('#id_username_feedback').val(),
+            phone: $('#id_phone_feedback').val(),
+            email: $('#id_email_feedback').val(),
+            message: $('#id_message_feedback').val(),
+        }
+        $.ajax({
+           type: "POST",
+           url: `/contact/`,
+           data: formData,
+           dataType: "json",
+           encode: true,
+           headers: { 'X-CSRFToken': getCookie('csrftoken') }
+        }).done(function (data) {
+            if (data?.success === false) {
+                $("#feedback-form-id .msg").css({ 'display': 'block', 'color': 'red' });
+                $("#feedback-form-id .msg").empty();
+                if (data.errors?.name?.length) {
+                   $("#id_username_feedback_msg").append(data.errors.name[0]);
+                }
+                if (data.errors?.phone?.length) {
+                   $("#id_phone_feedback_msg").append(data.errors.phone[0]);
+                }
+                if (data.errors?.email?.length) {
+                   $("#id_email_feedback_msg").append(data.errors.email[0]);
+                }
+                if (data.errors?.message?.length) {
+                    $("#id_message_feedback_msg").append(data.errors.message[0]);
+                 }
+             } else if (data?.success === true) {
+                $("#id_message_feedback_msg").css({ 'display': 'block', 'color': 'green', 'margin-top': '15px' });
+                $("#feedback-form-id .msg").empty();
+                if (data.message) {
+                   $("#id_message_feedback_msg").append(data.message);
+                }
+                event.target.reset();
+             }
+          });
+     })
+  
+})
