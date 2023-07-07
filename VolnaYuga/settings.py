@@ -195,17 +195,19 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = env('EMAIL_HOST') 
-EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST = env('EMAIL_HOST', default='smtp.beget.com') 
+EMAIL_PORT = env('EMAIL_PORT', default='25')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS',default=True) 
-EMAIL_HOST_USER = env('EMAIL_HOST_USER') 
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='noreply@vashemore.ru') 
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')  # Адрес электронной почты, от которого будут отправляться сообщения
-SERVER_EMAIL = env('SERVER_EMAIL')  # Адрес электронной почты для системных уведомлений
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default='noreply@vashemore.ru')  # Адрес электронной почты, от которого будут отправляться сообщения
+SERVER_EMAIL = env('SERVER_EMAIL', default='noreply@vashemore.ru')  # Адрес электронной почты для системных уведомлений
 
-ADMINS = [('admin', 'admin@vashemore.ru'),]
+ADMINS = [('admin', 'admin@vashemore.ru'), ('admin2', 'in@simplemedia.ru')]
 MANAGERS = ADMINS 
+
+EMAIL_SUBJECT_PREFIX=''
 
 # django-ckeditor
 # https://github.com/django-ckeditor/django-ckeditor
