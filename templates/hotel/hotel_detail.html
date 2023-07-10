@@ -480,9 +480,9 @@
         </div>
         <div class="black-sea other-object">
             <h2> Другие<span> объекты {{ object.city }}</span></h2>
-            <ul class="flex direction-ul">
+            <ul class="flex tags-hotel">
                 {% for tag in service_object %}
-                <li><a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}"><span>{{ tag }}</span></a></li>
+                <li><a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}">{{ tag }}</a></li>
                  {% endfor %}
             </ul>
 
