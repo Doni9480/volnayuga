@@ -471,4 +471,7 @@ ul.messages {
     margin-left: 5px;
     list-style: none;
     border-radius: 10px;
+    margin-bottom: 10px;
+    display: inline;
+    float: left;
 }
