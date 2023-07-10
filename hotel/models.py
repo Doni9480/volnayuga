@@ -146,7 +146,8 @@ class Hotel(models.Model):
     child = models.BooleanField(default=0, verbose_name='Размещение детей')
     another_rules = models.TextField(blank=True, verbose_name='Другие правила')
     published = models.BooleanField(default=1, verbose_name='Опубликовать гостиницу')
-    objects = HotelManager()
+    objects = models.Manager()
+    filter_objects = HotelManager()
 
     class Meta:
         verbose_name = ' Обьект размещения'
