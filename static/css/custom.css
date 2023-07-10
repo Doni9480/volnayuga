@@ -464,3 +464,11 @@ ul.messages {
 .messages li {
     padding: 10px;
 }
+.tags-hotel li {
+    color: #fff;
+    background: #4581da;
+    padding: 10px;
+    margin-left: 5px;
+    list-style: none;
+    border-radius: 10px;
+}
