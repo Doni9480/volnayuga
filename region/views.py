@@ -100,10 +100,6 @@ class HotelDetail(FormMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(HotelDetail, self).get_context_data(**kwargs)
-        hotels = Hotel.objects.all()
-        for item in hotels:
-            item.published = True
-            item.save()
         context['options_category'] = HotelOption.objects.filter(hotel=self.get_object())
         context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         context['review_form'] = ReviewForm
