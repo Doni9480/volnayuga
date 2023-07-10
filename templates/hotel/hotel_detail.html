@@ -480,7 +480,16 @@
         </div>
         <div class="black-sea other-object">
             <h2> Другие<span> объекты {{ object.city }}</span></h2>
-            <div id="owl-demo-object" class="owl-carousel">
+            <ul class="flex direction-ul">
+                {% for tag in service_object %}
+                <li><a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}"><span>{{ tag }}</span></a></li>
+                 {% endfor %}
+            </ul>
+
+
+
+            <!--<div id="owl-demo-object" class="owl-carousel">
+
                 {% if another_hotels %}
                     {% for item in another_hotels %}
                         <div class="item">
@@ -518,7 +527,7 @@
                         </div>
                     {% endfor %}
                 {% endif %}
-            </div>
+            </div> -->
         </div>
         </div>
     </section>
