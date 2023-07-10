@@ -104,6 +104,7 @@ class HotelDetail(FormMixin, DetailView):
         context['another_hotels'] = Hotel.filter_objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         context['review_form'] = ReviewForm
         context['review_list'] = Review.objects.filter(verificated=True, hotel=self.get_object())
+        context['service_object'] = ServiceFilterofObject.objects.all()
         return context
 
     def post(self, request, *args, **kwargs):
