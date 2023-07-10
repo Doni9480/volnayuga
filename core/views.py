@@ -29,9 +29,9 @@ class HomePage(TemplateView):
         region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(odd=False, is_popular=True)
         region_popular_list2 = Region.objects.annotate(odd=F('id') % 2).filter(odd=True, is_popular=True)
         context['region_popular_list'] = zip(region_popular_list, region_popular_list2)
-        context['hotel_list_low_price'] = Hotel.objects.all()
-        context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
-        context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
+        context['hotel_list_low_price'] = Hotel.filter_objects.all()
+        context['hotel_list_with_child'] = Hotel.filter_objects.filter(child=True)
+        context['hotel_list_sea'] = Hotel.filter_objects.filter(remoteness__lte=500)
         context['review_list'] = Review.objects.filter(verificated=True)
         context['form'] = SearchHotelForm
         try:
