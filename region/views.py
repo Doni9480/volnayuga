@@ -48,7 +48,7 @@ class RegionDetail(DetailView):
                 id=self.object.id)
         except Exception:
             pass
-        hotels = Hotel.objects.filter(
+        hotels = Hotel.filter_objects.filter(
             Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
             (city=self.object)).order_by('id')
         context['hotel_type'] = TypeofObject.objects.all()  # Подборка жилья по типу
@@ -63,11 +63,11 @@ class RegionDetail(DetailView):
                                                       ) | Q(region__parent=self.object))
         context['attraction_category_list'] = AttractionCategory.objects.all()
 
-        context['hotel_premium_list'] = Hotel.objects.filter(
+        context['hotel_premium_list'] = Hotel.filter_objects.filter(
             Q(city__parent=self.object, premium=True) | Q(city__parent__parent=self.object, premium=True))
         context['today'] = date.today()
         context['review_list'] = Review.objects.filter(verificated=True, hotel__city=self.object)
-        # ids_typeofobject = Hotel.objects.filter(
+        # ids_typeofobject = Hotel.filter_objects.filter(
         #    Q(city=self.object) | Q(city__parent=self.object) | Q(city__parent__parent=self.object)).values_list(
         #    'object_type', flat=True).distinct()
         context['type_object'] = TypeofObject.objects.all()
@@ -101,7 +101,7 @@ class HotelDetail(FormMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(HotelDetail, self).get_context_data(**kwargs)
         context['options_category'] = HotelOption.objects.filter(hotel=self.get_object())
-        context['another_hotels'] = Hotel.objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
+        context['another_hotels'] = Hotel.filter_objects.filter(city__slug=self.kwargs['slug']).exclude(id=self.object.id)
         context['review_form'] = ReviewForm
         context['review_list'] = Review.objects.filter(verificated=True, hotel=self.get_object())
         return context
@@ -118,7 +118,7 @@ class HotelDetail(FormMixin, DetailView):
     def form_valid(self, form):
         if form.is_valid():
             self.object = form.save(commit=False)
-            self.object.hotel = Hotel.objects.get(id=self.kwargs['pk'])
+            self.object.hotel = Hotel.filter_objects.get(id=self.kwargs['pk'])
             self.object.start_date = form.cleaned_data['start_date']
             self.object.end_date = form.cleaned_data['end_date']
             self.object.people_count = form.cleaned_data['people_count']
@@ -140,7 +140,7 @@ class HotelFilterByType(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(HotelFilterByType, self).get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.filter(Q(object_type__slug=self.kwargs['type_slug'], city=self.object) |
+        context['hotel_list'] = Hotel.filter_objects.filter(Q(object_type__slug=self.kwargs['type_slug'], city=self.object) |
                                                      Q(object_type__slug=self.kwargs['type_slug'],
                                                        city__parent=self.object) |
                                                      Q(object_type__slug=self.kwargs['type_slug'],
@@ -178,7 +178,7 @@ class HotelFilterByTypeAndService(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         hotel_type = self.kwargs['type_slug']
-        context['hotel_list'] = Hotel.objects.filter(
+        context['hotel_list'] = Hotel.filter_objects.filter(
             Q(object_service__slug=self.kwargs['service_slug'], object_type__slug=self.kwargs['type_slug'],
               city=self.object) |
             Q(object_service__slug=self.kwargs['service_slug'], object_type__slug=self.kwargs['type_slug'],
@@ -221,7 +221,7 @@ class HotelFilterByService(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['hotel_list'] = Hotel.objects.filter(
+        context['hotel_list'] = Hotel.filter_objects.filter(
             Q(object_service__slug=self.kwargs['service_slug'], city=self.object) |
             Q(object_service__slug=self.kwargs['service_slug'],
               city__parent=self.object) |
@@ -259,7 +259,7 @@ class HotelSearchBlock(ListView):
         context = super(HotelSearchBlock, self).get_context_data(**kwargs)
         self.object = Region.objects.get(id=self.request.GET['city'])
         context['object'] = self.object
-        context['hotel_list'] = Hotel.objects.filter(
+        context['hotel_list'] = Hotel.filter_objects.filter(
             Q(city__parent__parent=self.object) | Q(city__parent=self.object) | Q
             (city=self.object)).order_by('id')
         context['filter'] = HotelFilterForm()
@@ -296,7 +296,7 @@ def hotel_list(request, slug):
             if param == 'range_1' or param == 'range_2':
                 price_min = int(request.GET.get('range_1')) * 100
                 price_max = int(request.GET.get('range_2')) * 100
-                hotel_list = Hotel.objects.filter(
+                hotel_list = Hotel.filter_objects.filter(
                     Q(city__parent__parent=region, numbers__prices__price__gte=price_min,
                       numbers__prices__price__lte=price_max) | Q(city__parent=region,
                                                                  numbers__prices__price__gte=price_min,
