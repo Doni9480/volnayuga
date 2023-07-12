@@ -482,15 +482,14 @@
             <h2> Другие<span> объекты {{ object.city }}</span></h2>
             <ul class="tags-hotel">
                 {% for tag in service_object %}
-                <li><a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}">{{ tag }}</a></li>
-                 {% endfor %}
+                    <li>
+                        <a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}">{{ tag }}</a>
+                    </li>
+                {% endfor %}
             </ul>
 
-
-
-            <!--<div id="owl-demo-object" class="owl-carousel">
-
-                {% if another_hotels %}
+            {% if another_hotels %}
+                <div id="owl-demo-object" class="owl-carousel">
                     {% for item in another_hotels %}
                         <div class="item">
                             <div class="popularUp">
@@ -526,8 +525,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
-            </div> -->
+                </div>
+            {% endif %}
         </div>
         </div>
     </section>
