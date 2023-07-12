@@ -763,55 +763,6 @@
         <!--END SECTION OBJECTS NEAR-->
 
     {% endif %}
-    <script>
-        // Получение переменной cookie по имени
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-
-        // Настройка AJAX
-        $(function () {
-            $.ajaxSetup({
-                headers: {"X-CSRFToken": getCookie("csrftoken")}
-            });
-        });
-
-        function to_bookmarks() {
-            var current = $(this);
-            var pk = current.data('id');
-            var action = current.data('action');
-
-            $.ajax({
-                url: "/hotel/" + pk + "/" + action + "/",
-                type: 'POST',
-                data: {'obj': pk},
-
-
-                success: function (response) {
-                    alert(response['message'])
-                    window.location.reload();
-                }
-            });
-
-            return false;
-        }
-
-        // Подключение обработчика
-        $(function () {
-            $('[data-action="bookmark"]').click(to_bookmarks);
-        });</script>
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=ebfaa2bc-030a-4956-bcab-79036adf117f"
             type="text/javascript"></script>

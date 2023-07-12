@@ -60,7 +60,7 @@
                                                  data-action="bookmark" data-url="{{ request.path }}"
                                                  title="Избранное" id="favorite-img">
                                                 <a href="#">
-                                                    {% if hotel.id|stringformat:"i" in favorites_list %}
+                                                    {% if hotel.id|stringformat:"i" in favorites_list_ids %}
                                                         <i class="far fa-heart" style="color: #ff0000;"></i>
                                                     {% else %}
                                                         <i class="far fa-heart" style="color: #202dd9;"></i>
@@ -103,53 +103,5 @@
             </div>
         </div>
     </section>
-    <script>
-        // Получение переменной cookie по имени
-        function getCookie(name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
 
-        // Настройка AJAX
-        $(function () {
-            $.ajaxSetup({
-                headers: {"X-CSRFToken": getCookie("csrftoken")}
-            });
-        });
-
-        function to_bookmarks() {
-            var current = $(this);
-            var pk = current.data('id');
-            var action = current.data('action');
-
-            $.ajax({
-                url: "/hotel/" + pk + "/" + action + "/",
-                type: 'POST',
-                data: {'obj': pk},
-
-
-                success: function (response) {
-                    alert(response['message'])
-                    window.location.reload();
-                }
-            });
-
-            return false;
-        }
-
-        // Подключение обработчика
-        $(function () {
-            $('[data-action="bookmark"]').click(to_bookmarks);
-        });</script>
 {% endblock %}

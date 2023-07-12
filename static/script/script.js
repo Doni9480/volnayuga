@@ -10,21 +10,23 @@ var burgerMenu = function () {
         $(".logo-cont img").attr("src", "img/logo.png")
     }
 }
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
-       const cookies = document.cookie.split(';');
-       for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-             break;
-          }
-       }
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
     return cookieValue;
- }
+}
+
 $(document).ready(function () {
     let li = $(".black-sea-ul").find("li");
     let li1 = $(".direction-ul").find("li");
@@ -176,8 +178,8 @@ $(document).ready(function () {
     $(".object-button-cont").find('li').click(function () {
         let dataScroll = $(this).attr("data-scroll")
         $('html,body').animate({
-            scrollTop: $("." + dataScroll).offset().top
-        },
+                scrollTop: $("." + dataScroll).offset().top
+            },
             'slow');
     });
     $(".collaps-button").click(function () {
@@ -341,12 +343,12 @@ $(document).ready(function () {
 })
 // скрипт кнопки "На верх"
 $(document).on('click', '#button-up', () => {
-    $('body,html').animate({ scrollTop: 0}, 800); // 800 - Скорость анимации
+    $('body,html').animate({scrollTop: 0}, 800); // 800 - Скорость анимации
 })
 
-$(window).scroll(function() { // Отслеживаем начало прокрутки
+$(window).scroll(function () { // Отслеживаем начало прокрутки
     let scrolled = $(window).scrollTop(); // Вычисляем сколько было прокручено.
-    if(scrolled > 350) { // Если высота прокрутки больше 350 - показываем кнопку
+    if (scrolled > 350) { // Если высота прокрутки больше 350 - показываем кнопку
         $('#button-up').addClass('active');
     } else {
         $('#button-up').removeClass('active');
@@ -544,37 +546,69 @@ $(document).ready(() => {
             message: $('#id_message_feedback').val(),
         }
         $.ajax({
-           type: "POST",
-           url: `/contact/`,
-           data: formData,
-           dataType: "json",
-           encode: true,
-           headers: { 'X-CSRFToken': getCookie('csrftoken') }
+            type: "POST",
+            url: `/contact/`,
+            data: formData,
+            dataType: "json",
+            encode: true,
+            headers: {'X-CSRFToken': getCookie('csrftoken')}
         }).done(function (data) {
             if (data?.success === false) {
-                $("#feedback-form-id .msg").css({ 'display': 'block', 'color': 'red' });
+                $("#feedback-form-id .msg").css({'display': 'block', 'color': 'red'});
                 $("#feedback-form-id .msg").empty();
                 if (data.errors?.name?.length) {
-                   $("#id_username_feedback_msg").append(data.errors.name[0]);
+                    $("#id_username_feedback_msg").append(data.errors.name[0]);
                 }
                 if (data.errors?.phone?.length) {
-                   $("#id_phone_feedback_msg").append(data.errors.phone[0]);
+                    $("#id_phone_feedback_msg").append(data.errors.phone[0]);
                 }
                 if (data.errors?.email?.length) {
-                   $("#id_email_feedback_msg").append(data.errors.email[0]);
+                    $("#id_email_feedback_msg").append(data.errors.email[0]);
                 }
                 if (data.errors?.message?.length) {
                     $("#id_message_feedback_msg").append(data.errors.message[0]);
-                 }
-             } else if (data?.success === true) {
-                $("#id_message_feedback_msg").css({ 'display': 'block', 'color': 'green', 'margin-top': '15px' });
+                }
+            } else if (data?.success === true) {
+                $("#id_message_feedback_msg").css({'display': 'block', 'color': 'green', 'margin-top': '15px'});
                 $("#feedback-form-id .msg").empty();
                 if (data.message) {
-                   $("#id_message_feedback_msg").append(data.message);
+                    $("#id_message_feedback_msg").append(data.message);
                 }
                 event.target.reset();
-             }
-          });
-     })
-  
+            }
+        });
+    })
+
 })
+
+// Настройка AJAX для добавления в закладки
+$(function () {
+    $.ajaxSetup({
+        headers: {"X-CSRFToken": getCookie("csrftoken")}
+    });
+});
+
+function to_bookmarks() {
+    var current = $(this);
+    var pk = current.data('id');
+    var action = current.data('action');
+
+    $.ajax({
+        url: "/hotel/" + pk + "/" + action + "/",
+        type: 'POST',
+        data: {'obj': pk},
+
+
+        success: function (response) {
+            alert(response['message'])
+            window.location.reload();
+        }
+    });
+
+    return false;
+}
+
+// Подключение обработчика
+$(function () {
+    $('[data-action="bookmark"]').click(to_bookmarks);
+});
