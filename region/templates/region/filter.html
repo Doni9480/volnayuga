@@ -277,6 +277,17 @@
                                                     {% endif %}
                                                 </p>
                                             </div>
+                                            <div data-id="{{ hotel.id }}"
+                                                 data-action="bookmark" data-url="{{ request.path }}"
+                                                 title="Избранное" id="favorite-img">
+                                                <a href="#">
+                                                    {% if hotel.id|stringformat:"i" in favorites_list %}
+                                                        <i class="far fa-heart" style="color: #ff0000;"></i>
+                                                    {% else %}
+                                                        <i class="far fa-heart" style="color: #202dd9;"></i>
+                                                    {% endif %}
+                                                </a>
+                                            </div>
                                             <div class="black-sea-icon flex">
                                                 {% for option in hotel.options.all|slice:":3" %}
                                                     <span>{{ option }}</span>
@@ -333,7 +344,8 @@
                                     <img class="lazyOwl" src="{{ item.image.url }}" data-src="{{ item.image.url }}"
                                          alt="Lazy Owl Image">
                                 {% else %}
-                                    <img class="lazyOwl" src="{% static 'img/object-1.png' %}" data-src="{% static 'img/object-1.png' %}"
+                                    <img class="lazyOwl" src="{% static 'img/object-1.png' %}"
+                                         data-src="{% static 'img/object-1.png' %}"
                                          alt="Lazy Owl Image">
                                 {% endif %}
                             </div>
