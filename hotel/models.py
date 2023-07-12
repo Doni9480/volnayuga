@@ -160,6 +160,14 @@ class Hotel(models.Model):
         return self.numbers.all().aggregate(min_price=Min('prices__price'))['min_price']
 
 
+class BookmarkHotel(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name="Пользователь")
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Объект')
+
+    def __str__(self):
+        return self.user.email
+
+
 class HotelPhoto(models.Model):
     """Фотографии на странице фильтрации"""
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, null=True)

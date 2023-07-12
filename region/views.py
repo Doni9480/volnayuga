@@ -73,6 +73,7 @@ class RegionDetail(DetailView):
         context['type_object'] = TypeofObject.objects.all()
         context['service_object'] = ServiceFilterofObject.objects.all()
         context['filter'] = HotelFilterForm()
+        context['favorites_list'] = self.request.session.get('favorites')
 
         paginator = Paginator(hotels, 10)
 
