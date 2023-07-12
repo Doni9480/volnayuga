@@ -54,10 +54,11 @@ class BookmarkView(View):
 
 
 def favorites_list(request):
-    favorites_list_ids = request.session.get('favorites')
     favorites_list = []
-    for item in favorites_list_ids:
-        favorites_list.append(Hotel.objects.get(id=item))
+    if request.session.get('favorites'):
+        favorites_list_ids = request.session.get('favorites')
+        for item in favorites_list_ids:
+            favorites_list.append(Hotel.objects.get(id=item))
     context = {
         'favorite_list': favorites_list
     }
@@ -75,7 +76,7 @@ def add_to_favorites(request, id):
             request.session['favorites'].append(id)
             request.session.modified = True
             message = 'Добавлено в избранное'
-            return JsonResponse(status=200, data={'status':'true','message':message})
+            return JsonResponse(status=200, data={'status': 'true', 'message': message})
 
         else:
             request.session['favorites'].remove(id)
