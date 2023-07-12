@@ -107,6 +107,11 @@ BEACHREMOTENESS = [
 ]
 
 
+class HotelManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(published=True)
+
+
 class Hotel(models.Model):
     """Отель"""
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name='Владелец')
@@ -140,6 +145,9 @@ class Hotel(models.Model):
     pets = models.BooleanField(default=0, verbose_name='Размещение животных')
     child = models.BooleanField(default=0, verbose_name='Размещение детей')
     another_rules = models.TextField(blank=True, verbose_name='Другие правила')
+    published = models.BooleanField(default=1, verbose_name='Опубликовать гостиницу')
+    objects = models.Manager()
+    filter_objects = HotelManager()
 
     class Meta:
         verbose_name = ' Обьект размещения'
@@ -150,6 +158,14 @@ class Hotel(models.Model):
 
     def get_min_price(self):
         return self.numbers.all().aggregate(min_price=Min('prices__price'))['min_price']
+
+
+class BookmarkHotel(models.Model):
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, verbose_name="Пользователь")
+    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE, verbose_name='Объект')
+
+    def __str__(self):
+        return self.user.email
 
 
 class HotelPhoto(models.Model):

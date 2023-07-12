@@ -30,7 +30,6 @@ from hotel.models import Hotel
 from region.views import RegionAutocomplete, HotelSearchBlock
 from django.conf.urls import handler404
 
-
 sitemaps = {
     'hotel': HotelSitemap,
     'region': RegionSitemap,
@@ -49,6 +48,7 @@ urlpatterns = [
     path('about/', AboutPage.as_view(), name='about'),
     path('contact/', ContactPage.as_view(), name='contact'),
     path('rent/', RentPage.as_view(), name='rent'),
+    path('hotel/', include('hotel.urls', namespace='hotel')),
     path('page/', include('page.urls', namespace='page')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('accounts.urls', namespace='accounts')),

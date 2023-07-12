@@ -23,7 +23,7 @@ def data(request):
 
 
 def page(request):
-    context = {'page_list': Page.objects.all()}
+    context = {'page_list': Page.objects.filter(is_view=True)}
     return context
 
 

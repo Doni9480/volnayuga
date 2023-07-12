@@ -30,7 +30,7 @@
                         {% endfor %}
 
                         <p class="modalPromo">Не хотите переплачивать?
-                            Скажите, что звоните с ВолнаТур</p>
+                            Скажите, что звоните с ВашеМоре.Ру</p>
                     </div>
                 </div>
             </div>
@@ -480,15 +480,23 @@
         </div>
         <div class="black-sea other-object">
             <h2> Другие<span> объекты {{ object.city }}</span></h2>
-            <div id="owl-demo-object" class="owl-carousel">
-                {% if another_hotels %}
+            <ul class="tags-hotel">
+                {% for tag in service_object %}
+                    <li>
+                        <a href="{% url 'region:hotel_service_filter' slug=object.city.slug service_slug=tag.slug %}">{{ tag }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            {% if another_hotels %}
+                <div id="owl-demo-object" class="owl-carousel">
                     {% for item in another_hotels %}
                         <div class="item">
                             <div class="popularUp">
                                 <div class="black-cont">
                                     <a href="{% url 'region:hotel_detail' slug=item.city.slug pk=item.pk %}">
                                         {% thumbnail item.hotelphoto_set.first '282x160' crop='center' as im %}
-                                            <img class="lazyOwl" data-src="{{ im.url }}" alt="{{ im.name }}">
+                                            <img class="lazyOwl" src="{{ im.url }}" data-src="{{ im.url }}" alt="{{ im.name }}">
                                         {% endthumbnail %}
                                     </a>
                                     <p class="bold"><a
@@ -517,8 +525,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
         </div>
         </div>
     </section>

@@ -31,9 +31,10 @@
     <div class="container">
         <div class="direction">
             <div class="row flex">
-                <div class="col-md-6 flex directionColumn mb-20">
+                <div class="col-md-6 flex directionColumn mt-10 mb-10">
                     <h2 style="margin-top: 0px;">Контактные<span> данные</span></h2>
                     <div class="contact-data" style="flex: 1 1 auto;">
+                        {% if object.phone_1 or object.phone_2 %}
                         <div class="block-phone-numbers">
                             <div class="contact-data__title">Телефон:</div>
                             <ul class="contact-data__list">
@@ -41,6 +42,8 @@
                                 <li class="contact-data__item">{{ object.phone_2 }}</li>
                             </ul>
                         </div>
+                        {% endif %}
+                        {% if object.email_1 or object.email_2 %}
                         <div class="block-email">
                             <div class="contact-data__title">Email:</div>
                             <ul class="contact-data__list">
@@ -48,12 +51,16 @@
                                 <li class="contact-data__item">{{ object.email_2 }}</li>
                             </ul>
                         </div>
+                        {% endif %}
+                        {% if object.address %}
                         <div class="block-address">
                             <div class="contact-data__title">Адрес:</div>
                             <ul class="contact-data__list">
                                 <li class="contact-data__item">{{ object.address }}</li>
                             </ul>
                         </div>
+                        {% endif %}
+                        {% if object.requisite_1 or object.requisite_2 %}
                         <div class="block-requisites">
                             <div class="contact-data__title">Реквизиты:</div>
                             <ul class="contact-data__list">
@@ -61,21 +68,37 @@
                                 <li class="contact-data__item">{{ object.requisite_2 }}</li>
                             </ul>
                         </div>
+                        {% endif %}
+                        {% if object.content_contact %}
+                        <div class="block-text">
+                            {{ object.content_contact|safe }}
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-md-6 flex directionColumn" >
-                    <h2 style="margin-top: 0px;">Обратная<span> связ</span></h2>
+                <div class="col-md-6 flex directionColumn mt-10 mb-10" >
+                    <h2 style="margin-top: 0px;">Обратная<span> связь</span></h2>
                     <div class="room-rent" style="flex: 1 1 auto;">
-                        <form action="" method="post" class="addObject flex feedback-form"> {% csrf_token %}
-                            {% for f in form %}
-                            <div>
-                                {{ f }}
-                                {{ f.errors }}
-                            </div>
-                            {% endfor %}
-                            <button>Отправить</button>
-                            <p class="bold">Нажимая кнопку “Отправить” вы соглашаетесь с <a style="color:blue"
-                                    href="/page/konfiden/">политикой конфиденциальности.</a></p>
+                        <form action="" method="post" class="flex feedback-form" id="feedback-form-id"> {% csrf_token %}
+                                <div>
+                                    <input type="text" name="name" placeholder="Ваше имя" id="id_username_feedback" required="">
+                                    <div class="msg" id="id_username_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <input type="text" name="phone" placeholder="Ваш телефон" class="phone-maske" id="id_phone_feedback" required="" inputmode="text">
+                                    <div class="msg" id="id_phone_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <input type="text" name="email" placeholder="Ваш E-mail" id="id_email_feedback" required="">
+                                    <div class="msg" id="id_email_feedback_msg"></div>
+                                </div>
+                                <div>
+                                    <textarea name="message" cols="40" rows="1" placeholder="Ваше сообщение" id="id_message_feedback" required=""></textarea>
+                                    <div class="msg" id="id_message_feedback_msg"></div>
+                                </div>
+                                <button>Отправить</button>
+                                <p>Нажимая кнопку “Отправить” вы соглашаетесь с <a style="color:blue" href="/page/konfiden/">политикой конфиденциальности.</a></p>
+                            </form>
                         </form>
                     </div>
                 </div>

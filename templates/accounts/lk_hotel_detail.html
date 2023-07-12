@@ -126,8 +126,8 @@
                                     {% for image in object.hotelphoto_set.all %}
                                         <div class="mr-10 mb-10">
                                             {% thumbnail image.image "193x115" crop="center" as im %}
-                                                <img src="{{ im.url }}" width="{{ im.width }}"
-                                                     height="{{ im.height }}">
+                                                <img src="{{ im.url }}" {% if im.width %}width="{{ im.width }}"{% endif %} 
+                                                         {% if im.height %}height="{{ im.height }}"{% endif %}>
                                             {% endthumbnail %}
                                             <div>
                                                 <form class="photo-delete"
@@ -243,7 +243,7 @@
 
                     <div class="ready-number mb-20">
                     <p>Нажмите Enter для сохранения цены</p>
-                        <form action="">
+                        <form action="#">
                             <input type='hidden' name='csrfmiddlewaretoken' value='{{ csrf_token }}'/>
                             {% for number in object.numbers.all %}
                                 <div class="ready-number-cont mt-20">

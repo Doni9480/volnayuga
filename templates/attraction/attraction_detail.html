@@ -76,8 +76,8 @@
                                 <div class="item">
                                     <div class="item-img">
                                         {% thumbnail item.image '825x486' crop='center' as im %}
-                                            <img class="lazyOwl" data-src="{{ im.url }}" height="im.height"
-                                                 weight="im.weight"
+                                            <img class="lazyOwl" src="{{ im.url }}" data-src="{{ im.url }}" {% if im.width %}width="{{ im.width }}"{% endif %} 
+                                            {% if im.height %}height="{{ im.height }}"{% endif %}
                                                  alt="{{ item.image.name }}">
                                         {% endthumbnail %}
                                     </div>

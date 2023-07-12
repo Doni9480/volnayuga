@@ -3,7 +3,7 @@ from typing import Any
 from django import http
 
 from django.db.models import F
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -15,7 +15,7 @@ from seo.models import SeoPage
 from hotel.models import Hotel
 from region.models import Region
 from userQueries.forms import FeedbackForm
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import BadHeaderError, mail_admins
 import os
 
 
@@ -29,9 +29,9 @@ class HomePage(TemplateView):
         region_popular_list = Region.objects.annotate(odd=F('id') % 2).filter(odd=False, is_popular=True)
         region_popular_list2 = Region.objects.annotate(odd=F('id') % 2).filter(odd=True, is_popular=True)
         context['region_popular_list'] = zip(region_popular_list, region_popular_list2)
-        context['hotel_list_low_price'] = Hotel.objects.all()
-        context['hotel_list_with_child'] = Hotel.objects.filter(child=True)
-        context['hotel_list_sea'] = Hotel.objects.filter(remoteness__lte=500)
+        context['hotel_list_low_price'] = Hotel.filter_objects.all()
+        context['hotel_list_with_child'] = Hotel.filter_objects.filter(child=True)
+        context['hotel_list_sea'] = Hotel.filter_objects.filter(remoteness__lte=500)
         context['review_list'] = Review.objects.filter(verificated=True)
         context['form'] = SearchHotelForm
         try:
@@ -51,7 +51,7 @@ class ContactPage(FormView):
     """Contact page"""
     template_name = 'core/contact.html'
     form_class = FeedbackForm
-    success_url = '/'
+    success_url = '/contact'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -71,22 +71,27 @@ class ContactPage(FormView):
                 'address': 'Можно добавить в админке',
                 'requisite_1': 'Можно добавить в админке',
                 'requisite_2': 'Можно добавить в админке',
+                'content_contact': 'Можно добавить в админке'
             }
         return context
 
     def form_valid(self, form):
         try:
-            send_mail(subject=f"Запрос на обратную связ - {form.cleaned_data['name']}",
-            message=f"Имя: {form.cleaned_data['name']}\nНомер телефона: {form.cleaned_data['phone']}\n\n{form.cleaned_data['message']}",
-            from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
-            recipient_list=[f"{os.environ.get('ADMIN_EMAIL', default='admin@vashemore.ru')}"],
-            fail_silently=False,
+            mail_admins(
+                subject=f"На сайте ВашеМоре.Ру заполнена форма обратной связи.",
+                message=f"Заполненные данные в форме.\nИмя: {form.cleaned_data['name']}\nТелефон: {form.cleaned_data['phone']}\nEmail: {form.cleaned_data['email']}\nСообщение: {form.cleaned_data['message']}",
+                # from_email=f'{os.environ.get("EMAIL_HOST_USER")}',
+                # recipient_list=[ADMINS[0][1]],
+                fail_silently=False,
             )
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
         form.save()
-        return super().form_valid(form)
-
+        return JsonResponse({'success': True,'message': 'Сообщение отправлено! Мы ответим Вам в течении 24 часов.', 'errors': None })
+    
+    def form_invalid(self, form: Any) -> JsonResponse:
+        return JsonResponse({'success': False,'message': None, 'errors': form.errors })
+    
 
 class AboutPage(TemplateView):
     """About company"""

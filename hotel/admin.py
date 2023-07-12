@@ -5,6 +5,7 @@ from django.template.loader import get_template
 from hotel.forms import HotelAdminForm, NumberAdminForm
 from hotel.models import *
 
+
 class MyAdminSite(AdminSite):
 
     def get_app_list(self, request):
@@ -18,13 +19,10 @@ class MyAdminSite(AdminSite):
         app_list = sorted(app_dict.values(), key=lambda x: x['name'].lower())
 
         # Sort the models alphabetically within each app.
-        #for app in app_list:
+        # for app in app_list:
         #    app['models'].sort(key=lambda x: x['name'])
 
         return app_list
-
-
-
 
 
 class TypeOfObjectAdmin(admin.ModelAdmin):
@@ -45,6 +43,7 @@ class HotelImageAdmin(admin.TabularInline):
 
         tpl = get_template("hotel/admin_thumbnail.html")
         return tpl.render({"photo": instance.image})
+
     showphoto_thumbnail.short_description = "Thumbnail"
 
 
@@ -69,7 +68,7 @@ class HotelPriceInline(admin.TabularInline):
         formfield = super(HotelPriceInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
         if db_field.name == 'number':
             if request.resolver_match.kwargs['object_id'] is not None:
-                formfield.queryset = formfield.queryset.filter(hotel__id = request.resolver_match.kwargs['object_id'])
+                formfield.queryset = formfield.queryset.filter(hotel__id=request.resolver_match.kwargs['object_id'])
             else:
                 formfield.queryset = formfield.queryset.none()
         return formfield
@@ -79,19 +78,26 @@ class HotelAdmin(admin.ModelAdmin):
     form = HotelAdminForm
     inlines = [HotelImageAdmin, HotelDistanceAdmin, HotelPriceInline]
     list_filter = ('city',)
-    list_display = ['title', 'city']
+    list_display = ['title', 'city', 'published']
     fieldsets = (
         ('Мета описание', {
             'fields': ('meta_title', 'meta_description')
         }),
+        ('Модерация', {
+            'fields': ('published', 'premium')
+        }),
         ('Основное', {
-            'fields': ('pub_date','premium','user', 'title', 'object_type','object_service', 'remoteness', 'beach', 'centr', 'options', 'description', 'video')
+            'fields': (
+                'pub_date', 'user', 'title', 'object_type', 'object_service', 'remoteness', 'beach', 'centr', 'options',
+                'description', 'video')
         }),
         ('Адрес', {
             'fields': ('address', 'city')
         }),
         ('Правила', {
-            'fields': ('prepayment', 'free_cancel', 'early_booking_discount', 'requisites', 'prepayments_term', 'minimum', 'chek_in', 'chek_out', 'pets', 'child', 'another_rules')
+            'fields': (
+                'prepayment', 'free_cancel', 'early_booking_discount', 'requisites', 'prepayments_term', 'minimum',
+                'chek_in', 'chek_out', 'pets', 'child', 'another_rules')
         }),
         ('Мультизагрузка фотографий', {
             'fields': ('images',)
@@ -119,6 +125,7 @@ class NumberImageInline(admin.TabularInline):
         return tpl.render({"photo": instance.image})
 
     showphoto_thumbnail.short_description = "Thumbnail"
+
 
 # class NumberPriceInline(admin.TabularInline):
 #     model = Price
@@ -151,8 +158,8 @@ class NumberAdmin(admin.ModelAdmin):
 
 
 class HotelPriceAdmin(admin.ModelAdmin):
-    list_display = ['price','get_period','number','get_hotel']
-    list_filter = ['period__hotel',]
+    list_display = ['price', 'get_period', 'number', 'get_hotel']
+    list_filter = ['period__hotel', ]
 
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
@@ -180,6 +187,7 @@ class PricePeriodInline(admin.TabularInline):
                 formfield.queryset = formfield.queryset.none()
         return formfield
 
+
 class PricePeriodAdmin(admin.ModelAdmin):
     inlines = [PricePeriodInline]
     list_display = ['period', 'hotel']
@@ -195,13 +203,9 @@ admin.site.register(PricePeriod, PricePeriodAdmin)
 admin.site.register(Price, HotelPriceAdmin)
 admin.site.register(HotelOption)
 admin.site.register(HotelContact)
-admin.site.register(TypeofObject,TypeOfObjectAdmin)
+admin.site.register(TypeofObject, TypeOfObjectAdmin)
 admin.site.register(ServiceFilterofObject)
 admin.site.register(NumberOption)
 admin.site.register(Distance)
 admin.site.register(DistanceTime)
-
-
-
-
-
+admin.site.register(BookmarkHotel)

@@ -300,7 +300,9 @@ a, a:hover {
 .listNone {
     list-style: none;
 }
-
+h1, h2, h3, h4, h5, h6{
+    color: #4581DA;
+}
 /*---------------------------------------- font start -------------------------------------*/
 
 
@@ -430,7 +432,7 @@ a, a:hover {
 .main-header {
     background-size: cover !important;
     background-position: center top;
-    max-height: 540px;
+    height: 540px;
 }
 
 section {
@@ -920,7 +922,7 @@ section {
 }
 
 #exampleModalCenter .close {
-    padding-bottom: 10px;
+    padding: 10px;
 }
 
 .black-cont p span {
@@ -3022,7 +3024,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     border: none;
 }
 
-.object-form input::placeholder, .object-form textarea::placeholder {
+.object-form input::placeholder{
     font-family: 'Nunito';
     font-weight: 400;
     font-size: 16px;
@@ -4084,11 +4086,30 @@ div.add-options-span p {
     gap: 15px;
     text-align: center;
 }
-.feedback-form > div > input,
+.feedback-form textarea,
 .feedback-form input {
     margin-bottom: 0;
     width: 100%;
 }
+.feedback-form textarea,
+.feedback-form input {
+    min-height: 54px;
+    background: #FFFFFF;
+    border: 1px solid #ECEBED;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 14px 15px;
+}
+
+.feedback-form textarea::placeholder,
+.feedback-form input::placeholder{
+    font-family: 'Nunito';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #21293E;
+}
+
 .feedback-form > div{
     flex: 1 1 clamp(200px, 50% - 7.5px, 50% - 7.5px);
 }
@@ -4116,12 +4137,12 @@ div.add-options-span p {
     border: none;
     margin-bottom: 15px;
 }
-.errorlist,
-.errorlist > li{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    color: red;
+.feedback-form p:last-child {
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 17px;
+    color: #21293E;
+    text-align: center;
 }
 
 .contact-data{
