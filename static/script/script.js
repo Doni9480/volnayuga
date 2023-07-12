@@ -600,7 +600,6 @@ function to_bookmarks() {
 
 
         success: function (response) {
-            alert(response['message'])
             window.location.reload();
         }
     });
