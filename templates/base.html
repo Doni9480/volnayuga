@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{% static 'favicon//favicon.ico' %}" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
     <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
@@ -37,6 +37,44 @@
     <link rel="stylesheet" href="{% static 'css/responcive.css' %}">
     <link rel="stylesheet" href="{% static 'css/dropzone.css' %}">
     <link rel="stylesheet" href="{% static 'css/swiper.css' %}">
+    <script>
+        //Fixed menu on mobile :: start
+        if ($(window).width() <= 768) {
+            $(document).on('scroll', () => {
+                $(window).scrollTop() > 200 ? $('body').addClass('fixed-menu') : $('body').removeClass('fixed-menu')
+            });
+
+        }
+        //Fixed menu on mobile :: end
+    </script>
+
+    <style>
+        .fixed-menu {
+            margin-top: 91px;
+        }
+
+        .fixed-menu .header-menu-cont {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top: -91px;
+            z-index: 10;
+            padding: 0 30px;
+            background-color: #fff;
+            animation-name: slideDown;
+            animation-fill-mode: forwards;
+            animation-duration: .3s;
+        }
+
+        @keyframes slideDown {
+            0% {
+                top: -91px;
+            }
+            100% {
+                top: 0;
+            }
+        }
+    </style>
     <script>
         $(function () {
             $(".datepicker").datepicker({
@@ -349,9 +387,11 @@
 {% endblock %}
 {% include 'include/script.html' %}
 <div id="button-up" class="button-up">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.1"  viewBox="0 0 64 64" enable-background="new 0 0 64 64">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 64 64"
+         enable-background="new 0 0 64 64">
         <g>
-            <path fill="#1D1D1B" d="M3.352,48.296l28.56-28.328l28.58,28.347c0.397,0.394,0.917,0.59,1.436,0.59c0.52,0,1.04-0.196,1.436-0.59   c0.793-0.787,0.793-2.062,0-2.849l-29.98-29.735c-0.2-0.2-0.494-0.375-0.757-0.475c-0.75-0.282-1.597-0.107-2.166,0.456   L0.479,45.447c-0.793,0.787-0.793,2.062,0,2.849C1.273,49.082,2.558,49.082,3.352,48.296z"/>
+            <path fill="#1D1D1B"
+                  d="M3.352,48.296l28.56-28.328l28.58,28.347c0.397,0.394,0.917,0.59,1.436,0.59c0.52,0,1.04-0.196,1.436-0.59   c0.793-0.787,0.793-2.062,0-2.849l-29.98-29.735c-0.2-0.2-0.494-0.375-0.757-0.475c-0.75-0.282-1.597-0.107-2.166,0.456   L0.479,45.447c-0.793,0.787-0.793,2.062,0,2.849C1.273,49.082,2.558,49.082,3.352,48.296z"/>
         </g>
     </svg>
 </div>

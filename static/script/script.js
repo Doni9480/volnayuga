@@ -597,10 +597,13 @@ function to_bookmarks() {
         url: "/hotel/" + pk + "/" + action + "/",
         type: 'POST',
         data: {'obj': pk},
-
-
         success: function (response) {
-            window.location.reload();
+            if (response == 1) {
+                $(this).style('color', '#ff0000');
+            }
+            if (response == 0) {
+                $(this).style('color', '#202dd9');
+            }
         }
     });
 

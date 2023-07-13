@@ -78,13 +78,13 @@ def add_to_favorites(request, id):
         if id not in request.session['favorites']:
             request.session['favorites'].append(id)
             request.session.modified = True
-            message = 'Добавлено в избранное'
+            message = 1
             return JsonResponse(status=200, data={'status': 'true', 'message': message})
 
         else:
             request.session['favorites'].remove(id)
             request.session.modified = True
-            message = 'Удалено из избранного'
+            message = 2
             return JsonResponse(status=200, data={'status': 'true', 'message': message})
     return JsonResponse(status=400, data={'status': 'false', 'message': 'Что то пошло не так!'})
 
