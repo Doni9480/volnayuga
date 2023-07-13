@@ -85,8 +85,8 @@ def add_to_favorites(request, id):
             request.session['favorites'].remove(id)
             request.session.modified = True
             message = 2
-            return JsonResponse(status=200, data={'status': 'true', 'message': message})
-    return JsonResponse(status=400, data={'status': 'false', 'message': 'Что то пошло не так!'})
+            return JsonResponse(status=200, data={'id': id, 'message': message})
+    return JsonResponse(status=400, data={'id': id, 'message': 'Что то пошло не так!'})
 
 
 def remove_from_favorites(request, id):

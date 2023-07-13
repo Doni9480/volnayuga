@@ -592,6 +592,8 @@ function to_bookmarks() {
     var current = $(this);
     var pk = current.data('id');
     var action = current.data('action');
+    var id = response['id']
+
 
     $.ajax({
         url: "/hotel/" + pk + "/" + action + "/",
@@ -599,10 +601,10 @@ function to_bookmarks() {
         data: {'obj': pk},
         success: function (response) {
             if (response == 1) {
-                $(this).style('color', '#ff0000');
+                $(`[data-id=${id}]`).find('i').css('color', '#ff0000');
             }
             if (response == 0) {
-                $(this).style('color', '#202dd9');
+                $(`[data-id=${id}]`).find('i').css('color', '#202dd9');
             }
         }
     });
