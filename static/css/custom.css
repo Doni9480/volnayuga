@@ -476,3 +476,6 @@ ul.messages {
     float: left;
     font-weight: 600;
 }
+.modal-dialog {
+  pointer-events: auto;!important;
+ }
