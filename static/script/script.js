@@ -599,13 +599,11 @@ function to_bookmarks() {
         type: 'POST',
         data: {'obj': pk},
         success: function (response) {
-            if (response['id'] == 1) {
+            if (response['message'] == 1) {
                 $(`[data-id=${pk}]`).find('i').css('color', '#ff0000');
-                alert(response['id'])
             }
-            if (response['id'] == 0) {
+            if (response['message'] == 0) {
                 $(`[data-id=${pk}]`).find('i').css('color', '#202dd9');
-                alert(response['id'])
             }
         }
     });
