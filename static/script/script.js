@@ -592,7 +592,6 @@ function to_bookmarks() {
     var current = $(this);
     var pk = current.data('id');
     var action = current.data('action');
-    var id = response['id']
 
 
     $.ajax({
@@ -600,11 +599,13 @@ function to_bookmarks() {
         type: 'POST',
         data: {'obj': pk},
         success: function (response) {
-            if (response == 1) {
-                $(`[data-id=${id}]`).find('i').css('color', '#ff0000');
+            if (response['id'] == 1) {
+                $(`[data-id=${pk}]`).find('i').css('color', '#ff0000');
+                alert(response['id'])
             }
-            if (response == 0) {
-                $(`[data-id=${id}]`).find('i').css('color', '#202dd9');
+            if (response['id'] == 0) {
+                $(`[data-id=${pk}]`).find('i').css('color', '#202dd9');
+                alert(response['id'])
             }
         }
     });

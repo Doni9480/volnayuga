@@ -363,7 +363,11 @@
                                                      data-action="bookmark" data-url="{{ request.path }}"
                                                      title="Избранное">
                                                     <a href="#">
-                                                        <i class="far fa-heart"></i>
+                                                        {% if hotel.id|stringformat:"i" in favorites_list %}
+                                                            <i class="far fa-heart" style="color: #ff0000;"></i>
+                                                        {% else %}
+                                                            <i class="far fa-heart" style="color: #202dd9;"></i>
+                                                        {% endif %}
                                                     </a>
                                                 </div>
                                                 <div class="black-sea-icon flex">
