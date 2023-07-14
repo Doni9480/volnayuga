@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="my-object-card-cont curort-card-cont">
-                            {% for hotel in favorite_list %}
+                            {% for hotel in hotel_list %}
                                 <div class="my-object-card flex mt-30">
                                     <div class="card-image">
                                         <div class="owl-admin" class="owl-carousel">
@@ -56,11 +56,12 @@
                                                         км</p>
                                                     {% endif %}
                                             </div>
+
                                             <div data-id="{{ hotel.id }}"
                                                  data-action="bookmark" data-url="{{ request.path }}"
-                                                 title="Избранное" id="favorite-img">
+                                                 title="Избранное">
                                                 <a href="#">
-                                                    {% if hotel.id|stringformat:"i" in favorites_list_ids %}
+                                                    {% if hotel.id|stringformat:"i" in favorite_list_ids %}
                                                         <i class="far fa-heart" style="color: #ff0000;"></i>
                                                     {% else %}
                                                         <i class="far fa-heart" style="color: #202dd9;"></i>

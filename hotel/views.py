@@ -54,15 +54,16 @@ class BookmarkView(View):
 
 
 def favorites_list(request):
-    favorites_list = []
     if request.session.get('favorites'):
         favorites_list_ids = request.session.get('favorites')
+        hotel_list = list()
         for item in favorites_list_ids:
-            favorites_list.append(Hotel.objects.get(id=item))
+            hotel_list.append(Hotel.objects.get(id=item))
     else:
+        hotel_list = list()
         favorites_list_ids = []
     context = {
-        'favorite_list': favorites_list,
+        'hotel_list': hotel_list,
         'favorite_list_ids': favorites_list_ids,
     }
     return render(request, 'hotel/bookmarks.html', context)
