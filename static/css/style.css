@@ -2677,6 +2677,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     background: #EDF4FF;
     border-radius: 10px;
     padding: 20px;
+    transition: top 1s ease-out;
 }
 
 .object-right h3 {
@@ -4197,4 +4198,17 @@ div.add-options-span p {
 .contact-data__item {
     padding-left: 10px;
     font-weight: 700;
+}
+.fixed-block{
+    position: fixed;
+    /* max-width: 255px; */
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: top 1s ease-out;
+}
+.fixed-block-bottom{
+    position: absolute;
+    top: auto;
+    bottom: -230px;
+
 }

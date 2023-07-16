@@ -356,6 +356,22 @@ $(window).scroll(function () { // Отслеживаем начало прокр
 });
 
 $(window).on('scroll', function () {
+    if ($(window).width() > 769){
+        $('.object-right').css('width', `${$('.object-right').parent().width()-30}px`);
+        
+        if ($(window).scrollTop() > 220) {
+            $('.object-right').addClass('fixed-block')
+        } else {
+            $('.object-right').removeClass('fixed-block')
+        }
+
+        let h = $(document).height() - ($(window).scrollTop() + $(window).height());
+        if (h < 150){
+            $('.fixed-block').addClass('fixed-block-bottom')
+        } else {
+            $('.fixed-block').removeClass('fixed-block-bottom')
+        }
+    }
 
     if ($(window).scrollTop() > 90) {
         $('#object').addClass('fixed-menu')
@@ -364,7 +380,6 @@ $(window).on('scroll', function () {
         $('#object').removeClass('fixed-menu')
         $('.object-section').removeClass('fixed-menu')
     }
-
 });
 
 // if ($(window).width() > 768) {
