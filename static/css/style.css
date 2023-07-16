@@ -3468,6 +3468,15 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     overflow: hidden;
 }
 
+.faq-block{
+    background: #EDF4FF;
+    border-radius: 15px;
+    padding: 15px;
+    transition: height 0.5s;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
 .faq h4 {
     font-family: 'Montserrat';
     font-weight: 700;
@@ -3478,7 +3487,18 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     width: 95%;
 }
 
-.collaps-button {
+.faq-block-title h4 {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: #21293E;
+    width: 95%;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.collaps-button, .collaps-button2 {
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -3491,7 +3511,7 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     cursor: pointer;
 }
 
-.collaps-button i {
+.collaps-button i, .collaps-button2 i {
     color: #4581DA;
 }
 
@@ -3510,12 +3530,32 @@ input[type='range']:nth-child(1)::-webkit-slider-thumb {
     line-height: 26px;
     color: #21293E;
 }
+.faq-block p{
+    font-family: 'Montserrat';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #21293E;
+    display: none;
+}
+
+p.faq-active{
+    margin-top: 15px;
+    display: block;
+}
 
 .fixed-faq {
     height: 98px;
     transition: height 0.5s;
 }
 
+.fixed-faq-block {
+    height: 68px;
+    transition: height 0.5s;
+}
+
+
+/* .faq-block-title */
 .warantyTitle {
     font-family: 'Montserrat';
     font-style: normal;

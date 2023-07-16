@@ -5,6 +5,6 @@
     {% url 'accounts:hotel_review_list' as orders_list_url %}
       <li class="tab-item {% if request.path == orders_list_url %} active{% endif %}"><a href="{% url 'accounts:hotel_review_list' %}"><i class="icon-review"></i><span>Отзывы</span></a></li>
     {% url 'accounts:hotel_help' as orders_list_url %}
-      <li class="tab-item {% if request.path == orders_list_url %} active{% endif %}"><a href="{% url 'accounts:hotel_help' %}"><i class="icon-help"></i><span>Помощь</span></a></li>
+      <li class="tab-item {% if request.path == orders_list_url %} active{% endif %}"><a href="{% url 'accounts:hotel_help' %}"><i class="icon-help"></i><span>FAQ</span></a></li>
   </ul>
 </div>

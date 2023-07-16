@@ -182,6 +182,11 @@ $(document).ready(function () {
             },
             'slow');
     });
+    $(".collaps-button2").click(function () {
+        $(this).toggleClass("flip");
+        $(this).toggleClass("openDiv")
+        $(this).parents(".faq-block").find("p").toggleClass("faq-active")
+    })
     $(".collaps-button").click(function () {
         $(this).toggleClass("flip");
         $(this).toggleClass("openDiv")

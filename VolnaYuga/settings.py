@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'page',
     'booking',
     'userQueries',
+    'faq',
 
     'phonenumber_field',
     'django_registration',
