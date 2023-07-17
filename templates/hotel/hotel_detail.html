@@ -442,7 +442,7 @@
                         <button class="show-contact" data-toggle="modal" data-target="#exampleModalCenter">Показать
                             контакты
                         </button>
-                        <button class="whatsapp-question whatsapp-question-handler">Задать вопрос в WhatsApp</button>
+                        <button class="whatsapp-question whatsapp-question-handler" data-phone="{{ object.hotelcontact_set.values.0.phone }}">Задать вопрос в WhatsApp</button>
                     </div>
 
                     <form method="post">
