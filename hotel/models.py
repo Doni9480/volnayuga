@@ -145,7 +145,7 @@ class Hotel(models.Model):
     pets = models.BooleanField(default=0, verbose_name='Размещение животных')
     child = models.BooleanField(default=0, verbose_name='Размещение детей')
     another_rules = models.TextField(blank=True, verbose_name='Другие правила')
-    published = models.BooleanField(default=1, verbose_name='Опубликовать гостиницу')
+    published = models.BooleanField(default=0, verbose_name='Опубликовать гостиницу')
     objects = models.Manager()
     filter_objects = HotelManager()
 
@@ -158,6 +158,7 @@ class Hotel(models.Model):
 
     def get_min_price(self):
         return self.numbers.all().aggregate(min_price=Min('prices__price'))['min_price']
+
 
 
 class BookmarkHotel(models.Model):

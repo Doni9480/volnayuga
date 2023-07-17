@@ -5,6 +5,8 @@ from django.template.loader import get_template
 from hotel.forms import HotelAdminForm, NumberAdminForm
 from hotel.models import *
 
+from .signals import send_notification
+from django.db.models.signals import post_save
 
 class MyAdminSite(AdminSite):
 
@@ -198,6 +200,8 @@ class PricePeriodAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Hotel, HotelAdmin)
+post_save.connect(send_notification, sender=Hotel)
+
 admin.site.register(Number, NumberAdmin)
 admin.site.register(PricePeriod, PricePeriodAdmin)
 admin.site.register(Price, HotelPriceAdmin)
