@@ -590,7 +590,7 @@ class HotelHelp(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            context['object'] = SeoPage.objects.get(slug='faq')
+            context['object'] = SeoPage.objects.get(slug='faq').values('content_1', 'content_2')
         except Exception as _:
             context["object"] = {
             'content_1': '<p style="font-family: Montserrat;">Создай страницу в админке [slug: faq] (seo)</p>',
@@ -602,7 +602,7 @@ class HotelHelp(TemplateView):
                 raise 
         except Exception as _:
             context["faq_objects"] = [{
-                'question': 'Можно создать в админке по адресу: https://vashemore.ru/admin/faq/faq testkfdj fds fdsfdsa fhytr yt iuyt slj gifjlifdjv osdjfi jflkdjl fj',
+                'question': 'Можно создать в админке по адресу: https://vashemore.ru/admin/faq/faq',
                 'answer': 'Можно создать в админке по адресу: https://vashemore.ru/admin/faq/faq',
             }]
         return context
